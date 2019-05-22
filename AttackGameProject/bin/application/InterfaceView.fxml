@@ -8,11 +8,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="670.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="670.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WindowController">
    <children>
-      <Button layoutX="265.0" layoutY="218.0" mnemonicParsing="false" text="Level 1" />
-      <Button layoutX="265.0" layoutY="272.0" mnemonicParsing="false" text="Level 2" />
-      <Button layoutX="265.0" layoutY="320.0" mnemonicParsing="false" text="Level 3" />
+      <Button layoutX="265.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#OpenLevelOne" text="Level 1" />
+      <Button layoutX="265.0" layoutY="272.0" mnemonicParsing="false" onMouseClicked="#OpenLevelTwo" text="Level 2" />
+      <Button layoutX="265.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#OpenLevelThree" text="Level 3" />
       <Label layoutX="33.0" layoutY="418.0" text="Define the width of the window" />
       <Label layoutX="31.0" layoutY="466.0" text="Define the height of the window" />
       <MenuBar layoutY="-2.0" prefHeight="32.0" prefWidth="622.0">
@@ -34,7 +34,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TextField layoutX="265.0" layoutY="413.0" />
-      <TextField layoutX="265.0" layoutY="461.0" />
+      <TextField fx:id="width" layoutX="265.0" layoutY="413.0" />
+      <TextField fx:id="height" layoutX="265.0" layoutY="461.0" />
    </children>
 </AnchorPane>
