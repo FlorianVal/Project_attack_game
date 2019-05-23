@@ -19,7 +19,7 @@ public class WindowController {
     @FXML
     void OpenLevelOne(ActionEvent event){
     	if(CheckParameters()) {
-	   		OpenMainWindow();
+	   		OpenMainWindow("/application/Level1.fxml", "Level 1");
 	    }
     	else {
     		// TODO show message on window
@@ -31,18 +31,7 @@ public class WindowController {
     @FXML
     void OpenLevelTwo(ActionEvent event) {
     	if(CheckParameters()) {
-	    	try {
-	    		
-	    		Parent root = FXMLLoader.load(getClass().getResource("/application/Level2.fxml"));
-	    		Scene scene = new Scene(root);
-	    		Stage stage = new Stage();
-	    		stage.setTitle("Level 2");
-	    		stage.setScene(scene);
-	    		stage.show();
-	    		
-	    	} catch(Exception e) {
-	    		e.printStackTrace();
-	    	}
+	   		OpenMainWindow("/application/Level2.fxml", "Level 2");
     	}
     	else {
     		// TODO show message on window
@@ -54,18 +43,7 @@ public class WindowController {
     @FXML
     void OpenLevelThree(ActionEvent event) {
     	if(CheckParameters()) {
-	    	try {
-	    		
-	    		Parent root = FXMLLoader.load(getClass().getResource("/application/Level3.fxml"));
-	    		Scene scene = new Scene(root);
-	    		Stage stage = new Stage();
-	    		stage.setTitle("Level 3");
-	    		stage.setScene(scene);
-	    		stage.show();
-	    		
-	    	} catch(Exception e) {
-	    		e.printStackTrace();
-	    	}
+	   		OpenMainWindow("/application/Level3.fxml", "Level 3");
     	}
     	else {
     		// TODO show message on window
@@ -74,12 +52,12 @@ public class WindowController {
 
     }
     
-    void OpenMainWindow() {
+    void OpenMainWindow(String level_fxml_file, String name) {
 	    try {	
-			Parent root = FXMLLoader.load(getClass().getResource("/application/Level1.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource(level_fxml_file));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
-			stage.setTitle("Level 1");
+			stage.setTitle(name);
 			stage.setScene(scene);
 			stage.show();
 			
