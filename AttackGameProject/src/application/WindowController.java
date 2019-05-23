@@ -1,6 +1,5 @@
 package application;
 
-import java.awt.event.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -14,7 +13,7 @@ public class WindowController {
 
     @FXML
     void OpenLevelOne() {
-    	System.out.print(width.getText());
+    	
 
     }
 
