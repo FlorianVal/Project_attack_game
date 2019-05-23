@@ -18,6 +18,7 @@ public class WindowController {
 
     @FXML
     void OpenLevelOne(ActionEvent event){
+    	if(CheckParameters()) {
     	try {
     		
     		Parent root = FXMLLoader.load(getClass().getResource("/application/Level1.fxml"));
@@ -30,12 +31,13 @@ public class WindowController {
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
+    	}
+    	else {
+    		System.out.print("incorrect params");
+    	}
     		
     }
-    
-    
-    
-
+ 
     @FXML
     void OpenLevelTwo(ActionEvent event) {
 
@@ -71,15 +73,18 @@ public class WindowController {
     	}
 
     }
-
-
+    boolean CheckParameters() {
+    	if((width.getText() == null || width.getText().trim().isEmpty()) || ((height.getText() == null || height.getText().trim().isEmpty()))) {
+    		return false;
+    	}
+    	else {
+	    	if(Integer.parseInt(width.getText()) >= 80 && Integer.parseInt(height.getText()) >= 50) {
+	    		return true;
+	    	}
+	    	else {
+	    		return false;
+	    	}
+    	}
+    }
     
-
-    //@Override
-    //public void initialize(URL arg0, ResourceBundle arg1) {
-//    	// TODO Auto-generated method stub
-    	
-    //}
-    
-
 }
