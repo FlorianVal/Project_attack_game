@@ -19,19 +19,8 @@ public class WindowController {
     @FXML
     void OpenLevelOne(ActionEvent event){
     	if(CheckParameters()) {
-	    	try {
-	    		
-	    		Parent root = FXMLLoader.load(getClass().getResource("/application/Level1.fxml"));
-	    		Scene scene = new Scene(root);
-	    		Stage stage = new Stage();
-	    		stage.setTitle("Level 1");
-	    		stage.setScene(scene);
-	    		stage.show();
-	    		
-	    	} catch(Exception e) {
-	    		e.printStackTrace();
-	    	}
-    	}
+	   		OpenMainWindow();
+	    }
     	else {
     		// TODO show message on window
     		System.out.println("incorrect params");
@@ -84,6 +73,21 @@ public class WindowController {
     	}
 
     }
+    
+    void OpenMainWindow() {
+	    try {	
+			Parent root = FXMLLoader.load(getClass().getResource("/application/Level1.fxml"));
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.setTitle("Level 1");
+			stage.setScene(scene);
+			stage.show();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
     boolean CheckParameters() {
     	//check if field not empty
     	if((width.getText() == null || width.getText().trim().isEmpty()) || ((height.getText() == null || height.getText().trim().isEmpty()))) {
