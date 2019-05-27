@@ -8,6 +8,10 @@ public class WindowMainController {
 
     @FXML
     private GridPane GridMap;
+    private int x_window;
+    private int y_window;
+    
+    //TODO add method to put part of the map in the grid pane
 
     @FXML
     void MoveMapDown() {

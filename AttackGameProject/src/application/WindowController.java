@@ -74,7 +74,7 @@ public class WindowController {
     	else {
     		// if not empty check value in field (if int(try catch) and if size >(80,50))
     		try {
-		    	if(Integer.parseInt(width.getText()) >= 80 && Integer.parseInt(height.getText()) >= 50) {
+		    	if(Integer.parseInt(width.getText()) >= 40 && Integer.parseInt(height.getText()) >= 25) {
 		    		return true;
 		    	}
 		    	else {
