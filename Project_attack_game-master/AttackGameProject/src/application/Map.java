@@ -8,8 +8,8 @@ import java.util.Random;
 public class Map {
 	
 	private static Element map[][];
-	private int width;
-	private int height;
+	private static int width;
+	private static int height;
 	
 	public Map(int width, int height) {
 		this.width = width;
@@ -83,18 +83,47 @@ public class Map {
 		
 	}
 	
-	public static void displayMap(){
+	public static void displayMap(Element[][] map_to_display){
 		int i, j;
-        for(i=0; i<map.length; i++){
-            for(j=0; j<map.length ; j++){
-                System.out.print(map[i][j].getName());
+		System.out.print("Map to display :");
+		System.out.print(map_to_display.length);
+		System.out.println(map_to_display[0].length);
+        for(i=0; i<map_to_display.length; i++){
+            for(j=0; j<map_to_display[i].length ; j++){
+            	System.out.print(i);
+            	System.out.print(j);
+                System.out.print(map_to_display[i][j]);
                 System.out.print(" ");
             }
             System.out.println(" ");
         }
 	}
 	
-
-	
+	public static int GetWidth() {
+		return width;
+	}
+	public static int GetHeight() {
+		return height;
+	}
+	public static Element[][] ReturnPartialMap(int top_x, int top_y, int width, int height){
+		Element[][] display_map = new Element[width][height];
+		try {
+			int i_display = 0;
+			int j_display = 0;
+			for(int i=top_y; i<width+top_y; i++) {
+				for(int j=top_x; j<height+top_x; j++) {
+					display_map[i_display][j_display] = map[i][j];
+					j_display+=1;
+				}
+				j_display=0;
+				i_display+=1;
+			}
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}
+		return display_map;
+		
+	}
 	
 }
