@@ -9,7 +9,7 @@ public enum Element {
 	
 	TREX("T-Rex","t-rex.jpg", 0.003), 
 	FRUIT("Fruit", "", 0.006), 
-	empty("Empty", "", 1);
+	EMPTY("Empty", "", 0);
 	
 	private String name = "";
 	private Image visu;
@@ -32,4 +32,18 @@ public enum Element {
 
 		}
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Image getVisu() {
+		return visu;
+	}
+
+	public double getSpawn_proba() {
+		return spawn_proba;
+	}
+
+	
 }

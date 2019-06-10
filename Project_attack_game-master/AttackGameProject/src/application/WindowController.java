@@ -19,6 +19,7 @@ public class WindowController {
     @FXML
     void OpenLevelOne(ActionEvent event){
     	if(CheckParameters()) {
+    		
 	   		OpenMainWindow("/application/Level1.fxml", "Level 1");
 	    }
     	else {
@@ -54,6 +55,7 @@ public class WindowController {
     
     void OpenMainWindow(String level_fxml_file, String name) {
 	    try {	
+			Map map = new Map(Integer.parseInt(width.getText()),Integer.parseInt(height.getText()));
 			Parent root = FXMLLoader.load(getClass().getResource(level_fxml_file));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();

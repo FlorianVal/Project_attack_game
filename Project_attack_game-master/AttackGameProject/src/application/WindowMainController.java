@@ -15,7 +15,7 @@ public class WindowMainController {
 
     @FXML
     void MoveMapDown() {
-
+    	Map.displayMap();
     }
 
     @FXML
