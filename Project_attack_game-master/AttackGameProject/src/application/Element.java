@@ -6,11 +6,12 @@ import javafx.scene.image.Image;
 
 public enum Element {
 	//TODO add image in enum
-	trex("T-Rex","", 0,003),
-	fruit("Fruit", "", 0,006),
+	
+	TREX("T-Rex","t-rex.jpg", 0.003), 
+	FRUIT("Fruit", "", 0.006), 
 	empty("Empty", "", 1);
 	
-	private String name;
+	private String name = "";
 	private Image visu;
 	private double spawn_proba;
 	
