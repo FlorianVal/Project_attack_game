@@ -102,9 +102,11 @@ public class Map {
 	public static int GetWidth() {
 		return width;
 	}
+	
 	public static int GetHeight() {
 		return height;
 	}
+	
 	public static Element[][] ReturnPartialMap(int top_x, int top_y, int width, int height){
 		Element[][] display_map = new Element[width][height];
 		try {

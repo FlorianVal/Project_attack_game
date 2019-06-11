@@ -34,7 +34,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TextField fx:id="width" layoutX="265.0" layoutY="413.0" />
-      <TextField fx:id="height" layoutX="265.0" layoutY="461.0" />
+      <TextField fx:id="width" layoutX="265.0" layoutY="413.0" text="40" />
+      <TextField fx:id="height" layoutX="265.0" layoutY="461.0" text="25" />
    </children>
 </AnchorPane>
