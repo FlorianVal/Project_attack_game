@@ -11,8 +11,19 @@ public class Map {
 	private static int width;
 	private static int height;
 	private static WindowMainController controller;
+	private static Thread thread;
+	private static LifeThread lifethread;
 	
 	public Map(int width_given, int height_given, WindowMainController controller_given) {
+		//clean last thread
+		if(thread != null){
+			lifethread.doStop();
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		width = width_given;
 		height = height_given;
 		map = new Element[width][height];
@@ -25,8 +36,9 @@ public class Map {
 	}
 
 	private void launch_life_thread() {
-		LifeThread life_thread = new LifeThread(map, controller);
-	    new Thread(life_thread).start();
+		lifethread = new LifeThread(map, controller);
+	    thread = new Thread(lifethread);
+	    thread.start();
 	}
 	
 	public static void setMap(Element[][] map) {

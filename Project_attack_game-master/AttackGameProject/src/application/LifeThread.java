@@ -39,10 +39,8 @@ public class LifeThread implements Runnable {
                 }
 
             });
-            //this.controller.DisplayMap();
-
             try {
-                Thread.sleep(3L * 1000L);
+                Thread.sleep(3L * 100L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -77,6 +75,8 @@ public class LifeThread implements Runnable {
         }
     	for(int count_animal=0; count_animal<animals_on_map.length; count_animal++) {
     		int next_move = rand.nextInt(4);
+    		//debug force movement
+    		//next_move = 3;
     		MoveAnimal(animals_on_map[count_animal][0],animals_on_map[count_animal][1] , next_move);
     	}
     	Map.setMap(map);
@@ -91,7 +91,7 @@ public class LifeThread implements Runnable {
     		map[x][y+1] = animal;
     	}
     	//move left
-    	if(next_move == 1 && x+1 > 0) {
+    	if(next_move == 1 && x > 0) {
     		Element animal = map[x][y];
         	map[x][y] = Element.EMPTY;
     		map[x-1][y] = animal;
