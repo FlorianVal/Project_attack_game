@@ -6,6 +6,7 @@ import java.lang.invoke.MethodHandles;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
+import javafx.application.Platform;
 
 public class WindowMainController {
 
@@ -19,7 +20,6 @@ public class WindowMainController {
     @FXML
     void initialize() {
         assert GridMap != null : "fx:id=\"GridMap\" was not injected: check your FXML file 'Level1.fxml'.";
-        DisplayMap();
        // life_thread = new LifeThread();
        // new Thread(life_thread).start();
     }
@@ -62,22 +62,30 @@ public class WindowMainController {
 
     }
     
+    public void ReloadMap() {
+    	DisplayMap();
+    }
+    
     public void DisplayMap() {
+    	// Platform runlater for threading
     	System.out.print(this.x_window);
     	System.out.print(" : ");
     	System.out.println(this.y_window);
-    	Element[][] partial_map = Map.ReturnPartialMap(this.x_window, this.y_window, GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
+    	Element[][] partial_map = Map.ReturnPartialMap(this.x_window, this.y_window, this.GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
     	// This suppress the cadrillage there might be a better way to do this
-    	GridMap.getChildren().clear();
+    	this.GridMap.getChildren().clear();
 
     	for(int i=0; i<partial_map.length; i++) {
 			for(int j=0; j<partial_map[i].length; j++) {
-				if(partial_map[i][j] != Element.EMPTY) {
-					GridMap.add(new Label("A"), i, j);
+				if(partial_map[i][j] == Element.TREX) {
+					this.GridMap.add(new Label("T"), i, j);
+				}
+				if(partial_map[i][j] == Element.FRUIT) {
+					this.GridMap.add(new Label("F"), i, j);
 				}
 			}
-		}
-    	
+    	}
+    	}
     }
-}
+
 

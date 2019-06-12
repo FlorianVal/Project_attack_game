@@ -10,12 +10,27 @@ public class Map {
 	private static Element map[][];
 	private static int width;
 	private static int height;
+	private static WindowMainController controller;
 	
-	public Map(int width, int height) {
-		this.width = width;
-		this.height = height;
-		this.map = new Element[width][height];
+	public Map(int width_given, int height_given, WindowMainController controller_given) {
+		width = width_given;
+		height = height_given;
+		map = new Element[width][height];
+		controller = controller_given;
 		InitRandomMap(map);
+		System.out.println("Map inited");
+		launch_life_thread();
+
+		
+	}
+
+	private void launch_life_thread() {
+		LifeThread life_thread = new LifeThread(map, controller);
+	    new Thread(life_thread).start();
+	}
+	
+	public static void setMap(Element[][] map) {
+		Map.map = map;
 	}
 
 	private static void InitRandomMap(Element[][] map) {
@@ -83,6 +98,7 @@ public class Map {
 		
 	}
 	
+	//console version
 	public static void displayMap(Element[][] map_to_display){
 		int i, j;
 		System.out.print("Map to display :");

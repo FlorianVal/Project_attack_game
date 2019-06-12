@@ -55,8 +55,10 @@ public class WindowController {
     
     void OpenMainWindow(String level_fxml_file, String name) {
 	    try {	
-			Map map = new Map(Integer.parseInt(width.getText()),Integer.parseInt(height.getText()));
-			Parent root = FXMLLoader.load(getClass().getResource(level_fxml_file));
+			FXMLLoader loader1 = new FXMLLoader(getClass().getResource(level_fxml_file));
+			Parent root = loader1.load();
+			WindowMainController captureWindowController = loader1.getController();
+			Map map = new Map(Integer.parseInt(width.getText()),Integer.parseInt(height.getText()), captureWindowController);
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			stage.setTitle(name);

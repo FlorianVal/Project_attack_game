@@ -7,20 +7,23 @@ import javafx.scene.image.Image;
 public enum Element {
 	//TODO add image in enum
 	
-	TREX("T-Rex","t-rex.jpg", 0.003), 
-	FRUIT("Fruit", "", 0.006), 
-	EMPTY("Empty", "", 0);
+	TREX("T-Rex","t-rex.jpg", 0.003, true), 
+	FRUIT("Fruit", "", 0.006, false), 
+	EMPTY("Empty", "", 0, false);
 	
 	private String name = "";
 	private Image visu;
 	private double spawn_proba;
+	private boolean is_animal;
 	
 	//constructor name and path to img
-	Element(String name, String path_to_img, double spawn_proba){
+	Element(String name, String path_to_img, double spawn_proba, boolean is_animal){
 		
 		this.name = name;
 		this.visu = null;
 		this.spawn_proba = spawn_proba;
+		this.is_animal = is_animal;
+		
 		
 		
 		try {
@@ -43,6 +46,10 @@ public enum Element {
 
 	public double getSpawn_proba() {
 		return spawn_proba;
+	}
+	
+	public boolean is_animal() {
+		return is_animal;
 	}
 
 	
