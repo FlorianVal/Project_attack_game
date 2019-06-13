@@ -19,11 +19,6 @@ public class WindowMainController {
     private int y_window = 0;
     //private LifeThread life_thread;
     
-    private final String sprites_path = "file:AttackGameProject/src/images/";
-    private final String trex = sprites_path + "caisse.jpg";
-    private final String fruit = sprites_path + "mur.gif";
-    private final String empty = sprites_path + "zone.gif";
-    
     //TODO add method to put part of the map in the grid pane
     @FXML
     void initialize() {
@@ -68,12 +63,9 @@ public class WindowMainController {
     }
     
     
-    public void AddImage(String tilePath, int x, int y){
-    	if (tilePath != null) {
-    		Image image = new Image(tilePath);
+    public void AddImage(Image image, int x, int y){
             ImageView iv = new ImageView(image);
             GridMap.add(iv, x, y);
-        }
     }
     
     public void DisplayMap() {
@@ -83,25 +75,13 @@ public class WindowMainController {
     	Element[][] partial_map = Map.ReturnPartialMap(this.x_window, this.y_window, this.GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
     	// This suppress the cadrillage there might be a better way to do this
     	this.GridMap.getChildren().clear();
-    	String tilePath = "";
+    	//String tilePath = "";
 
     	for(int i=0; i<partial_map.length; i++) {
     		for(int j=0; j<partial_map[i].length; j++) {
-				
-    			if(partial_map[i][j] == Element.TREX){
-					tilePath = trex;
-			    }
-			   
-				if(partial_map[i][j] == Element.FRUIT){
-					tilePath = fruit;	
-				}
-				
-				if(partial_map[i][j] == Element.EMPTY){
-					tilePath = empty;
-				}
-				
-				AddImage(tilePath,i,j);
-	
+   			
+    		AddImage(partial_map[i][j].getVisu(),i,j);
+
 			}
 		}	
     }
