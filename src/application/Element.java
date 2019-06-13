@@ -9,7 +9,7 @@ public enum Element {
 	// element ( formal name, path to image of visu, spawn probability, is animal,
 	//letter to display(until there is image to display), probability of spawning randomly on the map)
 	TREX("T-Rex","t-rex.jpg", 0.001, true, "T", 0), 
-	FRUIT("Fruit", "", 0.006, false, "F", 0.5), 
+	FRUIT("Fruit", "", 0.006, false, "F", 0.005), 
 	EMPTY("Empty", "", 0, false, "", 0);
 	
 	private String name = "";

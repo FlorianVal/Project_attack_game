@@ -45,7 +45,7 @@ public class LifeThread implements Runnable {
             });
             // Thread wait for the next movement
             try {
-                Thread.sleep(3L * 10L);
+                Thread.sleep(3L * 100L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
