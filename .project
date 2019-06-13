@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-<<<<<<< HEAD
-	<name>Project_attack_game</name>
-=======
 	<name>AttackGameProject</name>
->>>>>>> 12f91674df03955bc3f9bf39a39833d6ffda8456
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
-<<<<<<< HEAD
-	</buildSpec>
-	<natures>
-=======
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
@@ -27,6 +19,6 @@
 	<natures>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
->>>>>>> 12f91674df03955bc3f9bf39a39833d6ffda8456
 	</natures>
 </projectDescription>
+
