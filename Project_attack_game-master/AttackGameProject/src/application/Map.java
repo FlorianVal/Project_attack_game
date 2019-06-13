@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
+//method in Map should only init the map and return info about the map
+//moving animals is in the life Thread and displaying the map is only in the controller
+
 public class Map {
 	
 	private static Element map[][];
@@ -57,7 +60,7 @@ public class Map {
 			System.out.print(": number of element :");
 			System.out.println(number_of_element); 
 			System.out.println(elem.getSpawn_proba());
-			AddToMap(elem, number_of_element);
+			AddAnimalsToMap(elem, number_of_element);
 			//random shuffle
 			ShuffleMap();
 			
@@ -89,7 +92,9 @@ public class Map {
 		}
 	}
 	
-	private static void AddToMap(Element elem_to_add, int count) {
+	// used to init the map
+	// add animal side by side on the map before shuffling
+	private static void AddAnimalsToMap(Element elem_to_add, int count) {
 		int inner_count = 0;
 		int i =0;
 		int j =0;
