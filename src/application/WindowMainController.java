@@ -17,7 +17,6 @@ public class WindowMainController {
     private GridPane GridMap;
     private int x_window = 0;
     private int y_window = 0;
-    //private LifeThread life_thread;
     
     //TODO add method to put part of the map in the grid pane
     @FXML
