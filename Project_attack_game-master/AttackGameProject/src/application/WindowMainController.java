@@ -61,9 +61,6 @@ public class WindowMainController {
     
     
     public void DisplayMap() {
-    	System.out.print(this.x_window);
-    	System.out.print(" : ");
-    	System.out.println(this.y_window);
     	Element[][] partial_map = Map.ReturnPartialMap(this.x_window, this.y_window, this.GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
     	// This suppress the cadrillage there might be a better way to do this
     	this.GridMap.getChildren().clear();

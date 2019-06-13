@@ -45,7 +45,7 @@ public class LifeThread implements Runnable {
             });
             // Thread wait for the next movement
             try {
-                Thread.sleep(3L * 100L);
+                Thread.sleep(3L * 10L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -74,7 +74,7 @@ public class LifeThread implements Runnable {
     	boolean is_spawn = false;
     	// used if map is full to avoid blocking and also to avoid non_spawning due to already an element on case
     	int number_of_spawn_try = 4;
-    	while(is_spawn == false || number_of_spawn_try <= 0) {
+    	while(is_spawn == false || number_of_spawn_try >= 0) {
     		//choose a random case on map
     		int x = rand.nextInt(map.length);
     		int y = rand.nextInt(map[0].length);
