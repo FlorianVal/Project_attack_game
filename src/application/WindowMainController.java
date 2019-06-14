@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.scene.input.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.lang.invoke.MethodHandles;
 
@@ -21,8 +22,33 @@ public class WindowMainController {
     //TODO add method to put part of the map in the grid pane
     @FXML
     void initialize() {
+    	
         assert GridMap != null : "fx:id=\"GridMap\" was not injected: check your FXML file 'Level1.fxml'.";
     }
+    
+    @FXML
+    void keyPressed(KeyEvent event) {
+    	System.out.println("Key event");
+    	System.out.println(event.getCode());
+    	switch(event.getCode().toString()) {
+    	case "RIGHT":
+    		MoveMapRight();
+    		break;
+    	case "LEFT":
+    		MoveMapLeft();
+    		break;
+    	case "UP":
+    		MoveMapUp();
+    		break;
+    	case "DOWN":
+    		MoveMapDown();
+    		break;
+    	case "P":
+    		Map.PauseThread();
+    		break;
+    		
+    	}
+        }
     
     @FXML
     void MoveMapDown() {

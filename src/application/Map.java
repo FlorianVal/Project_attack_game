@@ -44,6 +44,10 @@ public class Map {
 	    thread.start();
 	}
 	
+	public static void PauseThread() {
+		lifethread.doPause();
+	}
+	
 	public static void setMap(Element[][] map) {
 		Map.map = map;
 	}

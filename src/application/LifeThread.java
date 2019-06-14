@@ -10,6 +10,7 @@ public class LifeThread implements Runnable {
 
 	public Element[][] map;
 	private boolean doStop = false;
+	private boolean IsPaused = false;
 	public WindowMainController controller;
 
 
@@ -25,7 +26,17 @@ public class LifeThread implements Runnable {
     public synchronized void doStop() {
         this.doStop = true;
     }
-
+    
+    public synchronized void doPause() {
+    	if(this.IsPaused) {
+    		this.IsPaused = false;
+    	}
+    	else {
+        this.IsPaused = true;
+    	}
+    }
+    	
+    
     private synchronized boolean keepRunning() {
         return this.doStop == false;
     }
@@ -33,6 +44,7 @@ public class LifeThread implements Runnable {
     @Override
     public void run() {
         while(keepRunning()) {
+        	if(this.IsPaused == false) {
             MoveAnimals();
             Respawn();
             //run later is needed to run display map in life thread
@@ -43,6 +55,7 @@ public class LifeThread implements Runnable {
                 }
 
             });
+        	}
             // Thread wait for the next movement
             try {
                 Thread.sleep(3L * 100L);
@@ -74,7 +87,7 @@ public class LifeThread implements Runnable {
     	boolean is_spawn = false;
     	// used if map is full to avoid blocking and also to avoid non_spawning due to already an element on case
     	int number_of_spawn_try = 4;
-    	while(is_spawn == false || number_of_spawn_try >= 0) {
+    	while(is_spawn == false && number_of_spawn_try >= 0) {
     		//choose a random case on map
     		int x = rand.nextInt(map.length);
     		int y = rand.nextInt(map[0].length);
