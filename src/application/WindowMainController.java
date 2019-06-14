@@ -18,13 +18,37 @@ public class WindowMainController {
     private GridPane GridMap;
     private int x_window = 0;
     private int y_window = 0;
+	private Thread thread;
+	private LifeThread lifethread;
     
     //TODO add method to put part of the map in the grid pane
     @FXML
-    void initialize() {
+    void initialize(WindowMainController controller,int width, int height) {
     	
         assert GridMap != null : "fx:id=\"GridMap\" was not injected: check your FXML file 'Level1.fxml'.";
+		new Map(width,height);
+        launch_life_thread(controller);
+
     }
+    
+    private void launch_life_thread(WindowMainController controller_given) {
+		//clean last thread
+		if(this.thread != null){
+			this.lifethread.doStop();
+			try {
+				this.thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		this.lifethread = new LifeThread(controller_given);
+	    this.thread = new Thread(lifethread);
+	    this.thread.start();
+	}
+    
+	public void PauseThread() {
+		this.lifethread.doPause();
+	}
     
     @FXML
     void keyPressed(KeyEvent event) {
@@ -44,7 +68,7 @@ public class WindowMainController {
     		MoveMapDown();
     		break;
     	case "P":
-    		Map.PauseThread();
+    		PauseThread();
     		break;
     		
     	}
