@@ -75,7 +75,6 @@ public class WindowMainController {
     	Element[][] partial_map = Map.ReturnPartialMap(this.x_window, this.y_window, this.GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
     	// This suppress the cadrillage there might be a better way to do this
     	this.GridMap.getChildren().clear();
-    	//String tilePath = "";
 
     	for(int i=0; i<partial_map.length; i++) {
     		for(int j=0; j<partial_map[i].length; j++) {

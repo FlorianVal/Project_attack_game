@@ -37,6 +37,8 @@ public class Map {
 
 		
 	}
+	
+	
 
 	private void launch_life_thread() {
 		lifethread = new LifeThread(map, controller);
@@ -95,6 +97,7 @@ public class Map {
 	// used to init the map
 	// add animal side by side on the map before shuffling
 	private static void AddAnimalsToMap(Element elem_to_add, int count) {
+		int x,y;
 		int inner_count = 0;
 		int i =0;
 		int j =0;
@@ -111,7 +114,24 @@ public class Map {
 			if(j == map[0].length) {
 				throw new OutOfMemoryError();
 			}
+		
 		}
+		
+	}
+	
+	public static void addAnimalToMap(Element animal_to_add, int x, int y){
+		
+		for(int i = x; i<map.length;i++){
+			for(int j = y; j<map.length;j++){
+				
+				if(map[i][j] == Element.EMPTY){
+					map[i][j] = animal_to_add;
+				}
+				
+				break;
+			
+			}
+		}	
 		
 	}
 	

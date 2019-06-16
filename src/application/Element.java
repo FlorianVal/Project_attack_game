@@ -11,6 +11,7 @@ public enum Element {
 	TREX("T-Rex","file:src/images/caisse.gif", 0.001, true, 0), 
 	FRUIT("Fruit", "file:src/images/mur.gif", 0.006, false, 0.005), 
 	EMPTY("Empty", "file:src/images/zone.gif", 0, false, 0);
+	//BABY_TREX("Baby_TRex","",0,false,0 );
 	
 	private String name = "";
 	private Image visu;
@@ -18,6 +19,8 @@ public enum Element {
 	private boolean is_animal;
 	private String letter;
 	private double respawn_proba;
+	private int x;
+	private int y;
 	
 	//constructor name and path to img
 	Element(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba){
@@ -60,6 +63,15 @@ public enum Element {
 	public boolean is_animal() {
 		return is_animal;
 	}
+	
+	public int getX(){
+		return x;
+	}
+	
+	public void setX(int x1){
+		x = x1;
+	}
+	
 
 	
 }

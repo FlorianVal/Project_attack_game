@@ -134,6 +134,11 @@ public class LifeThread implements Runnable {
     	if(first_element == second_element) {
     		winner = null;
     	}
+    	
+    	//if(first_element == Element.TREX && second_element == Element.TREX){
+    		//Mate(first_element,second_element);
+    	//}
+    	
     	if(first_element == Element.EMPTY || first_element == Element.FRUIT) {
     		winner = second_element;
     	}
@@ -142,6 +147,29 @@ public class LifeThread implements Runnable {
     	}
 		return winner;
 		
+    }
+    
+    public void Mate(Element[][] map, Element first_trex, Element second_trex, int x, int y){
+    	
+    	Element baby_trex_to_add = Element.TREX;
+    	boolean empty = false;
+    	if(first_trex == Element.TREX && second_trex == Element.TREX){
+    		
+    		while(empty == false){
+    			
+    			for(int i = 0; i<map.length; i++){
+    				for(int j = 0; j<map[i].length; j++){
+    					if(map[i][j] == Element.EMPTY){
+    						empty = true;
+    						Map.addAnimalToMap(baby_trex_to_add,i,j);
+    					}
+    						
+    				}
+    			}
+    			
+    		}
+    	}
+    	
     }
     
     //moving one animal just by receiving pos of animal and a random number for direction
@@ -154,6 +182,9 @@ public class LifeThread implements Runnable {
     			map[x][y] = Element.EMPTY;
         		map[x][y+1] = winner;
     		}
+    		else{
+    			Mate(map,map[x][y],map[x][y+1], x, y);
+    		}
     	}
     	//move left
     	if(next_move == 1 && x > 0) {
@@ -162,7 +193,11 @@ public class LifeThread implements Runnable {
     			map[x][y] = Element.EMPTY;
         		map[x-1][y] = winner;
     		}
+    		else{
+    			Mate(map,map[x][y],map[x-1][y], x, y);
+    		}
     	}
+    	
     	//move up
     	if(next_move == 2 && y > 0) {
     		Element winner = Encounter(map[x][y], map[x][y-1]);
@@ -170,7 +205,12 @@ public class LifeThread implements Runnable {
     			map[x][y] = Element.EMPTY;
         		map[x][y-1] = winner;
     		}
+    		//if there is no winner, it means that species which encounter are 2 trex, so they have to mate 
+    		else{
+    			Mate(map,map[x][y],map[x][y-1], x,y);
+    		}
     	}
+    	
     	//move right
     	if(next_move == 3 && x+1 < map.length) {
     		Element winner = Encounter(map[x][y], map[x+1][y]);
@@ -178,6 +218,10 @@ public class LifeThread implements Runnable {
     			map[x][y] = Element.EMPTY;
         		map[x+1][y] = winner;
     		}
+    	}
+    	
+    	else{
+    		Mate(map,map[x][y],map[x+1][y], x,y);
     	}
     	
     }
