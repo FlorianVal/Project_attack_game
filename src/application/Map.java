@@ -13,6 +13,7 @@ public class Map {
 	private static Element map[][];
 	private static int width;
 	private static int height;
+	private WindowMainController controller;
 	
 	public Map(int width_given, int height_given) {
 		width = width_given;
@@ -22,21 +23,19 @@ public class Map {
 		System.out.println("Map inited");
 	}
 	
-<<<<<<< HEAD
-	
 
 	private void launch_life_thread() {
-		lifethread = new LifeThread(map, controller);
-	    thread = new Thread(lifethread);
+		LifeThread lifethread = new LifeThread(controller);
+	    Thread thread = new Thread(lifethread);
 	    thread.start();
-=======
+	}
+	
 	public static Element GetElement(int x, int y) {
 		return map[x][y];
 	}
 	
 	public static void SetElement(int x, int y, Element elem) {
 		map[x][y] = elem;
->>>>>>> 30e988f0ac69e7b57fe2b051eeb91290b1822f9c
 	}
 	
 	public static void setMap(Element[][] map) {

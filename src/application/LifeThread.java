@@ -138,7 +138,7 @@ public class LifeThread implements Runnable {
 
 	// used to handle when an animal move into something
 	// return winning animal or null if no winning animal
-	public Element Encounter(Element first_element, Element second_element) {
+	/*public Element Encounter(Element first_element, Element second_element) {
 		Element winner = null;
 		// no winning animal if they are same animal
 		if (first_element == second_element) {
@@ -150,11 +150,10 @@ public class LifeThread implements Runnable {
 		if (second_element == Element.EMPTY || second_element == Element.FRUIT) {
 			winner = first_element;
 		}
-<<<<<<< HEAD
-    }
+    }*/
     
     //randomly add the element_to_add on map (mainly use for respawn)
-    public void RandomlyAddToMap(Element element_to_add) {
+    /*public void RandomlyAddToMap(Element element_to_add) {
     	Random rand = new Random();
     	boolean is_spawn = false;
     	// used if map is full to avoid blocking and also to avoid non_spawning due to already an element on case
@@ -171,10 +170,10 @@ public class LifeThread implements Runnable {
     		number_of_spawn_try -=1;
     	}
     	
-    }
+    }*/
     
     //search for every animal on the map and move them one by one
-    public void MoveAnimals() {
+    /*public void MoveAnimals() {
     	Random rand = new Random();
     	int animal_count = 0;
     	//loop to count animal (needed to create static array next)
@@ -209,7 +208,7 @@ public class LifeThread implements Runnable {
     	}
     	//actualize map after moves
     	Map.setMap(map);
-    }
+    }*/
     
     // used to handle when an animal move into something
     //return winning animal or null if no winning animal
@@ -234,7 +233,7 @@ public class LifeThread implements Runnable {
 		
     }
     
-    public void Mate(Element[][] map, Element first_trex, Element second_trex, int x, int y){
+    public void Mate(Element first_trex, Element second_trex, int x, int y){
     	
     	Element baby_trex_to_add = Element.TREX;
     	boolean empty = false;
@@ -242,9 +241,9 @@ public class LifeThread implements Runnable {
     		
     		while(empty == false){
     			
-    			for(int i = 0; i<map.length; i++){
-    				for(int j = 0; j<map[i].length; j++){
-    					if(map[i][j] == Element.EMPTY){
+    			for(int i = 0; i<Map.GetWidth(); i++){
+    				for(int j = 0; j<Map.GetHeight(); j++){
+    					if(Map.GetElement(i, j) == Element.EMPTY){
     						empty = true;
     						Map.addAnimalToMap(baby_trex_to_add,i,j);
     					}
@@ -258,7 +257,7 @@ public class LifeThread implements Runnable {
     }
     
     //moving one animal just by receiving pos of animal and a random number for direction
-    public void MoveAnimal(int x, int y, int next_move) {
+    /*public void MoveAnimal(int x, int y, int next_move) {
     	
     	//move down
     	if(next_move == 0 && y+1 < map[0].length) {
@@ -310,10 +309,9 @@ public class LifeThread implements Runnable {
     	}
     	
     }
-=======
 		return winner;
 
-	}
+	}*/
 
 	// moving one animal just by receiving pos of animal and a random number for
 	// direction
@@ -326,6 +324,9 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x, y + 1, winner);
 			}
+			else{
+				Mate(Map.GetElement(x, y),Map.GetElement(x, y+1),x, y);
+			}
 		}
 		// move left
 		if (next_move == 1 && x > 0) {
@@ -335,6 +336,9 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x - 1, y, winner);
 			}
 		}
+		else{
+			Mate(Map.GetElement(x, y),Map.GetElement(x-1, y),x, y);
+		}
 		// move up
 		if (next_move == 2 && y > 0) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y - 1));
@@ -343,6 +347,10 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y - 1, winner);
 			}
 		}
+		else{
+			Mate(Map.GetElement(x, y),Map.GetElement(x, y-1),x, y);
+		}
+		
 		// move right
 		if (next_move == 3 && x + 1 < Map.GetWidth()) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x + 1, y));
@@ -353,5 +361,4 @@ public class LifeThread implements Runnable {
 		}
 
 	}
->>>>>>> 30e988f0ac69e7b57fe2b051eeb91290b1822f9c
 }
