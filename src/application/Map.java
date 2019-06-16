@@ -24,11 +24,11 @@ public class Map {
 	}
 	
 
-	private void launch_life_thread() {
+	/*private void launch_life_thread() {
 		LifeThread lifethread = new LifeThread(controller);
 	    Thread thread = new Thread(lifethread);
 	    thread.start();
-	}
+	}*/
 	
 	public static Element GetElement(int x, int y) {
 		return map[x][y];
@@ -40,6 +40,10 @@ public class Map {
 	
 	public static void setMap(Element[][] map) {
 		Map.map = map;
+	}
+	
+	public static Element[][] GetMap(){
+		return Map.map;
 	}
 
 	private static void InitRandomMap(Element[][] map) {

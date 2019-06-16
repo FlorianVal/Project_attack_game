@@ -103,7 +103,9 @@ public class LifeThread implements Runnable {
 	public void MoveAnimals() {
 		Random rand = new Random();
 		int animal_count = 0;
-		// loop to count animal (needed to create static array next)
+		Element[][] updatedMap = new Element[Map.GetWidth()][Map.GetHeight()];
+		
+		// loop to count animals (needed to create static array next)
 		for (int a = 0; a < Map.GetWidth(); a++) {
 			for (int b = 0; b < Map.GetHeight(); b++) {
 				if (Map.GetElement(a, b).is_animal()) {
@@ -131,9 +133,12 @@ public class LifeThread implements Runnable {
 			int next_move = rand.nextInt(4);
 			// debug force movement
 			// next_move = 3;
-			MoveAnimal(animals_on_map[count_animal][0], animals_on_map[count_animal][1], next_move);
+			updatedMap = MoveAnimal(animals_on_map[count_animal][0], animals_on_map[count_animal][1], next_move);
 		}
 		// actualize map after moves
+		Map.setMap(updatedMap);
+		
+		
 	}
 
 	// used to handle when an animal move into something
@@ -229,11 +234,12 @@ public class LifeThread implements Runnable {
 		
     }
     
-    public void Mate(Element first_trex, Element second_trex, int x, int y){
+    /*public void Mate(int x, int y){
     	
     	Element baby_trex_to_add = Element.BABYTREX;
-    	boolean empty = false;
-    	if(first_trex == Element.TREX && second_trex == Element.TREX){
+    	boolean empty = false;	
+    		
+    	//if(first_trex == Element.TREX && second_trex == Element.TREX){
     		
     		while(empty == false){
     			for(int i = 0; i<Map.GetWidth(); i++){
@@ -241,15 +247,15 @@ public class LifeThread implements Runnable {
     					if(Map.GetElement(i, j) == Element.EMPTY){
     						empty = true;
     						Map.addAnimalToMap(baby_trex_to_add,i,j);
+    						System.out.println("A Baby TREX was added");
+    						
     					}
     						
     				}
     			}
-    			
     		}
-    	}
-    	
-    }
+    			
+    }*/
     
     //moving one animal just by receiving pos of animal and a random number for direction
     /*public void MoveAnimal(int x, int y, int next_move) {
@@ -310,7 +316,7 @@ public class LifeThread implements Runnable {
 
 	// moving one animal just by receiving pos of animal and a random number for
 	// direction
-	public void MoveAnimal(int x, int y, int next_move) {
+	public Element[][] MoveAnimal(int x, int y, int next_move) {
 
 		// move down
 		if (next_move == 0 && y + 1 < Map.GetHeight()) {
@@ -319,9 +325,10 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x, y + 1, winner);
 			}
-			else{
-				Mate(Map.GetElement(x, y),Map.GetElement(x, y+1),x, y);
-			}
+			/*else{
+				//Mate(Map.GetElement(x, y),Map.GetElement(x, y+1),x, y);
+				Mate(x,y);
+			}*/
 		}
 		// move left
 		if (next_move == 1 && x > 0) {
@@ -331,9 +338,10 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x - 1, y, winner);
 			}
 		}
-		else{
-			Mate(Map.GetElement(x, y),Map.GetElement(x-1, y),x, y);
-		}
+		/*else{
+			//Mate(Map.GetElement(x, y),Map.GetElement(x-1, y),x, y);
+			Mate(x,y);
+		}*/
 		// move up
 		if (next_move == 2 && y > 0) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y - 1));
@@ -342,9 +350,10 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y - 1, winner);
 			}
 		}
-		else{
-			Mate(Map.GetElement(x, y),Map.GetElement(x, y-1),x, y);
-		}
+		/*else{
+			//Mate(Map.GetElement(x, y),Map.GetElement(x, y-1),x, y);
+			Mate(x,y);
+		}*/
 		
 		// move right
 		if (next_move == 3 && x + 1 < Map.GetWidth()) {
@@ -354,6 +363,12 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x + 1, y, winner);
 			}
 		}
+		/*else{
+			//Mate(Map.GetElement(x, y),Map.GetElement(x+1, y),x, y);
+			Mate(x,y);
+		}*/
+		
+		return Map.GetMap();
 
 	}
 }
