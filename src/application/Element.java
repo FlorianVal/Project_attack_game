@@ -8,10 +8,16 @@ public enum Element {
 	//TODO add image in enum
 	// element ( formal name, path to image of visu, spawn probability, is animal,
 	//letter to display(until there is image to display), probability of spawning randomly on the map)
+<<<<<<< HEAD
 	TREX("T-Rex","file:src/images/caisse.gif", 0.001, true, 0), 
 	FRUIT("Fruit", "file:src/images/mur.gif", 0.006, false, 0.005), 
 	EMPTY("Empty", "file:src/images/zone.gif", 0, false, 0);
 	//BABY_TREX("Baby_TRex","",0,false,0 );
+=======
+	TREX("T-Rex","file:src/images/trex.png", 0.002, true, 0), 
+	FRUIT("Fruit", "file:src/images/fruit.png", 0.006, false, 0.005), 
+	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0);
+>>>>>>> 30e988f0ac69e7b57fe2b051eeb91290b1822f9c
 	
 	private String name = "";
 	private Image visu;

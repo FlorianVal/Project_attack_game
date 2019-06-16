@@ -16,6 +16,9 @@ public class WindowController {
     @FXML
     private TextField height;
 
+
+
+
     @FXML
     void OpenLevelOne(ActionEvent event){
     	if(CheckParameters()) {
@@ -58,17 +61,20 @@ public class WindowController {
 			FXMLLoader loader1 = new FXMLLoader(getClass().getResource(level_fxml_file));
 			Parent root = loader1.load();
 			WindowMainController captureWindowController = loader1.getController();
-			Map map = new Map(Integer.parseInt(width.getText()),Integer.parseInt(height.getText()), captureWindowController);
+			captureWindowController.initialize(captureWindowController, Integer.parseInt(width.getText()), Integer.parseInt(height.getText()));
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			stage.setTitle(name);
 			stage.setScene(scene);
 			stage.show();
 			
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
     }
+    
+    
     
     boolean CheckParameters() {
     	//check if field not empty
