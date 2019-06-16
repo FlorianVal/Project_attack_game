@@ -173,7 +173,7 @@ public class LifeThread implements Runnable {
     }*/
     
     //search for every animal on the map and move them one by one
-    /*public void MoveAnimals() {
+  /*  public void MoveAnimals() {
     	Random rand = new Random();
     	int animal_count = 0;
     	//loop to count animal (needed to create static array next)
@@ -219,10 +219,6 @@ public class LifeThread implements Runnable {
     		winner = null;
     	}
     	
-    	//if(first_element == Element.TREX && second_element == Element.TREX){
-    		//Mate(first_element,second_element);
-    	//}
-    	
     	if(first_element == Element.EMPTY || first_element == Element.FRUIT) {
     		winner = second_element;
     	}
@@ -235,12 +231,11 @@ public class LifeThread implements Runnable {
     
     public void Mate(Element first_trex, Element second_trex, int x, int y){
     	
-    	Element baby_trex_to_add = Element.TREX;
+    	Element baby_trex_to_add = Element.BABYTREX;
     	boolean empty = false;
     	if(first_trex == Element.TREX && second_trex == Element.TREX){
     		
     		while(empty == false){
-    			
     			for(int i = 0; i<Map.GetWidth(); i++){
     				for(int j = 0; j<Map.GetHeight(); j++){
     					if(Map.GetElement(i, j) == Element.EMPTY){
