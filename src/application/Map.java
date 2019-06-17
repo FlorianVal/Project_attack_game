@@ -115,24 +115,8 @@ public class Map {
 		
 	}
 	
-	//TODO : Remove this method??
-	public static void addAnimalToMap(Element animal_to_add, int x, int y){
-		
-		for(int i = x; i<map.length;i++){
-			for(int j = y; j<map.length;j++){
-				
-				if(map[i][j] == Element.EMPTY){
-					map[i][j] = animal_to_add;
-				}
-				
-				break;
-			
-			}
-		}	
-		
-	}
 	
-	public static void addElementToMap(Element elementToAdd, int x, int y){
+	public static void AddOneElementToMap(Element elementToAdd, int x, int y){
 		
 		if(map[x][y] == Element.EMPTY){
 			map[x][y] = elementToAdd;
