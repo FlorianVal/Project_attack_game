@@ -170,8 +170,8 @@ public class LifeThread implements Runnable {
     		
     		while(empty == false){
     			
-    			for(int i = 0; i<= Map.GetWidth() - 1; i++){
-    				for(int j = 0; j<=Map.GetHeight() - 1; j++){
+    			for(int i = x; i < Map.GetWidth() - 1; i++){
+    				for(int j = y; j < Map.GetHeight() - 1; j++){
     					if(Map.GetElement(i, j) == Element.EMPTY){
     						a = i;
     						b = j;
@@ -199,20 +199,23 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x, y + 1, winner);
 			}
+			
 			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
-				//Mate(Map.GetElement(x, y),Map.GetElement(x, y+1),x, y);
 				Mate(x,y);
 			}
 		}
 		
 		// move left
 		if (next_move == 1 && x > 0) {
+			
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x - 1, y));
+			
 			if (winner != null) {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x - 1, y, winner);
 			}
 		}
+		
 		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
 			Mate(x,y);
 		}
@@ -237,10 +240,10 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x + 1, y, winner);
 			}
 		}
+		
 		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
 			Mate(x,y);
 		}
-		
 		//return Map.GetMap();
 
 	}
