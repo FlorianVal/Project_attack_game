@@ -115,6 +115,7 @@ public class Map {
 		
 	}
 	
+	//TODO : Remove this method??
 	public static void addAnimalToMap(Element animal_to_add, int x, int y){
 		
 		for(int i = x; i<map.length;i++){
@@ -129,6 +130,16 @@ public class Map {
 			}
 		}	
 		
+	}
+	
+	public static void addElementToMap(Element elementToAdd, int x, int y){
+		
+		if(map[x][y] == Element.EMPTY){
+			map[x][y] = elementToAdd;
+		}
+		else{
+			System.out.println("There is already an element");
+		}
 	}
 	
 	//console version

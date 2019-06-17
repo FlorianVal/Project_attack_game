@@ -103,7 +103,7 @@ public class LifeThread implements Runnable {
 	public void MoveAnimals() {
 		Random rand = new Random();
 		int animal_count = 0;
-		Element[][] updatedMap = new Element[Map.GetWidth()][Map.GetHeight()];
+		//Element[][] updatedMap = new Element[Map.GetWidth()][Map.GetHeight()];
 		
 		// loop to count animals (needed to create static array next)
 		for (int a = 0; a < Map.GetWidth(); a++) {
@@ -133,10 +133,10 @@ public class LifeThread implements Runnable {
 			int next_move = rand.nextInt(4);
 			// debug force movement
 			// next_move = 3;
-			updatedMap = MoveAnimal(animals_on_map[count_animal][0], animals_on_map[count_animal][1], next_move);
+			MoveAnimal(animals_on_map[count_animal][0], animals_on_map[count_animal][1], next_move);
 		}
 		// actualize map after moves
-		Map.setMap(updatedMap);
+		//Map.setMap(updatedMap);
 		
 		
 	}
@@ -234,7 +234,7 @@ public class LifeThread implements Runnable {
 		
     }
     
-    /*public void Mate(int x, int y){
+    public void Mate(int x, int y){
     	
     	Element baby_trex_to_add = Element.BABYTREX;
     	boolean empty = false;	
@@ -246,7 +246,7 @@ public class LifeThread implements Runnable {
     				for(int j = 0; j<Map.GetHeight(); j++){
     					if(Map.GetElement(i, j) == Element.EMPTY){
     						empty = true;
-    						Map.addAnimalToMap(baby_trex_to_add,i,j);
+    						Map.addElementToMap(baby_trex_to_add,i,j);
     						System.out.println("A Baby TREX was added");
     						
     					}
@@ -255,7 +255,7 @@ public class LifeThread implements Runnable {
     			}
     		}
     			
-    }*/
+    }
     
     //moving one animal just by receiving pos of animal and a random number for direction
     /*public void MoveAnimal(int x, int y, int next_move) {
@@ -316,20 +316,22 @@ public class LifeThread implements Runnable {
 
 	// moving one animal just by receiving pos of animal and a random number for
 	// direction
-	public Element[][] MoveAnimal(int x, int y, int next_move) {
+	public void MoveAnimal(int x, int y, int next_move) {
 
 		// move down
 		if (next_move == 0 && y + 1 < Map.GetHeight()) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y + 1));
+			
 			if (winner != null) {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x, y + 1, winner);
 			}
-			/*else{
+			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
 				//Mate(Map.GetElement(x, y),Map.GetElement(x, y+1),x, y);
 				Mate(x,y);
-			}*/
+			}
 		}
+		
 		// move left
 		if (next_move == 1 && x > 0) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x - 1, y));
@@ -338,10 +340,10 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x - 1, y, winner);
 			}
 		}
-		/*else{
-			//Mate(Map.GetElement(x, y),Map.GetElement(x-1, y),x, y);
+		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
 			Mate(x,y);
-		}*/
+		}
+		
 		// move up
 		if (next_move == 2 && y > 0) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y - 1));
@@ -350,10 +352,9 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y - 1, winner);
 			}
 		}
-		/*else{
-			//Mate(Map.GetElement(x, y),Map.GetElement(x, y-1),x, y);
+		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
 			Mate(x,y);
-		}*/
+		}
 		
 		// move right
 		if (next_move == 3 && x + 1 < Map.GetWidth()) {
@@ -363,12 +364,11 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x + 1, y, winner);
 			}
 		}
-		/*else{
-			//Mate(Map.GetElement(x, y),Map.GetElement(x+1, y),x, y);
+		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
 			Mate(x,y);
-		}*/
+		}
 		
-		return Map.GetMap();
+		//return Map.GetMap();
 
 	}
 }
