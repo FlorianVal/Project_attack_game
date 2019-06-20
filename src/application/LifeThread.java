@@ -185,8 +185,8 @@ public class LifeThread implements Runnable {
     						b = y;
     						
     					}
-    					System.out.println("a = " + a);
-    					System.out.println("b = " + b);
+    					//System.out.println("a = " + a);
+    					//System.out.println("b = " + b);
     					Map.AddOneElementToMap(baby_trex_to_add,a,b);
     				}
     				
