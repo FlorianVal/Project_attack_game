@@ -163,21 +163,29 @@ public class LifeThread implements Runnable {
     
     public static void Mate(int x, int y){
     	
+    	//1. Instanciation of the new bbtrex that will be added
     	Element baby_trex_to_add = Element.BABYTREX;
+    	
+    	//2. This boolean will be false until an empty element will be found to place our new bbtrex
     	boolean empty = false;
+    	
+    	//3. Those integer will allow to get the values of coordinates of the empty cell if the cell just below the mating is not empty (to place the new bbtrex)
     	int a = 0;
     	int b = 0;	
     	
-    			if(Map.GetElement(x, y+1) == Element.EMPTY){
+    	//If the element just below the mating is empty, the new baby trex will be placed there
+    		if(Map.GetElement(x, y+1) == Element.EMPTY && x < Map.GetWidth() - 1 && y+1 < Map.GetHeight()){
     				Map.AddOneElementToMap(baby_trex_to_add, x, y+1);
     				System.out.println("A Baby TREX was added at the coordinates (" + x + "," + y+1 + ")" );
-    			}
+    		}
     			
+    	//If the element just below is not empty, all the column will be covered in order to find an empty element
     			else{
     				
     				while(empty == false){
+    					
     					y+=1;
-    					if(Map.GetElement(x, y) == Element.EMPTY){
+    					if(Map.GetElement(x, y) == Element.EMPTY && x < Map.GetWidth() - 1 && y < Map.GetHeight() - 1){
     						empty = true;
     						a = x;
     						b = y;
