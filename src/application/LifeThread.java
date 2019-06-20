@@ -167,9 +167,7 @@ public class LifeThread implements Runnable {
     	boolean empty = false;
     	int a = 0;
     	int b = 0;	
-    		
-    		while(empty == false){
-    			
+    	
     			if(Map.GetElement(x, y+1) == Element.EMPTY){
     				Map.AddOneElementToMap(baby_trex_to_add, x, y+1);
     				System.out.println("A Baby TREX was added at the coordinates (" + x + "," + y+1 + ")" );
@@ -185,8 +183,6 @@ public class LifeThread implements Runnable {
     						b = y;
     						
     					}
-    					//System.out.println("a = " + a);
-    					//System.out.println("b = " + b);
     					Map.AddOneElementToMap(baby_trex_to_add,a,b);
     				}
     				
@@ -195,7 +191,7 @@ public class LifeThread implements Runnable {
     	}
     		
     			
-    }
+    //}
    
 
 	// moving one animal just by receiving pos of animal and a random number for
