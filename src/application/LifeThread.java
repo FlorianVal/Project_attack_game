@@ -161,28 +161,39 @@ public class LifeThread implements Runnable {
 		
     }
     
-    public void Mate(int x, int y){
+    public static void Mate(int x, int y){
     	
     	Element baby_trex_to_add = Element.BABYTREX;
     	boolean empty = false;
     	int a = 0;
-    	int b = 0;
+    	int b = 0;	
     		
     		while(empty == false){
     			
-    			for(int i = x; i < Map.GetWidth() - 1; i++){
-    				for(int j = y; j < Map.GetHeight() - 1; j++){
-    					if(Map.GetElement(i, j) == Element.EMPTY){
-    						a = i;
-    						b = j;
-    						empty = true;
-    					}
-    						
-    				}
+    			if(Map.GetElement(x, y+1) == Element.EMPTY){
+    				Map.AddOneElementToMap(baby_trex_to_add, x, y+1);
+    				System.out.println("A Baby TREX was added at the coordinates (" + x + "," + y+1 + ")" );
     			}
-				Map.AddOneElementToMap(baby_trex_to_add,a,b);
-				System.out.println("A Baby TREX was added at the coordinates (" + a + "," + b + ")" );
-    		}
+    			
+    			else{
+    				
+    				while(empty == false){
+    					y+=1;
+    					if(Map.GetElement(x, y) == Element.EMPTY){
+    						empty = true;
+    						a = x;
+    						b = y;
+    						
+    					}
+    					System.out.println("a = " + a);
+    					System.out.println("b = " + b);
+    					Map.AddOneElementToMap(baby_trex_to_add,a,b);
+    				}
+    				
+    			}
+    			
+    	}
+    		
     			
     }
    

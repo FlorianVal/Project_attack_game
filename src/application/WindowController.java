@@ -17,8 +17,6 @@ public class WindowController {
     private TextField height;
 
 
-
-
     @FXML
     void OpenLevelOne(ActionEvent event){
     	if(CheckParameters()) {
