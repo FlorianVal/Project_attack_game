@@ -72,8 +72,8 @@ public class Map {
 
 		    for (int i = map.length - 1; i > 0; i--) {
 		        for (int j = map[i].length - 1; j > 0; j--) {
-		            int m = random.nextInt(i + 1);
-		            int n = random.nextInt(j + 1);
+		            int m = random.nextInt(map.length);
+		            int n = random.nextInt(map[0].length);
 
 		            Element temp = map[i][j];
 		            map[i][j] = map[m][n];
