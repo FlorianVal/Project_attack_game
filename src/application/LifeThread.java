@@ -243,8 +243,10 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y - 1, winner);
 			}
 		}
-		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
+		
+		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y).getMate() == false && Map.GetElement(x, y+1) == Element.TREX && Map.GetElement(x, y+1).getMate() == false){
 			Mate(x,y);
+
 		}
 		
 		// move right
@@ -259,7 +261,6 @@ public class LifeThread implements Runnable {
 		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
 			Mate(x,y);
 		}
-		//return Map.GetMap();
 
 	}
 }
