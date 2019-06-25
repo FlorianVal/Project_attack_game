@@ -99,7 +99,6 @@ public class LifeThread implements Runnable {
 
 	}
 	
-<<<<<<< HEAD
 	public static Element SearchNearestEmptyCell(int x, int y){
 		int a = 0;
 		int b = 0;
@@ -111,14 +110,9 @@ public class LifeThread implements Runnable {
 	}
 	
 	
-	// overload to target
-	private static int SearchNearest(int x ,int y) {
-		return SearchNearest(x, y, Map.GetElement(x, y));
-=======
 	// overload to use target
 	private int SearchNearest(int x ,int y) {
 		return SearchNearest(x, y, Map.GetElement(x, y).getTarget());
->>>>>>> 08e645c8970b60a48fe268e82943e9bdcbf507e2
 	}
 	
 	
@@ -254,14 +248,7 @@ public class LifeThread implements Runnable {
     	
     	Map.AddOneElementToMap(baby_trex_to_add,emptyCell.getX(), emptyCell.getY());
     	System.out.println("bbtrex added");
-    	
-    		
-<<<<<<< HEAD
-    }		   
-=======
-    			
-   
->>>>>>> 08e645c8970b60a48fe268e82943e9bdcbf507e2
+    }
 
 	// moving one animal just by receiving pos of animal and a random number for
 	// direction
