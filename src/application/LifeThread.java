@@ -99,6 +99,7 @@ public class LifeThread implements Runnable {
 
 	}
 	
+<<<<<<< HEAD
 	public static Element SearchNearestEmptyCell(int x, int y){
 		int a = 0;
 		int b = 0;
@@ -113,6 +114,11 @@ public class LifeThread implements Runnable {
 	// overload to target
 	private static int SearchNearest(int x ,int y) {
 		return SearchNearest(x, y, Map.GetElement(x, y));
+=======
+	// overload to use target
+	private int SearchNearest(int x ,int y) {
+		return SearchNearest(x, y, Map.GetElement(x, y).getTarget());
+>>>>>>> 08e645c8970b60a48fe268e82943e9bdcbf507e2
 	}
 	
 	
@@ -120,7 +126,7 @@ public class LifeThread implements Runnable {
 		int rho;
 		double theta;
 		Element elem_around;
-		int distance_of_seeing = 9;
+		int distance_of_seeing = 12;
 		int direction = -1;
 		boolean found = false;
 		System.out.printf("Search nearest : %d %d %s \n \n",x,y,Map.GetElement(x, y).getName());
@@ -130,7 +136,8 @@ public class LifeThread implements Runnable {
 				int cell_y = y + (int) Math.round(rho * Math.sin(theta));
 				if(cell_x > 0 && cell_x < Map.GetWidth() && cell_y >0 && cell_y <Map.GetHeight()) {
 					elem_around = Map.GetElement(cell_x, cell_y);
-					if(elem_around.equals(target)) {
+					if(elem_around.getName() == target.getName()) {
+						
 						found = true;
 						System.out.printf("Target found : %d %d %s \n", cell_x, cell_y, elem_around.getName());
 						if(theta >= 7*Math.PI/4 || theta <= Math.PI/4) {
@@ -138,16 +145,19 @@ public class LifeThread implements Runnable {
 							//RIGHT
 						}
 						if(theta >= Math.PI/4 && theta <= 3*Math.PI/4) {
-							direction = 2;
-							//UP
+							direction = 0;
+
+							//down
 						}
 						if(theta >= 3*Math.PI/4 && theta <= 5*Math.PI/4) {
 							direction = 1;
+
 							//LEFT
 						}
 						if(theta >= 5*Math.PI/4 && theta <= 7*Math.PI/4) {
-							direction = 0;
-							//DOWN
+							direction = 2;
+
+							//up
 						}
 						if(found) {
 							break;
@@ -171,20 +181,21 @@ public class LifeThread implements Runnable {
 		//Element[][] updatedMap = new Element[Map.GetWidth()][Map.GetHeight()];
 		
 		// loop to count animals (needed to create static array next)
-		for (int a = 0; a < Map.GetWidth() - 1; a++) {
-			for (int b = 0; b < Map.GetHeight() - 1 ; b++) {
+		for (int a = 0; a < Map.GetWidth(); a++) {
+			for (int b = 0; b < Map.GetHeight(); b++) {
 				if (Map.GetElement(a, b).is_animal()) {
 					animal_count += 1;
 
 				}
 			}
 		}
+		System.out.printf("number of animals on map : %d \n",animal_count);
 		// create array with pos (x,y) of every animal on the map
 		int animals_on_map[][] = new int[animal_count][2];
 		animal_count = 0;
 		int i, j;
-		for (i = 0; i < Map.GetWidth() - 1; i++) {
-			for (j = 0; j < Map.GetHeight() - 1; j++) {
+		for (i = 0; i < Map.GetWidth(); i++) {
+			for (j = 0; j < Map.GetHeight(); j++) {
 				
 				if (Map.GetElement(i, j).is_animal()) {
 					animals_on_map[animal_count][0] = i;
@@ -224,6 +235,9 @@ public class LifeThread implements Runnable {
     	if(second_element == Element.EMPTY || second_element == Element.FRUIT) {
     		winner = first_element;
     	}
+    	if(first_element == Element.TREX && second_element == Element.BRACHIO ) {
+    		winner = first_element;
+    	}
 		return winner;
 		
     }
@@ -242,14 +256,19 @@ public class LifeThread implements Runnable {
     	System.out.println("bbtrex added");
     	
     		
+<<<<<<< HEAD
     }		   
+=======
+    			
+   
+>>>>>>> 08e645c8970b60a48fe268e82943e9bdcbf507e2
 
 	// moving one animal just by receiving pos of animal and a random number for
 	// direction
 	public void MoveAnimal(int x, int y, int next_move) {
 
 		// move down
-		if (next_move == 0 && y + 1 < Map.GetHeight() - 1) {
+		if (next_move == 0 && y < Map.GetHeight() -1) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y + 1));
 			
 			if (winner != null) {
@@ -292,7 +311,7 @@ public class LifeThread implements Runnable {
 		}
 		
 		// move right
-		if (next_move == 3 && x + 1 < Map.GetWidth() - 1) {
+		if (next_move == 3 && x < Map.GetWidth()-1) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x + 1, y));
 			if (winner != null) {
 				Map.SetElement(x, y, Element.EMPTY);

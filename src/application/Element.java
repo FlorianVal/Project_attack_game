@@ -15,13 +15,13 @@ public enum Element {
 		//target )
 
 
-	TREX("T-Rex","file:src/images/trex.png", 0.006, true, 0, "Brachiosaur", false), 
+
+	TREX("T-Rex","file:src/images/trex.png", 0.001, true, 0, "Brachiosaur", false), 
 	FRUIT("Fruit", "file:src/images/fruit.png", 0.006, false, 0.02, "", false), 
 	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, "", false),
 	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0, "Fruit", false),
-	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.012, true, 0,"Fruit", false),
-	BANANA("Banana","file:src/images/mur.jpg",0,false,0,"", false); //TODO : Draw an image for banana
-
+	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.001, true, 0,"Fruit", false),
+	BANANA("Banana","file:src/images/banana.png",0.006,false,0,"", false); //TODO : Draw an image for banana
 	
 	private String name = "";
 	private Image visu;
