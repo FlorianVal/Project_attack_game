@@ -99,9 +99,9 @@ public class LifeThread implements Runnable {
 
 	}
 	
-	// overload to target
+	// overload to use target
 	private int SearchNearest(int x ,int y) {
-		return SearchNearest(x, y, Map.GetElement(x, y));
+		return SearchNearest(x, y, Map.GetElement(x, y).getTarget());
 	}
 	
 	private int SearchNearest(int x ,int y, Element target) {
@@ -118,23 +118,31 @@ public class LifeThread implements Runnable {
 				int cell_y = y + (int) Math.round(rho * Math.sin(theta));
 				if(cell_x > 0 && cell_x < Map.GetWidth() && cell_y >0 && cell_y <Map.GetHeight()) {
 					elem_around = Map.GetElement(cell_x, cell_y);
-					if(elem_around.equals(target)) {
+					if(elem_around.getName() == target.getName()) {
+						
 						found = true;
 						System.out.printf("Target found : %d %d %s \n", cell_x, cell_y, elem_around.getName());
 						if(theta >= 7*Math.PI/4 || theta <= Math.PI/4) {
 							direction = 3;
+							System.out.printf("Going right");
 							//RIGHT
 						}
 						if(theta >= Math.PI/4 && theta <= 3*Math.PI/4) {
-							direction = 2;
+							direction = 0;
+							System.out.printf("Going down");
+
 							//UP
 						}
 						if(theta >= 3*Math.PI/4 && theta <= 5*Math.PI/4) {
 							direction = 1;
+							System.out.printf("Going left");
+
 							//LEFT
 						}
 						if(theta >= 5*Math.PI/4 && theta <= 7*Math.PI/4) {
-							direction = 0;
+							direction = 2;
+							System.out.printf("Going up");
+
 							//DOWN
 						}
 						if(found) {
