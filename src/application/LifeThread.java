@@ -98,7 +98,72 @@ public class LifeThread implements Runnable {
 		}
 
 	}
-
+	
+	public static Element SearchNearestEmptyCell(int x, int y){
+		int a = 0;
+		int b = 0;
+		if(SearchNearest(x,y,Element.EMPTY) != -1){
+			a = x;
+			b = y;
+		}
+		return Map.GetElement(a, b);
+	}
+	
+	
+	// overload to target
+	private static int SearchNearest(int x ,int y) {
+		return SearchNearest(x, y, Map.GetElement(x, y));
+	}
+	
+	
+	private static int SearchNearest(int x ,int y, Element target) {
+		int rho;
+		double theta;
+		Element elem_around;
+		int distance_of_seeing = 9;
+		int direction = -1;
+		boolean found = false;
+		System.out.printf("Search nearest : %d %d %s \n \n",x,y,Map.GetElement(x, y).getName());
+		for(rho = 1; rho < distance_of_seeing; rho ++) {
+			for(theta =0; theta <= 2*Math.PI-0.01; theta+=Math.PI/(rho * 4)) {
+				int cell_x = x + (int) Math.round(rho * Math.cos(theta));
+				int cell_y = y + (int) Math.round(rho * Math.sin(theta));
+				if(cell_x > 0 && cell_x < Map.GetWidth() && cell_y >0 && cell_y <Map.GetHeight()) {
+					elem_around = Map.GetElement(cell_x, cell_y);
+					if(elem_around.equals(target)) {
+						found = true;
+						System.out.printf("Target found : %d %d %s \n", cell_x, cell_y, elem_around.getName());
+						if(theta >= 7*Math.PI/4 || theta <= Math.PI/4) {
+							direction = 3;
+							//RIGHT
+						}
+						if(theta >= Math.PI/4 && theta <= 3*Math.PI/4) {
+							direction = 2;
+							//UP
+						}
+						if(theta >= 3*Math.PI/4 && theta <= 5*Math.PI/4) {
+							direction = 1;
+							//LEFT
+						}
+						if(theta >= 5*Math.PI/4 && theta <= 7*Math.PI/4) {
+							direction = 0;
+							//DOWN
+						}
+						if(found) {
+							break;
+						}
+						
+					}
+					
+					}
+			}
+			if(found) {
+				break;
+			}
+		}
+		return direction;		
+	}
+	
 	// search for every animal on the map and move them one by one
 	public void MoveAnimals() {
 		Random rand = new Random();
@@ -131,13 +196,15 @@ public class LifeThread implements Runnable {
 		}
 		// for loop on the array and random number to decide direction
 		for (int count_animal = 0; count_animal < animals_on_map.length; count_animal++) {
-			int next_move = rand.nextInt(4);
+			int next_move = SearchNearest(animals_on_map[count_animal][0], animals_on_map[count_animal][1]);
+			if(next_move == -1) {
+				System.out.println("Random move");
+				next_move = rand.nextInt(4);}
 			// debug force movement
 			// next_move = 3;
 			MoveAnimal(animals_on_map[count_animal][0], animals_on_map[count_animal][1], next_move);
 		}
 		// actualize map after moves
-		//Map.setMap(updatedMap);
 		
 		
 	}
@@ -163,44 +230,19 @@ public class LifeThread implements Runnable {
     
     public static void Mate(int x, int y){
     	
+    	Element emptyCell;
+    	
     	//1. Instanciation of the new bbtrex that will be added
     	Element baby_trex_to_add = Element.BABYTREX;
     	
-    	//2. This boolean will be false until an empty element will be found to place our new bbtrex
-    	boolean empty = false;
+    	//Search the nearest empty cell and add the new baby trex to the map
+    	emptyCell = SearchNearestEmptyCell(x,y);
     	
-    	//3. Those integer will allow to get the values of coordinates of the empty cell if the cell just below the mating is not empty (to place the new bbtrex)
-    	int a = 0;
-    	int b = 0;	
+    	Map.AddOneElementToMap(baby_trex_to_add,emptyCell.getX(), emptyCell.getY());
+    	System.out.println("bbtrex added");
     	
-    	//If the element just below the mating is empty, the new baby trex will be placed there
-    		if(Map.GetElement(x, y+1) == Element.EMPTY && x < Map.GetWidth() - 1 && y+1 < Map.GetHeight()){
-    				Map.AddOneElementToMap(baby_trex_to_add, x, y+1);
-    				System.out.println("A Baby TREX was added at the coordinates (" + x + "," + y+1 + ")" );
-    		}
-    			
-    	//If the element just below is not empty, all the column will be covered in order to find an empty element
-    			else{
-    				
-    				while(empty == false){
-    					
-    					y+=1;
-    					if(Map.GetElement(x, y) == Element.EMPTY && x < Map.GetWidth() - 1 && y < Map.GetHeight() - 1){
-    						empty = true;
-    						a = x;
-    						b = y;
-    						
-    					}
-    					Map.AddOneElementToMap(baby_trex_to_add,a,b);
-    				}
-    				
-    			}
-    			
-    	}
     		
-    			
-    //}
-   
+    }		   
 
 	// moving one animal just by receiving pos of animal and a random number for
 	// direction
