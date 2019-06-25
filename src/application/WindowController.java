@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -24,8 +26,8 @@ public class WindowController {
 	   		OpenMainWindow("/application/Level1.fxml", "Level 1");
 	    }
     	else {
-    		// TODO show message on window
-    		System.out.println("incorrect params");
+    		ShowMessageError();
+    		//System.out.println("incorrect params");
     	}
     		
     }
@@ -36,8 +38,8 @@ public class WindowController {
 	   		OpenMainWindow("/application/Level2.fxml", "Level 2");
     	}
     	else {
-    		// TODO show message on window
-    		System.out.println("incorrect params");
+    		ShowMessageError();
+    		//System.out.println("incorrect params");
     	}
     	
     }
@@ -48,8 +50,8 @@ public class WindowController {
 	   		OpenMainWindow("/application/Level3.fxml", "Level 3");
     	}
     	else {
-    		// TODO show message on window
-    		System.out.println("incorrect params");
+    		ShowMessageError();
+    		//System.out.println("incorrect params");
     	}
 
     }
@@ -72,6 +74,14 @@ public class WindowController {
 		}
     }
     
+    public void ShowMessageError(){
+
+		Alert errorAlert = new Alert(AlertType.ERROR);
+		errorAlert.setHeaderText("The size of the map has to be at least 40x25");
+		errorAlert.setTitle("Parameters entered not valid");
+		errorAlert.showAndWait();
+    	
+    }
     
     
     boolean CheckParameters() {
