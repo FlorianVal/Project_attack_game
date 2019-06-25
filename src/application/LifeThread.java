@@ -99,8 +99,12 @@ public class LifeThread implements Runnable {
 
 	}
 	
+	// overload to target
 	private int SearchNearest(int x ,int y) {
-		Element target = Map.GetElement(x, y).getTarget();
+		return SearchNearest(x, y, Map.GetElement(x, y));
+	}
+	
+	private int SearchNearest(int x ,int y, Element target) {
 		int rho;
 		double theta;
 		Element elem_around;
