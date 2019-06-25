@@ -13,7 +13,7 @@ public class Map {
 	private static Element map[][];
 	private static int width;
 	private static int height;
-	private WindowMainController controller;
+	//private WindowMainController controller;
 	
 	public Map(int width_given, int height_given) {
 		width = width_given;
@@ -38,7 +38,7 @@ public class Map {
 		map[x][y] = elem;
 	}
 	
-	public static void setMap(Element[][] map) {
+	public static void SetMap(Element[][] map) {
 		Map.map = map;
 	}
 	
@@ -80,7 +80,7 @@ public class Map {
 		            map[m][n] = temp;
 		        }
 		    }
-		}
+	}
 	
 	private static void EmptyMap() {
 		for(int i=0; i<map.length; i++) {
@@ -118,10 +118,14 @@ public class Map {
 	
 	public static void AddOneElementToMap(Element elementToAdd, int x, int y){
 		
-		if(map[x][y] == Element.EMPTY){
+		boolean exist = false;
+		
+		if(map[x][y] == Element.EMPTY && exist == false){
 			map[x][y] = elementToAdd;
+			exist = true;
 		}
-		else{
+		
+		if(map[x][y] != Element.EMPTY && exist == true){
 			System.out.println("There is already an element");
 		}
 	}

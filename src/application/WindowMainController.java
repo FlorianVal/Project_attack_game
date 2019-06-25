@@ -1,16 +1,16 @@
 package application;
 
-import javafx.scene.control.Label;
+//import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.input.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.lang.invoke.MethodHandles;
+//import java.awt.event.MouseEvent;
+//import java.lang.invoke.MethodHandles;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
-import javafx.application.Platform;
+//import javafx.application.Platform;
 
 public class WindowMainController {
 
@@ -133,6 +133,11 @@ public class WindowMainController {
 			}
 		}	
     }
+    
+    public void AddBananaRandomOnMap(){
+    	LifeThread.RandomlyAddToMap(Element.BANANA);
+    }
+    
 }
 
 

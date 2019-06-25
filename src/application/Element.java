@@ -1,23 +1,18 @@
 package application;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import javafx.scene.image.Image;
 
 public enum Element {
 	// element ( formal name, path to image of visu, spawn probability, is animal,
 	//letter to display(until there is image to display), probability of spawning randomly on the map)
 
-	//TREX("T-Rex","file:src/images/caisse.gif", 0.001, true, 0), 
-	//FRUIT("Fruit", "file:src/images/mur.gif", 0.006, false, 0.005), 
-	//EMPTY("Empty", "file:src/images/zone.gif", 0, false, 0);
-	//BABY_TREX("Baby_TRex","",0,false,0 );
 
 	TREX("T-Rex","file:src/images/trex.png", 0.006, true, 0), 
 	FRUIT("Fruit", "file:src/images/fruit.png", 0.006, false, 0.02), 
 	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0),
 	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0),
-	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.03, true, 0);
+	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.03, true, 0),
+	BANANA("Banana","file:src/images/mur.jpg",0,false,0); //TODO : Draw an image for banana
 	
 	private String name = "";
 	private Image visu;

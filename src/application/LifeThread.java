@@ -79,7 +79,7 @@ public class LifeThread implements Runnable {
 
 	// randomly add the element_to_add on map (mainly use for respawn)
 
-	public void RandomlyAddToMap(Element element_to_add) {
+	public static void RandomlyAddToMap(Element element_to_add) {
 		Random rand = new Random();
 		boolean is_spawn = false;
 		// used if map is full to avoid blocking and also to avoid non_spawning due to
