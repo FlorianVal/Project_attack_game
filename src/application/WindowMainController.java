@@ -18,8 +18,8 @@ public class WindowMainController {
     private GridPane GridMap;
     private int x_window = 0;
     private int y_window = 0;
-	private Thread thread;
-	private LifeThread lifethread;
+	private static Thread thread;
+	private static LifeThread lifethread;
     
     //TODO add method to put part of the map in the grid pane
     @FXML
