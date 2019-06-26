@@ -1,11 +1,16 @@
 package application;
 
+//import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyEvent;
+//import java.awt.event.MouseEvent;
+//import java.lang.invoke.MethodHandles;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
+//import javafx.application.Platform;
 
 public class WindowMainController {
 
@@ -16,6 +21,7 @@ public class WindowMainController {
 	private Thread thread;
 	private LifeThread lifethread;
     
+    //TODO add method to put part of the map in the grid pane
     @FXML
     void initialize(WindowMainController controller,int width, int height) {
     	
@@ -108,6 +114,7 @@ public class WindowMainController {
     
     public void AddImage(ImageSprite image, int x, int y){
             ImageView iv = new ImageView(image.getImage());
+            //do the sprite with rectangle of view moving on the image
             iv.setViewport(new Rectangle2D(image.getstate_of_sprite()*10, 0, 10, 10));
             GridMap.add(iv, x, y);
     }
@@ -117,7 +124,6 @@ public class WindowMainController {
     	System.out.print(" : ");
     	System.out.println(this.y_window);
     	Element[][] partial_map = Map.ReturnPartialMap(this.x_window, this.y_window, this.GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
-    	// This suppress the cadrillage there might be a better way to do this
     	this.GridMap.getChildren().clear();
 
     	for(int i=0; i<partial_map.length; i++) {
