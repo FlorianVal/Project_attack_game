@@ -99,12 +99,24 @@ public class LifeThread implements Runnable {
 
 	}
 	
+	public static Element SearchNearestEmptyCell(int x, int y){
+		int a = 0;
+		int b = 0;
+		if(SearchNearest(x,y,Element.EMPTY) != -1){
+			a = x;
+			b = y;
+		}
+		return Map.GetElement(a, b);
+	}
+	
+	
 	// overload to use target
 	private int SearchNearest(int x ,int y) {
 		return SearchNearest(x, y, Map.GetElement(x, y).getTarget());
 	}
 	
-	private int SearchNearest(int x ,int y, Element target) {
+	
+	private static int SearchNearest(int x ,int y, Element target) {
 		int rho;
 		double theta;
 		Element elem_around;
@@ -226,43 +238,17 @@ public class LifeThread implements Runnable {
     
     public static void Mate(int x, int y){
     	
+    	Element emptyCell;
+    	
     	//1. Instanciation of the new bbtrex that will be added
     	Element baby_trex_to_add = Element.BABYTREX;
     	
-    	//2. This boolean will be false until an empty element will be found to place our new bbtrex
-    	boolean empty = false;
+    	//Search the nearest empty cell and add the new baby trex to the map
+    	emptyCell = SearchNearestEmptyCell(x,y);
     	
-    	//3. Those integer will allow to get the values of coordinates of the empty cell if the cell just below the mating is not empty (to place the new bbtrex)
-    	int a = 0;
-    	int b = 0;	
-    	
-    	//If the element just below the mating is empty, the new baby trex will be placed there
-    		if(Map.GetElement(x, y+1) == Element.EMPTY && x < Map.GetWidth() - 1 && y+1 < Map.GetHeight()){
-    				Map.AddOneElementToMap(baby_trex_to_add, x, y+1);
-    				System.out.println("A Baby TREX was added at the coordinates (" + x + "," + y+1 + ")" );
-    		}
-    			
-    	//If the element just below is not empty, all the column will be covered in order to find an empty element
-    			else{
-    				
-    				while(empty == false){
-    					
-    					y+=1;
-    					if(x < Map.GetWidth() - 1 && y < Map.GetHeight() - 1 && Map.GetElement(x, y) == Element.EMPTY){
-    						empty = true;
-    						a = x;
-    						b = y;
-    						
-    					}
-    					Map.AddOneElementToMap(baby_trex_to_add,a,b);
-    				}
-    				
-    			}
-    			
-    	}
-    		
-    			
-   
+    	Map.AddOneElementToMap(baby_trex_to_add,emptyCell.getX(), emptyCell.getY());
+    	System.out.println("bbtrex added");
+    }
 
 	// moving one animal just by receiving pos of animal and a random number for
 	// direction
@@ -305,8 +291,10 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y - 1, winner);
 			}
 		}
-		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
+		
+		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y).getMate() == false && Map.GetElement(x, y+1) == Element.TREX && Map.GetElement(x, y+1).getMate() == false){
 			Mate(x,y);
+
 		}
 		
 		// move right
@@ -321,7 +309,6 @@ public class LifeThread implements Runnable {
 		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
 			Mate(x,y);
 		}
-		//return Map.GetMap();
 
 	}
 }

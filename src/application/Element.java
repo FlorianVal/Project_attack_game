@@ -30,19 +30,24 @@ public enum Element {
 	private double respawn_proba;
 	private int x;
 	private int y;
+	private boolean mate;
 	private String target;
+	//constructor name and path to img
+	//(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, boolean mate){
+
+	
 
 	
 	//constructor name and path to img
-	Element(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, String target){
+	Element(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, String target, boolean mate){
 		
 		this.name = name;
 		this.visu = null;
 		this.spawn_proba = spawn_proba;
 		this.is_animal = is_animal;
 		this.respawn_proba = respawn_proba;
+		this.mate = mate;
 		this.target = target;
-
 		
 		if(path_to_img != null){
 			this.visu = new ImageSprite(path_to_img);
@@ -93,6 +98,17 @@ public enum Element {
 	
 	public void setX(int x1){
 		x = x1;
+	}
+	public int getY(){
+		return y;
+	}
+	
+	public boolean getMate(){
+		return mate;
+	}
+	
+	public void setMate(boolean bool){
+		mate = bool;
 	}
 	
 

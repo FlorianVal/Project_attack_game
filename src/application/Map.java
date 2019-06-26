@@ -2,7 +2,7 @@ package application;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.Random;
 
 //method in Map should only init the map and return info about the map
