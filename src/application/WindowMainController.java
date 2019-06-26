@@ -3,7 +3,7 @@ package application;
 //import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyEvent;
 //import java.awt.event.MouseEvent;
 //import java.lang.invoke.MethodHandles;
@@ -112,11 +112,12 @@ public class WindowMainController {
     }
     
     
-    public void AddImage(Image image, int x, int y){
-            ImageView iv = new ImageView(image);
+    public void AddImage(ImageSprite image, int x, int y){
+            ImageView iv = new ImageView(image.getImage());
+            iv.setViewport(new Rectangle2D(image.getstate_of_sprite()*10, 0, 10, 10));
             GridMap.add(iv, x, y);
     }
-    
+     
     public void DisplayMap() {
     	System.out.print(this.x_window);
     	System.out.print(" : ");

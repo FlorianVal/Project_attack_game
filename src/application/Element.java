@@ -14,15 +14,16 @@ public enum Element {
 		//probability of spawning randomly on the map
 		//target )
 
-	TREX("T-Rex","file:src/images/trex.png", 0.001, true, 0, "Brachiosaur"), 
-	FRUIT("Fruit", "file:src/images/fruit.png", 0.006, false, 0.02, ""), 
+	TREX("T-Rex","file:src/images/trex.png", 0.000, true, 0, "Brachiosaur"), 
+	FRUIT("Fruit", "file:src/images/fruit.png", 0.026, false, 0.02, ""), 
 	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, ""),
 	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0, "Fruit"),
 	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.001, true, 0,"Fruit"),
-	BANANA("Banana","file:src/images/banana.png",0.006,false,0,""); //TODO : Draw an image for banana
+	BANANA("Banana","file:src/images/banana.png",0.006,false,0,""),
+	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"");
 	
 	private String name = "";
-	private Image visu;
+	private ImageSprite visu;
 	private double spawn_proba;
 	private boolean is_animal;
 	private String letter;
@@ -44,7 +45,7 @@ public enum Element {
 
 		
 		if(path_to_img != null){
-			this.visu = new Image(path_to_img);
+			this.visu = new ImageSprite(path_to_img);
 		}
 		else{
 			this.visu = null;
@@ -74,7 +75,7 @@ public enum Element {
 		return letter;
 	}
 
-	public Image getVisu() {
+	public ImageSprite getVisu() {
 		return visu;
 	}
 
