@@ -100,13 +100,28 @@ public class LifeThread implements Runnable {
 	}
 	
 	public static Element SearchNearestEmptyCell(int x, int y){
-		int a = 0;
-		int b = 0;
-		if(SearchNearest(x,y,Element.EMPTY) != -1){
-			a = x;
-			b = y;
+		int rho;
+		double theta;
+		Element empty_cell = Map.GetElement(0, 0);
+		int distance_of_seeing = 5;
+		
+		for(rho = 1; rho < distance_of_seeing; rho ++) {
+			for(theta = 0; theta <= 2*Math.PI-0.01; theta+=Math.PI/(rho * 4)) {
+				int cell_x = x + (int) Math.round(rho * Math.cos(theta));
+				int cell_y = y + (int) Math.round(rho * Math.sin(theta));
+				
+				if(cell_x > 0 && cell_x < Map.GetWidth() && cell_y >0 && cell_y <Map.GetHeight()){
+					empty_cell.setX(cell_x);
+					empty_cell.setY(cell_y);
+					empty_cell = Map.GetElement(cell_x, cell_y);
+				}
+				
+			}
 		}
-		return Map.GetElement(a, b);
+		
+		return empty_cell;
+		
+		
 	}
 	
 	
@@ -123,17 +138,20 @@ public class LifeThread implements Runnable {
 		int distance_of_seeing = 12;
 		int direction = -1;
 		boolean found = false;
-		System.out.printf("Search nearest : %d %d %s \n \n",x,y,Map.GetElement(x, y).getName());
+		//System.out.printf("Search nearest : %d %d %s \n \n",x,y,Map.GetElement(x, y).getName());
 		for(rho = 1; rho < distance_of_seeing; rho ++) {
 			for(theta =0; theta <= 2*Math.PI-0.01; theta+=Math.PI/(rho * 4)) {
 				int cell_x = x + (int) Math.round(rho * Math.cos(theta));
 				int cell_y = y + (int) Math.round(rho * Math.sin(theta));
 				if(cell_x > 0 && cell_x < Map.GetWidth() && cell_y >0 && cell_y <Map.GetHeight()) {
 					elem_around = Map.GetElement(cell_x, cell_y);
+					//elem_around.setX(cell_x);
+					//elem_around.setY(cell_y);
+					
 					if(elem_around.getName() == target.getName()) {
 						
 						found = true;
-						System.out.printf("Target found : %d %d %s \n", cell_x, cell_y, elem_around.getName());
+						//System.out.printf("Target found : %d %d %s \n", cell_x, cell_y, elem_around.getName());
 						if(theta >= 7*Math.PI/4 || theta <= Math.PI/4) {
 							direction = 3;
 							//RIGHT
@@ -203,7 +221,7 @@ public class LifeThread implements Runnable {
 		for (int count_animal = 0; count_animal < animals_on_map.length; count_animal++) {
 			int next_move = SearchNearest(animals_on_map[count_animal][0], animals_on_map[count_animal][1]);
 			if(next_move == -1) {
-				System.out.println("Random move");
+				//System.out.println("Random move");
 				next_move = rand.nextInt(4);}
 			// debug force movement
 			// next_move = 3;
@@ -236,18 +254,22 @@ public class LifeThread implements Runnable {
 		
     }
     
-    public static void Mate(int x, int y){
+    public static void Mate(int x, int y, int x1, int y1){
     	
     	Element emptyCell;
     	
-    	//1. Instanciation of the new bbtrex that will be added
     	Element baby_trex_to_add = Element.BABYTREX;
     	
-    	//Search the nearest empty cell and add the new baby trex to the map
     	emptyCell = SearchNearestEmptyCell(x,y);
     	
+    	System.out.println("emptyCell(x = " + emptyCell.getX() + "," + "y = " + emptyCell.getY() + " )");
     	Map.AddOneElementToMap(baby_trex_to_add,emptyCell.getX(), emptyCell.getY());
     	System.out.println("bbtrex added");
+    	
+    	Map.GetElement(x, y).setMate(true);
+    	Map.GetElement(x1, y1).setMate(true);
+    	
+    	
     }
 
 	// moving one animal just by receiving pos of animal and a random number for
@@ -263,13 +285,13 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y + 1, winner);
 			}
 			
-			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
-				Mate(x,y);
+			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX && (Map.GetElement(x, y+1).getMate() == false || Map.GetElement(x, y).getMate() == false)){
+				Mate(x,y,x,y+1);
 			}
 		}
 		
 		// move left
-		if (next_move == 1 && x > 0) {
+		if (next_move == 1 && x > 0 && x < Map.GetWidth() - 1) {
 			
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x - 1, y));
 			
@@ -277,25 +299,28 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x - 1, y, winner);
 			}
+			
+			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x - 1, y) == Element.TREX && (Map.GetElement(x - 1, y).getMate() == false || Map.GetElement(x, y).getMate() == false)){
+				Mate(x,y, x-1, y);
+			}
 		}
 		
-		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
-			Mate(x,y);
-		}
+		
 		
 		// move up
-		if (next_move == 2 && y > 0) {
+		if (next_move == 2 && y > 0 && y < Map.GetHeight() - 1) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y - 1));
 			if (winner != null) {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x, y - 1, winner);
 			}
+			
+			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y-1) == Element.TREX && (Map.GetElement(x, y-1).getMate() == false || Map.GetElement(x, y).getMate() == false)){
+				Mate(x,y, x, y-1);
+			}
 		}
 		
-		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y).getMate() == false && Map.GetElement(x, y+1) == Element.TREX && Map.GetElement(x, y+1).getMate() == false){
-			Mate(x,y);
-
-		}
+		
 		
 		// move right
 		if (next_move == 3 && x < Map.GetWidth()-1) {
@@ -304,11 +329,13 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x + 1, y, winner);
 			}
+			
+			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x + 1, y) == Element.TREX && (Map.GetElement(x + 1, y).getMate() == false || Map.GetElement(x, y).getMate() == false)){
+				Mate(x,y, x+1, y);
+			}
 		}
 		
-		if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
-			Mate(x,y);
-		}
+		
 
 	}
 }

@@ -14,7 +14,7 @@ public enum Element {
 		//probability of spawning randomly on the map
 		//target )
 
-	TREX("T-Rex","file:src/images/trex.png", 0.000, true, 0, "Brachiosaur",false), 
+	TREX("T-Rex","file:src/images/trex.png", 0.006, true, 0, "Brachiosaur",false), 
 	FRUIT("Fruit", "file:src/images/fruit.png", 0.026, false, 0.02, "",false), 
 	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, "",false),
 	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0, "Fruit",false),
@@ -99,8 +99,13 @@ public enum Element {
 	public void setX(int x1){
 		x = x1;
 	}
+	
 	public int getY(){
 		return y;
+	}
+	
+	public void setY(int y1){
+		y = y1;
 	}
 	
 	public boolean getMate(){
