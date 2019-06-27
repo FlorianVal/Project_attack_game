@@ -59,6 +59,9 @@ public class Map {
 			System.out.println(number_of_element); 
 			System.out.println(elem.getSpawn_proba());
 			AddAnimalsToMap(elem, number_of_element);
+			if(elem == Element.TREX){
+				elem.setMate(false);
+			}
 			//random shuffle
 			ShuffleMap();
 			
@@ -97,6 +100,7 @@ public class Map {
 		int inner_count = 0;
 		int i =0;
 		int j =0;
+		
 		while(inner_count<count) {
 			if(map[i][j] == Element.EMPTY) {
 				map[i][j] = elem_to_add;
@@ -116,16 +120,14 @@ public class Map {
 	}
 	
 	
-	public static void AddOneElementToMap(Element elementToAdd, int x, int y){
+	public static void AddOneElementToMap(Element elementToAdd, int x, int y){		
 		
-		boolean exist = false;
-		
-		if(map[x][y] == Element.EMPTY && exist == false){
+		if(map[x][y].equals(Element.EMPTY) && elementToAdd.getExist() == false){
 			map[x][y] = elementToAdd;
-			exist = true;
+			elementToAdd.setExist(true);
 		}
 		
-		if(map[x][y] != Element.EMPTY && exist == true){
+		if(!map[x][y].equals(Element.EMPTY)){
 			System.out.println("There is already an element");
 		}
 	}

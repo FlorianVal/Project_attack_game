@@ -5,22 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public enum Element {
-	// element ( 
-		//formal name, 
-		//path to image of visu, 
-		//spawn probability, 
-		//is animal,
-		//letter to display(until there is image to display), 
-		//probability of spawning randomly on the map
-		//target )
 
-	TREX("T-Rex","file:src/images/trex.png", 0.006, true, 0, "Brachiosaur",false), 
-	FRUIT("Fruit", "file:src/images/fruit.png", 0.026, false, 0.02, "",false), 
-	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, "",false),
-	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0, "Fruit",false),
-	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.001, true, 0,"Fruit",false),
-	BANANA("Banana","file:src/images/banana.png",0.006,false,0,"",false),
-	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"",false);
+	TREX("T-Rex","file:src/images/trex.png", 0.01, true, 0, "Brachiosaur"), 
+	FRUIT("Fruit", "file:src/images/fruit.png", 0.026, false, 0.02, ""), 
+	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, ""),
+	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0, "Fruit"),
+	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.001, true, 0,"Fruit"),
+	BANANA("Banana","file:src/images/banana.png",0.006,false,0,""),
+	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"");
 	
 	private String name = "";
 	private ImageSprite visu;
@@ -31,22 +23,17 @@ public enum Element {
 	private int x;
 	private int y;
 	private boolean mate;
+	private boolean exist;
 	private String target;
-	//constructor name and path to img
-	//(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, boolean mate){
-
-	
-
 	
 	//constructor name and path to img
-	Element(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, String target, boolean mate){
+	Element(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, String target){
 		
 		this.name = name;
 		this.visu = null;
 		this.spawn_proba = spawn_proba;
 		this.is_animal = is_animal;
 		this.respawn_proba = respawn_proba;
-		this.mate = mate;
 		this.target = target;
 		
 		if(path_to_img != null){
@@ -112,8 +99,16 @@ public enum Element {
 		return mate;
 	}
 	
-	public void setMate(boolean bool){
-		mate = bool;
+	public void setMate(boolean mate2){
+		mate = mate2;
+	}
+	
+	public boolean getExist(){
+		return exist;
+	}
+	
+	public void setExist(boolean exist2){
+		exist = exist2;
 	}
 	
 

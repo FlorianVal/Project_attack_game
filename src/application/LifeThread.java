@@ -254,7 +254,7 @@ public class LifeThread implements Runnable {
 		
     }
     
-    public static void Mate(int x, int y, int x1, int y1){
+    public static void Mate(int x, int y){
     	
     	Element emptyCell;
     	
@@ -263,19 +263,18 @@ public class LifeThread implements Runnable {
     	emptyCell = SearchNearestEmptyCell(x,y);
     	
     	System.out.println("emptyCell(x = " + emptyCell.getX() + "," + "y = " + emptyCell.getY() + " )");
-    	Map.AddOneElementToMap(baby_trex_to_add,emptyCell.getX(), emptyCell.getY());
+    	baby_trex_to_add.setExist(false);
+    	Map.AddOneElementToMap(baby_trex_to_add, emptyCell.getX(), emptyCell.getY());
     	System.out.println("bbtrex added");
     	
-    	Map.GetElement(x, y).setMate(true);
-    	Map.GetElement(x1, y1).setMate(true);
-    	
+    	  	
     	
     }
 
 	// moving one animal just by receiving pos of animal and a random number for
 	// direction
 	public void MoveAnimal(int x, int y, int next_move) {
-
+		
 		// move down
 		if (next_move == 0 && y < Map.GetHeight() -1) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y + 1));
@@ -285,24 +284,47 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y + 1, winner);
 			}
 			
-			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX && (Map.GetElement(x, y+1).getMate() == false || Map.GetElement(x, y).getMate() == false)){
-				Mate(x,y,x,y+1);
+			
+			
+			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX && Map.GetElement(x, y).getMate() == false || Map.GetElement(x, y+1).getMate() == false){
+				System.out.println("Value bool before mate : " + Map.GetElement(x, y).getMate());
+				System.out.println("Value bool before mate : " + Map.GetElement(x, y+1).getMate());
+				Mate(x,y);
+				Map.GetElement(x, y).setMate(true);
+				Map.GetElement(x, y+1).setMate(true);
+				
 			}
+			
+			
+			
+			System.out.println("Value bool after mate : " + Map.GetElement(x, y).getMate());
+			System.out.println("Value bool after mate : " + Map.GetElement(x, y+1).getMate());
 		}
 		
 		// move left
 		if (next_move == 1 && x > 0 && x < Map.GetWidth() - 1) {
 			
+			
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x - 1, y));
+			//Map.GetElement(x-1, y).setMate(false);
 			
 			if (winner != null) {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x - 1, y, winner);
 			}
 			
-			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x - 1, y) == Element.TREX && (Map.GetElement(x - 1, y).getMate() == false || Map.GetElement(x, y).getMate() == false)){
-				Mate(x,y, x-1, y);
+			
+			
+			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x - 1, y) == Element.TREX && Map.GetElement(x, y).getMate() == false || Map.GetElement(x-1, y).getMate() == false){
+				System.out.println("Value bool before mate : " + Map.GetElement(x, y).getMate());
+				System.out.println("Value bool before mate : " + Map.GetElement(x-1, y).getMate());
+				Mate(x,y);
+				Map.GetElement(x, y).setMate(true);
+				Map.GetElement(x-1, y).setMate(true);
 			}
+			 
+			System.out.println("Value bool after mate : " + Map.GetElement(x, y).getMate());
+			System.out.println("Value bool after mate : " + Map.GetElement(x-1, y).getMate());
 		}
 		
 		
@@ -310,14 +332,28 @@ public class LifeThread implements Runnable {
 		// move up
 		if (next_move == 2 && y > 0 && y < Map.GetHeight() - 1) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y - 1));
+			//Map.GetElement(x, y-1).setMate(false);
+			
 			if (winner != null) {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x, y - 1, winner);
 			}
+
 			
-			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y-1) == Element.TREX && (Map.GetElement(x, y-1).getMate() == false || Map.GetElement(x, y).getMate() == false)){
-				Mate(x,y, x, y-1);
+			
+			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y-1) == Element.TREX && Map.GetElement(x, y).getMate() == false || Map.GetElement(x, y-1).getMate() == false){
+			
+				System.out.println("Value bool before mate : " + Map.GetElement(x, y).getMate());
+				System.out.println("Value bool before mate : " + Map.GetElement(x, y-1).getMate());
+				Mate(x,y);
+
+				Map.GetElement(x, y).setMate(true);
+				Map.GetElement(x, y-1).setMate(true); 
+				
 			}
+			
+			System.out.println("Value bool after mate : " + Map.GetElement(x, y).getMate());
+			System.out.println("Value bool after mate : " + Map.GetElement(x, y-1).getMate());
 		}
 		
 		
@@ -325,14 +361,27 @@ public class LifeThread implements Runnable {
 		// move right
 		if (next_move == 3 && x < Map.GetWidth()-1) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x + 1, y));
+			//Map.GetElement(x+1, y).setMate(false);
+			
 			if (winner != null) {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x + 1, y, winner);
 			}
 			
-			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x + 1, y) == Element.TREX && (Map.GetElement(x + 1, y).getMate() == false || Map.GetElement(x, y).getMate() == false)){
-				Mate(x,y, x+1, y);
+			
+			
+			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x + 1, y) == Element.TREX && Map.GetElement(x, y).getMate() == false || Map.GetElement(x+1, y).getMate() == false){
+				System.out.println("Value bool before mate : " + Map.GetElement(x, y).getMate());
+				System.out.println("Value bool before mate : " + Map.GetElement(x+1, y).getMate());
+				
+				Mate(x,y);
+
+				Map.GetElement(x, y).setMate(true);
+				Map.GetElement(x+1, y).setMate(true); 
+				
 			}
+			System.out.println("Value bool after mate : " + Map.GetElement(x, y).getMate());
+			System.out.println("Value bool after mate : " + Map.GetElement(x+1, y).getMate());
 		}
 		
 		
