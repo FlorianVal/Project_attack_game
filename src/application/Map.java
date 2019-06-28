@@ -23,13 +23,6 @@ public class Map {
 		System.out.println("Map inited");
 	}
 	
-
-	/*private void launch_life_thread() {
-		LifeThread lifethread = new LifeThread(controller);
-	    Thread thread = new Thread(lifethread);
-	    thread.start();
-	}*/
-	
 	public static Element GetElement(int x, int y) {
 		return map[x][y];
 	}
@@ -58,10 +51,9 @@ public class Map {
 			System.out.print(": number of element :");
 			System.out.println(number_of_element); 
 			System.out.println(elem.getSpawn_proba());
+			
 			AddAnimalsToMap(elem, number_of_element);
-			if(elem == Element.TREX){
-				elem.setMate(false);
-			}
+			
 			//random shuffle
 			ShuffleMap();
 			
@@ -122,12 +114,11 @@ public class Map {
 	
 	public static void AddOneElementToMap(Element elementToAdd, int x, int y){		
 		
-		if(map[x][y].equals(Element.EMPTY) && elementToAdd.getExist() == false){
+		if(map[x][y] == Element.EMPTY && elementToAdd.getExist() == false){
 			map[x][y] = elementToAdd;
-			elementToAdd.setExist(true);
 		}
 		
-		if(!map[x][y].equals(Element.EMPTY)){
+		if(map[x][y] != Element.EMPTY){
 			System.out.println("There is already an element");
 		}
 	}

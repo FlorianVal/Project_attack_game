@@ -35,6 +35,8 @@ public enum Element {
 		this.is_animal = is_animal;
 		this.respawn_proba = respawn_proba;
 		this.target = target;
+		this.mate = false;
+		this.exist = false;
 		
 		if(path_to_img != null){
 			this.visu = new ImageSprite(path_to_img);
