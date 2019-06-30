@@ -7,13 +7,13 @@ import java.util.Arrays;
 public enum Element {
 
 	TREX("T-Rex","file:src/images/trex.png", 0.01, true, 0, "Brachiosaur", false),
-	TREXMATE("T-Rex-Mated","file:src/images/mur.jpg", 0, true, 0, "Brachiosaur", true), 
+	TREXMATE("T-Rex-Mated","file:src/images/mur.jpg", 0, true, 0, "Brachiosaur", true), //TODO : Edit the picture when all tests will be ok
 	FRUIT("Fruit", "file:src/images/fruit.png", 0.026, false, 0.02, "", false), 
 	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, "", false),
 	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0, "Fruit", false),
 	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.001, true, 0,"Fruit", false),
 	BANANA("Banana","file:src/images/banana.png",0.006,false,0,"", false),
-	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"", false);
+	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"", false); // TODO : Fire and banana must not be in the lvl 1
 	
 	private String name = "";
 	private ImageSprite visu;

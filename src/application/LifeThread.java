@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Random;
 import javafx.application.Platform;
 
+
 public class LifeThread implements Runnable {
 
 	private boolean doStop = false;
