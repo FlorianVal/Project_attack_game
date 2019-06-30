@@ -10,6 +10,8 @@ public class LifeThread implements Runnable {
 	private boolean doStop = false;
 	private boolean IsPaused = false;
 	public WindowMainController controller;
+	
+	//TODO : Timer in order to transform back the TREXMATE in TREX
 
 	// constructor include map and controller of window
 	public LifeThread(WindowMainController controller_given) {
@@ -308,7 +310,7 @@ public class LifeThread implements Runnable {
 			
 			if((Map.GetElement(x, y) == Element.TREX && (Map.GetElement(x-1, y) == Element.TREXMATE || Map.GetElement(x-1, y) == Element.TREX)) || (Map.GetElement(x-1, y) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))){
 					Mate(x,y, x-1, y);
-					Element.transformTREX(x,y, x-1, y, Element.TREXMATE);
+					Element.transformTREX(x,y, x-1, y, Element.TREXMATE); 
 				
 			}
 			 
