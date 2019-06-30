@@ -11,7 +11,6 @@ public class LifeThread implements Runnable {
 	private boolean IsPaused = false;
 	public WindowMainController controller;
 	
-	//TODO : Timer in order to transform back the TREXMATE in TREX
 
 	// constructor include map and controller of window
 	public LifeThread(WindowMainController controller_given) {
@@ -49,7 +48,6 @@ public class LifeThread implements Runnable {
 					@Override
 					public void run() {
 						controller.DisplayMap();
-
 					}
 
 				});
@@ -283,8 +281,6 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y + 1, winner);
 			}
 			
-			System.out.println(Map.GetElement(x, y).getName());
-			System.out.println(Map.GetElement(x, y+1).getName());
 			
 			if((Map.GetElement(x, y) == Element.TREX && (Map.GetElement(x, y+1) == Element.TREXMATE || Map.GetElement(x, y+1) == Element.TREX)) || (Map.GetElement(x, y+1) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))){
 				
