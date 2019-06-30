@@ -98,9 +98,9 @@ public enum Element {
 		y = y1;
 	}
 	
-	public static void transformTREXToTREXMated(int x, int y, int x1, int y1){
-			Map.SetElement(x, y, Element.TREXMATE);
-			Map.SetElement(x1, y1, Element.TREXMATE);
+	public static void transformTREX(int x, int y, int x1, int y1, Element element){
+			Map.SetElement(x, y, element);
+			Map.SetElement(x1, y1, element);
 	}
 	
 	public boolean getMate(){
