@@ -47,10 +47,10 @@ public class Map {
 		//then add objects
 		for(Element elem: elist) {
 			int number_of_element = (int) (map.length * map[0].length * elem.getSpawn_proba());
-			System.out.print(elem.getName());
-			System.out.print(": number of element :");
-			System.out.println(number_of_element); 
-			System.out.println(elem.getSpawn_proba());
+			//System.out.print(elem.getName());
+			//System.out.print(": number of element :");
+			//System.out.println(number_of_element); 
+			//System.out.println(elem.getSpawn_proba());
 			
 			AddAnimalsToMap(elem, number_of_element);
 			
@@ -114,9 +114,18 @@ public class Map {
 	
 	public static void AddOneElementToMap(Element elementToAdd, int x, int y){		
 		
-		if(map[x][y] == Element.EMPTY && elementToAdd.getExist() == false){
-			map[x][y] = elementToAdd;
+		int nbBnAdded = 0;
+		
+		if(map[x][y] == Element.EMPTY){
+			while(elementToAdd.getExist() == false){
+				map[x][y] = elementToAdd;
+				nbBnAdded+=1;
+				elementToAdd.setExist(true);
+			}
+			System.out.println("Nombre bb ajoutés : " +  nbBnAdded);
+			
 		}
+		
 		
 		if(map[x][y] != Element.EMPTY){
 			System.out.println("There is already an element");
@@ -126,9 +135,9 @@ public class Map {
 	//console version
 	public static void displayMap(Element[][] map_to_display){
 		int i, j;
-		System.out.print("Map to display :");
-		System.out.print(map_to_display.length);
-		System.out.println(map_to_display[0].length);
+		//System.out.print("Map to display :");
+		//System.out.print(map_to_display.length);
+		//System.out.println(map_to_display[0].length);
         for(i=0; i<map_to_display.length; i++){
             for(j=0; j<map_to_display[i].length ; j++){
             	System.out.print(i);

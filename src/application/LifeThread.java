@@ -41,6 +41,7 @@ public class LifeThread implements Runnable {
 			if (this.IsPaused == false) {
 				MoveAnimals();
 				Respawn();
+				
 				// run later is needed to run display map in life thread
 				Platform.runLater(new Runnable() {
 					@Override
@@ -57,8 +58,10 @@ public class LifeThread implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
 
 		}
+		
 
 	}
 
@@ -201,7 +204,7 @@ public class LifeThread implements Runnable {
 				}
 			}
 		}
-		System.out.printf("number of animals on map : %d \n",animal_count);
+		//System.out.printf("number of animals on map : %d \n",animal_count);
 		// create array with pos (x,y) of every animal on the map
 		int animals_on_map[][] = new int[animal_count][2];
 		animal_count = 0;
@@ -255,21 +258,13 @@ public class LifeThread implements Runnable {
     }
     
     public static void Mate(int x, int y, int x1, int y1){
-    	
-    	Map.GetElement(x, y).setMate(true);
-    	Map.GetElement(x1, y1).setMate(true);
-    	
+    	System.out.println("Method mate launched");
     	Element emptyCell;
     	Element baby_trex_to_add = Element.BABYTREX;
-    	
-    	emptyCell = SearchNearestEmptyCell(x,y);
-    	
     	baby_trex_to_add.setExist(false);
+    	emptyCell = SearchNearestEmptyCell(x,y);
     	Map.AddOneElementToMap(baby_trex_to_add, emptyCell.getX(), emptyCell.getY());
-    	baby_trex_to_add.setExist(true);
     	System.out.println("bbtrex added");
-    	
-    	  	
     	
     }
 
@@ -286,14 +281,13 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y + 1, winner);
 			}
 			
+			System.out.println(Map.GetElement(x, y).getName());
+			System.out.println(Map.GetElement(x, y+1).getName());
 			
-			
-			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y+1) == Element.TREX){
-				if(Map.GetElement(x, y).getMate() == false && Map.GetElement(x,y+1).getMate() == false){
-					
+			if((Map.GetElement(x, y) == Element.TREX && (Map.GetElement(x, y+1) == Element.TREXMATE || Map.GetElement(x, y+1) == Element.TREX)) || (Map.GetElement(x, y+1) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))){
+				
 					Mate(x,y, x, y+1);
-					
-				}
+					Element.transformTREXToTREXMated(x,y, x, y+1);
 				
 			}
 			
@@ -302,7 +296,6 @@ public class LifeThread implements Runnable {
 		// move left
 		if (next_move == 1 && x > 0 && x < Map.GetWidth() - 1) {
 			
-			
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x - 1, y));
 			
 			if (winner != null) {
@@ -310,14 +303,13 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x - 1, y, winner);
 			}
 			
-			
+			System.out.println(Map.GetElement(x, y).getName());
+			System.out.println(Map.GetElement(x-1, y).getName());
 			
 			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x - 1, y) == Element.TREX){
-				if(Map.GetElement(x, y).getMate() == false && Map.GetElement(x-1,y).getMate() == false){
-					
 					Mate(x,y, x-1, y);
+					Element.transformTREXToTREXMated(x,y, x-1, y);
 				
-				}
 			}
 			 
 		}
@@ -327,21 +319,15 @@ public class LifeThread implements Runnable {
 		// move up
 		if (next_move == 2 && y > 0 && y < Map.GetHeight() - 1) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y - 1));
-			//Map.GetElement(x, y-1).setMate(false);
 			
 			if (winner != null) {
 				Map.SetElement(x, y, Element.EMPTY);
 				Map.SetElement(x, y - 1, winner);
 			}
-
-			
-			
-			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y-1) == Element.TREX){
-				if(Map.GetElement(x, y).getMate() == false && Map.GetElement(x,y-1).getMate() == false){
-					
-					Mate(x,y, x, y-1);
-				}
 				
+			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x, y-1) == Element.TREX){
+					Mate(x,y, x, y-1);
+					Element.transformTREXToTREXMated(x,y,x, y-1);
 			}
 			
 		}
@@ -357,14 +343,12 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x + 1, y, winner);
 			}
 			
-			
+			System.out.println(Map.GetElement(x, y).getName());
+			System.out.println(Map.GetElement(x+1, y).getName());
 			
 			if(Map.GetElement(x, y) == Element.TREX && Map.GetElement(x + 1, y) == Element.TREX){
-				if(Map.GetElement(x, y).getMate() == false && Map.GetElement(x+1,y).getMate() == false){
-					
 					Mate(x,y, x+1, y);
-				}
-				
+					Element.transformTREXToTREXMated(x,y, x+1, y);
 			}
 		}
 		

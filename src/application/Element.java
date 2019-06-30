@@ -6,13 +6,14 @@ import java.util.Arrays;
 
 public enum Element {
 
-	TREX("T-Rex","file:src/images/trex.png", 0.01, true, 0, "Brachiosaur"), 
-	FRUIT("Fruit", "file:src/images/fruit.png", 0.026, false, 0.02, ""), 
-	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, ""),
-	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0, "Fruit"),
-	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.001, true, 0,"Fruit"),
-	BANANA("Banana","file:src/images/banana.png",0.006,false,0,""),
-	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"");
+	TREX("T-Rex","file:src/images/trex.png", 0.01, true, 0, "Brachiosaur", false),
+	TREXMATE("T-Rex-Mated","file:src/images/mur.jpg", 0, true, 0, "Brachiosaur", true), 
+	FRUIT("Fruit", "file:src/images/fruit.png", 0.026, false, 0.02, "", false), 
+	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, "", false),
+	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0, "Fruit", false),
+	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.001, true, 0,"Fruit", false),
+	BANANA("Banana","file:src/images/banana.png",0.006,false,0,"", false),
+	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"", false);
 	
 	private String name = "";
 	private ImageSprite visu;
@@ -27,7 +28,7 @@ public enum Element {
 	private String target;
 	
 	//constructor name and path to img
-	Element(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, String target){
+	Element(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, String target, boolean mate){
 		
 		this.name = name;
 		this.visu = null;
@@ -35,7 +36,7 @@ public enum Element {
 		this.is_animal = is_animal;
 		this.respawn_proba = respawn_proba;
 		this.target = target;
-		this.mate = false;
+		this.mate = mate;
 		this.exist = false;
 		
 		if(path_to_img != null){
@@ -97,12 +98,13 @@ public enum Element {
 		y = y1;
 	}
 	
-	public boolean getMate(){
-		return mate;
+	public static void transformTREXToTREXMated(int x, int y, int x1, int y1){
+			Map.SetElement(x, y, Element.TREXMATE);
+			Map.SetElement(x1, y1, Element.TREXMATE);
 	}
 	
-	public void setMate(boolean mate2){
-		mate = mate2;
+	public boolean getMate(){
+		return mate;
 	}
 	
 	public boolean getExist(){
