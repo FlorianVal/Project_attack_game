@@ -58,6 +58,9 @@ public class WindowController {
     
     void OpenMainWindow(String level_fxml_file, String name) {
 	    try {	
+			Element.BANANA.setSpawn_proba(0);
+			Element.FIRE.setSpawn_proba(0);
+	    	
 			FXMLLoader loader1 = new FXMLLoader(getClass().getResource(level_fxml_file));
 			Parent root = loader1.load();
 			WindowMainController captureWindowController = loader1.getController();
@@ -67,6 +70,7 @@ public class WindowController {
 			stage.setTitle(name);
 			stage.setScene(scene);
 			stage.show();
+
 			
 			
 		} catch(Exception e) {

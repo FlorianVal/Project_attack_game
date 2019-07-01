@@ -16,6 +16,14 @@ public enum Element {
 	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"", false); // TODO : Fire and banana must not be in the lvl 1
 	
 	private String name = "";
+	public void setSpawn_proba(double spawn_proba) {
+		this.spawn_proba = spawn_proba;
+	}
+
+	public void setRespawn_proba(double respawn_proba) {
+		this.respawn_proba = respawn_proba;
+	}
+
 	private ImageSprite visu;
 	private double spawn_proba;
 	private boolean is_animal;
