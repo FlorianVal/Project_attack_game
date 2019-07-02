@@ -13,7 +13,7 @@ public enum Element {
 	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0, "Fruit", false),
 	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.001, true, 0,"Fruit", false),
 	BANANA("Banana","file:src/images/banana.png",0.006,false,0,"", false),
-	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"", false); // TODO : Fire and banana must not be in the lvl 1
+	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"", false);
 	
 	private String name = "";
 	public void setSpawn_proba(double spawn_proba) {

@@ -35,7 +35,7 @@ public class WindowController {
     @FXML
     void OpenLevelTwo(ActionEvent event) {
     	if(CheckParameters()) {
-	   		OpenMainWindow("/application/Level2.fxml", "Level 2");
+	   		OpenMainWindow("/application/Level2.fxml", "Level 2"); // TODO change path to src/application (actually in bin/application)
     	}
     	else {
     		ShowMessageError();

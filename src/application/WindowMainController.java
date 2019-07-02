@@ -21,7 +21,6 @@ public class WindowMainController {
 	private static Thread thread;
 	private static LifeThread lifethread;
     
-    //TODO add method to put part of the map in the grid pane
     @FXML
     void initialize(WindowMainController controller,int width, int height) {
     	
@@ -138,7 +137,9 @@ public class WindowMainController {
     public void AddBananaRandomOnMap(){
     	LifeThread.RandomlyAddToMap(Element.BANANA);
     }
-    
+    public void BurnRandomMap() {
+    	LifeThread.RandomlyAddToMap(Element.FIRE);
+    }
 }
 
 
