@@ -22,7 +22,9 @@ public class WindowController {
     @FXML
     void OpenLevelOne(ActionEvent event){
     	if(CheckParameters()) {
-    		
+			Element.BANANA.setSpawn_proba(0);
+			Element.FIRE.setSpawn_proba(0);
+			
 	   		OpenMainWindow("/application/Level1.fxml", "Level 1");
 	    }
     	else {
@@ -58,8 +60,7 @@ public class WindowController {
     
     void OpenMainWindow(String level_fxml_file, String name) {
 	    try {	
-			Element.BANANA.setSpawn_proba(0);
-			Element.FIRE.setSpawn_proba(0);
+
 	    	
 			FXMLLoader loader1 = new FXMLLoader(getClass().getResource(level_fxml_file));
 			Parent root = loader1.load();
