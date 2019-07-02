@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 //import java.awt.event.MouseEvent;
 //import java.lang.invoke.MethodHandles;
 
@@ -18,6 +19,7 @@ public class WindowMainController {
     private GridPane GridMap;
     private int x_window = 0;
     private int y_window = 0;
+    private Element button_state = null;
 	private static Thread thread;
 	private static LifeThread lifethread;
     
@@ -72,6 +74,28 @@ public class WindowMainController {
     		
     	}
         }
+    
+    @FXML
+    void OnMouseClicked(MouseEvent event) {
+
+    	int[] cell = GetCell(event.getSceneX(),event.getSceneY());
+    	if(cell[0] != -1 && cell[1] != -1 && button_state != null) {
+    		Map.SetElement(cell[0], cell[1], button_state);
+			button_state = null;
+    	}
+    }
+    
+    public int[] GetCell(double x, double y) {
+    	int[] cell = new int[2];
+    	cell[0] = -1;
+    	cell[1] = -1;
+    	if(x >= 20 && x <= 420 && y >= 20 && y <= 270) {
+    		cell[0] = (int) (x - 20)/10;
+    		cell[1] = (int) (y - 20)/10;
+    		
+    	}
+    	return cell;
+    }
     
     @FXML
     void MoveMapDown() {
@@ -139,6 +163,12 @@ public class WindowMainController {
     }
     public void BurnRandomMap() {
     	LifeThread.RandomlyAddToMap(Element.FIRE);
+    }
+    public void AddBananaOnMap() {
+    	button_state = Element.BANANA;
+    }
+    public void BurnMap() {
+    	button_state = Element.FIRE;
     }
 }
 

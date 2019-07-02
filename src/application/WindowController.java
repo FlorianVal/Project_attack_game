@@ -1,5 +1,8 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,18 +21,37 @@ public class WindowController {
     @FXML
     private TextField height;
 
-
+    private void SetParameters(int level) {
+    	if(level == 1) {
+    		Element.FIRE.setWontExist();
+    		Element.BANANA.setWontExist();
+    		Element.TREX.setSpawn_proba(0.006);
+    		Element.BRACHIO.setSpawn_proba(0.01);
+    		Element.FRUIT.setSpawn_proba(0.005);
+    		Element.FRUIT.setRespawn_proba(0.002);
+    		
+    	}
+    	if(level == 2) {
+    		
+    	}
+    	if(level == 3) {
+    		ArrayList<Element> elist = new ArrayList<Element>(Arrays.asList(Element.values()));
+    		for(Element elem: elist) {
+    			elem.setWontExist();
+    		}
+    		Element.FRUIT.setRespawn_proba(0.2);
+    	}
+    	
+    }
+    
     @FXML
     void OpenLevelOne(ActionEvent event){
     	if(CheckParameters()) {
-			Element.BANANA.setSpawn_proba(0);
-			Element.FIRE.setSpawn_proba(0);
-			
+			SetParameters(1);
 	   		OpenMainWindow("/application/Level1.fxml", "Level 1");
 	    }
     	else {
     		ShowMessageError();
-    		//System.out.println("incorrect params");
     	}
     		
     }
@@ -37,11 +59,11 @@ public class WindowController {
     @FXML
     void OpenLevelTwo(ActionEvent event) {
     	if(CheckParameters()) {
+			SetParameters(2);
 	   		OpenMainWindow("/application/Level2.fxml", "Level 2"); // TODO change path to src/application (actually in bin/application)
     	}
     	else {
     		ShowMessageError();
-    		//System.out.println("incorrect params");
     	}
     	
     }
@@ -49,11 +71,11 @@ public class WindowController {
     @FXML
     void OpenLevelThree(ActionEvent event) {
     	if(CheckParameters()) {
+			SetParameters(3);
 	   		OpenMainWindow("/application/Level3.fxml", "Level 3");
     	}
     	else {
     		ShowMessageError();
-    		//System.out.println("incorrect params");
     	}
 
     }
