@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WindowMainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" onMouseClicked="#OnMouseClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WindowMainController">
    <children>
       <Button layoutX="195.0" layoutY="323.0" mnemonicParsing="false" onMouseClicked="#MoveMapLeft" prefWidth="70.0" text="Left" />
       <Button layoutX="265.0" layoutY="296.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#MoveMapUp" prefWidth="70.0" text="Up" />
@@ -84,8 +84,10 @@
             
         </rowConstraints>
       </GridPane>
-      <Button layoutX="453.0" layoutY="30.0" mnemonicParsing="false" onAction="#AddBananaOnMap" text="Add a banana" />
-      <Button layoutX="453.0" layoutY="71.0" mnemonicParsing="false" onAction="#BurnMap" text="Fire" />
-      <Button layoutX="453.0" layoutY="111.0" mnemonicParsing="false" text="Add 2" />
+      <Button layoutX="453.0" layoutY="20.0" minWidth="100.0" mnemonicParsing="false" onAction="#AddFruitOnMap" prefWidth="100.0" text="Apple" AnchorPane.topAnchor="20.0" />
+      <Button layoutX="453.0" layoutY="20.0" minWidth="100.0" mnemonicParsing="false" onAction="#AddBananaOnMap" prefHeight="27.0" prefWidth="100.0" text="Banana" AnchorPane.topAnchor="60.0" />
+      <Button layoutX="453.0" layoutY="99.0" minWidth="100.0" mnemonicParsing="false" onAction="#AddTrexOnMap" prefWidth="100.0" text="T-Rex" AnchorPane.topAnchor="100.0" />
+      <Button layoutX="453.0" layoutY="99.0" minWidth="100.0" mnemonicParsing="false" onAction="#AddBrachioOnMap" prefHeight="27.0" prefWidth="100.0" text="Brachiosaur" AnchorPane.topAnchor="140.0" />
+      <Button layoutX="453.0" layoutY="145.0" minWidth="100.0" mnemonicParsing="false" onAction="#BurnMap" prefHeight="27.0" prefWidth="100.0" text="Fire" AnchorPane.topAnchor="180.0" />
    </children>
 </AnchorPane>

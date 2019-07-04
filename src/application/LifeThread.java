@@ -64,7 +64,7 @@ public class LifeThread implements Runnable {
 
 	private void SpreadFire() {
 		int[][] fire_on_map = Find(false, true);
-		int spread_rate = 3; //% of chance to spread
+		int spread_rate = 10; //% of chance to spread
 		int number_of_try_per_fire = 10;
 		Random rand = new Random();
 		for (int count = 0; count < fire_on_map.length; count++) {

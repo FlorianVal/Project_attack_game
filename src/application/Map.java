@@ -47,10 +47,7 @@ public class Map {
 		//then add objects
 		for(Element elem: elist) {
 			int number_of_element = (int) (map.length * map[0].length * elem.getSpawn_proba());
-			//System.out.print(elem.getName());
-			//System.out.print(": number of element :");
-			//System.out.println(number_of_element); 
-			//System.out.println(elem.getSpawn_proba());
+
 			
 			AddAnimalsToMap(elem, number_of_element);
 			
@@ -122,7 +119,7 @@ public class Map {
 				nbBnAdded+=1;
 				elementToAdd.setExist(true);
 			}
-			System.out.println("Nombre bb ajoutés : " +  nbBnAdded);
+			System.out.println("Nombre bb ajoutï¿½s : " +  nbBnAdded);
 			
 		}
 		
