@@ -1,6 +1,9 @@
 package application;
 
 import javafx.scene.image.Image;
+
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -26,6 +29,7 @@ public enum Element {
 	private boolean mate;
 	private boolean exist;
 	private String target;
+	private int count;
 	
 	//constructor name and path to img
 	Element(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, String target, boolean mate){
@@ -99,6 +103,7 @@ public enum Element {
 	}
 	
 	public static void transformTREX(int x, int y, int x1, int y1, Element element){
+
 			Map.SetElement(x, y, element);
 			Map.SetElement(x1, y1, element);
 			
@@ -116,6 +121,13 @@ public enum Element {
 		exist = exist2;
 	}
 	
+	public int getCount(){
+		return count;
+	}
+	
+	public void setCount(int count2){
+		count = count2;
+	}
 
 	
 }

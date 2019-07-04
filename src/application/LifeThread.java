@@ -11,7 +11,6 @@ public class LifeThread implements Runnable {
 	private boolean doStop = false;
 	private boolean IsPaused = false;
 	public WindowMainController controller;
-	
 
 	// constructor include map and controller of window
 	public LifeThread(WindowMainController controller_given) {
@@ -60,7 +59,6 @@ public class LifeThread implements Runnable {
 				e.printStackTrace();
 			}
 			
-
 		}
 		
 
@@ -195,13 +193,15 @@ public class LifeThread implements Runnable {
 		Random rand = new Random();
 		int animal_count = 0;
 		//Element[][] updatedMap = new Element[Map.GetWidth()][Map.GetHeight()];
-		
+		int count = 0;
 		// loop to count animals (needed to create static array next)
 		for (int a = 0; a < Map.GetWidth(); a++) {
 			for (int b = 0; b < Map.GetHeight(); b++) {
+				count+=1;
+				Map.GetElement(a, b).setCount(count);
 				if (Map.GetElement(a, b).is_animal()) {
 					animal_count += 1;
-
+					
 				}
 			}
 		}
@@ -283,7 +283,8 @@ public class LifeThread implements Runnable {
 			}
 			
 			
-			if((Map.GetElement(x, y) == Element.TREX && (Map.GetElement(x, y+1) == Element.TREXMATE || Map.GetElement(x, y+1) == Element.TREX)) || (Map.GetElement(x, y+1) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))){
+			if((Map.GetElement(x, y) == Element.TREX && (Map.GetElement(x, y+1) == Element.TREXMATE
+				|| Map.GetElement(x, y+1) == Element.TREX)) || (Map.GetElement(x, y+1) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))){
 				
 					Mate(x,y, x, y+1);
 					Element.transformTREX(x,y, x, y+1, Element.TREXMATE);
@@ -302,12 +303,9 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x - 1, y, winner);
 			}
 			
-			System.out.println(Map.GetElement(x, y).getName());
-			System.out.println(Map.GetElement(x-1, y).getName());
-			
 			if((Map.GetElement(x, y) == Element.TREX && (Map.GetElement(x-1, y) == Element.TREXMATE || Map.GetElement(x-1, y) == Element.TREX)) || (Map.GetElement(x-1, y) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))){
 					Mate(x,y, x-1, y);
-					Element.transformTREX(x,y, x-1, y, Element.TREXMATE); 
+					Element.transformTREX(x,y, x-1, y, Element.TREXMATE);
 				
 			}
 			 
@@ -324,9 +322,12 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y - 1, winner);
 			}
 				
-			if((Map.GetElement(x, y) == Element.TREX && (Map.GetElement(x, y-1) == Element.TREXMATE || Map.GetElement(x, y-1) == Element.TREX)) || (Map.GetElement(x, y-1) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))){
-					Mate(x,y, x, y-1);
-					Element.transformTREX(x,y,x, y-1, Element.TREXMATE);
+			if((Map.GetElement(x, y) == Element.TREX &&
+			(Map.GetElement(x, y-1) == Element.TREXMATE || Map.GetElement(x, y-1) == Element.TREX)) 
+			|| (Map.GetElement(x, y-1) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))){
+					
+				Mate(x,y, x, y-1);
+				Element.transformTREX(x,y,x, y-1, Element.TREXMATE);
 			}
 			
 		}
@@ -343,7 +344,9 @@ public class LifeThread implements Runnable {
 			}
 			
 			
-			if((Map.GetElement(x, y) == Element.TREX && (Map.GetElement(x+1, y) == Element.TREXMATE || Map.GetElement(x+1, y) == Element.TREX)) || (Map.GetElement(x+1, y) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))){
+			if((Map.GetElement(x, y) == Element.TREX && (Map.GetElement(x+1, y) == Element.TREXMATE 
+			|| Map.GetElement(x+1, y) == Element.TREX)) || (Map.GetElement(x+1, y) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE 
+			|| Map.GetElement(x, y) == Element.TREX))){
 					Mate(x,y, x+1, y);
 					Element.transformTREX(x,y, x+1, y, Element.TREXMATE);
 			}
