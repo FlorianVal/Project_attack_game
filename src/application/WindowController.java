@@ -28,18 +28,24 @@ public class WindowController {
     		Element.TREX.setSpawn_proba(0.006);
     		Element.BRACHIO.setSpawn_proba(0.01);
     		Element.FRUIT.setSpawn_proba(0.005);
-    		Element.FRUIT.setRespawn_proba(0.002);
+    		Element.FRUIT.setRespawn_proba(0.01);
+    		Element.FIRE.setRespawn_proba(0.002);
     		
     	}
     	if(level == 2) {
-    		
+    		Element.BANANA.setWontExist();
+    		Element.FIRE.setWontExist();
+    		Element.TREX.setSpawn_proba(0.006);
+    		Element.BRACHIO.setSpawn_proba(0.01);
+    		Element.FRUIT.setSpawn_proba(0.005);
+    		Element.FRUIT.setRespawn_proba(0.01);
+    		Element.FIRE.setRespawn_proba(0.002);
     	}
     	if(level == 3) {
     		ArrayList<Element> elist = new ArrayList<Element>(Arrays.asList(Element.values()));
     		for(Element elem: elist) {
     			elem.setWontExist();
     		}
-    		Element.FRUIT.setRespawn_proba(0.2);
     	}
     	
     }
@@ -69,6 +75,7 @@ public class WindowController {
     }
     
     @FXML
+    //TODO add button fxml for every element
     void OpenLevelThree(ActionEvent event) {
     	if(CheckParameters()) {
 			SetParameters(3);
