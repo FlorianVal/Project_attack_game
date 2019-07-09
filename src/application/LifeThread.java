@@ -344,11 +344,10 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y + 1, winner);
 			}
 			
-			if(winner != null && winner.getElement() == Element.BABYTREX){
-				
-				if(winner.getCounterFruit() >= 3){
+			//If the winner is a baby-trex and its counter of fruits is superior than 3 
+			//(It means that the baby ate more than 3 fruits) the bbtrex will become a trex
+			if(winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3){		
 					winner.setElement(Element.TREX);
-				}
 			}
 	
 
@@ -386,6 +385,12 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x - 1, y, winner);
 			}
 			
+			//If the winner is a baby-trex and its counter of fruits is superior than 3 
+			//(It means that the baby ate more than 3 fruits) the bbtrex will become a trex
+			if(winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3){		
+					winner.setElement(Element.TREX);
+			}
+			
 
 			if ((Map.GetElement(x, y) == Element.TREX
 					&& (Map.GetElement(x - 1, y) == Element.TREXMATE || Map.GetElement(x - 1, y) == Element.TREX))
@@ -413,6 +418,12 @@ public class LifeThread implements Runnable {
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x, y - 1, winner);
+			}
+			
+			//If the winner is a baby-trex and its counter of fruits is superior than 3 
+			//(It means that the baby ate more than 3 fruits) the bbtrex will become a trex
+			if(winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3){		
+					winner.setElement(Element.TREX);
 			}
 				
 
@@ -446,7 +457,11 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x + 1, y, winner);
 			}
 			
-			
+			//If the winner is a baby-trex and its counter of fruits is superior than 3 
+			//(It means that the baby ate more than 3 fruits) the bbtrex will become a trex
+			if(winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3){		
+					winner.setElement(Element.TREX);
+			}
 
 			if ((Map.GetElement(x, y) == Element.TREX
 					&& (Map.GetElement(x + 1, y) == Element.TREXMATE || Map.GetElement(x + 1, y) == Element.TREX))
