@@ -7,11 +7,13 @@ public class ElementClass {
 	private Element element;
 	private int timer;
 	private boolean mate;
+	private int counterFruit;
 	
 	public ElementClass(Element element){
 		this.element = element;
 		this.timer = 0;
 		this.mate = false;
+		this.counterFruit = 0;
 	}
 	
 	public int getTimer(){
@@ -36,6 +38,19 @@ public class ElementClass {
 	
 	public void setMate(boolean mate2){
 		mate = mate2;
+	}
+	
+	public int getCounterFruit(){
+		return counterFruit;
+	}
+	
+	public void setCounterFruit(int counterFruit2){
+		counterFruit = counterFruit2;
+	}
+	
+	public int incrementerCounterFruit(){
+		counterFruit+=1;
+		return counterFruit;
 	}
 	
 }

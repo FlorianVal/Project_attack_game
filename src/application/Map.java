@@ -25,6 +25,10 @@ public class Map {
 		return map[x][y].getElement();
 	}
 	
+	public static ElementClass GetElementClass(int x, int y){
+		return map[x][y];
+	}
+	
 	public static void SetElement(int x, int y, ElementClass elem) {
 		map[x][y] = elem;
 	}
@@ -46,7 +50,6 @@ public class Map {
 		for(Element elem: elist) {
 			int number_of_element = (int) (map.length * map[0].length * elem.getSpawn_proba());
 
-			
 			AddAnimalsToMap(elem, number_of_element);
 			
 			//random shuffle
@@ -120,7 +123,7 @@ public class Map {
 				nbBbAdded+=1;
 				elementToAdd.setExist(true);
 			}
-			System.out.println("Nombre bb ajoutï¿½s : " +  nbBbAdded);
+			System.out.println("Nombre bb ajoutés : " +  nbBbAdded);
 			
 		}
 		

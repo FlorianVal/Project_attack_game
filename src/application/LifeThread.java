@@ -269,25 +269,40 @@ public class LifeThread implements Runnable {
 
 	}
 
-	public Element Encounter(Element first_element, Element second_element) {
+	public ElementClass Encounter(ElementClass first_element_obj, ElementClass second_element_obj) {
 		// used to handle when an animal move into something
 		// return winning animal or null if no winning animal
-		Element winner = null;
+		ElementClass winner = null;
+		int counter = 0;
 		// no winning animal if they are same animal
 		// TODO add fire dead
-		if (first_element == second_element) {
+		if (first_element_obj.getElement() == second_element_obj.getElement()) {
 			winner = null;
 		}
-
-		if (first_element == Element.EMPTY || first_element == Element.FRUIT) {
-			winner = second_element;
+		
+		if (first_element_obj.getElement() == Element.EMPTY || first_element_obj.getElement() == Element.FRUIT) {
+			winner = second_element_obj;
 		}
-		if (second_element == Element.EMPTY || second_element == Element.FRUIT) {
-			winner = first_element;
+		
+		if (second_element_obj.getElement() == Element.EMPTY || second_element_obj.getElement() == Element.FRUIT) {
+			winner = first_element_obj;
 		}
-		if (first_element == Element.TREX && second_element == Element.BRACHIO) {
-			winner = first_element;
+		
+		if (first_element_obj.getElement() == Element.TREX && second_element_obj.getElement() == Element.BRACHIO) {
+			winner = first_element_obj;
 		}
+		
+		if(first_element_obj.getElement() == Element.FRUIT && second_element_obj.getElement() == Element.BABYTREX){
+			counter = second_element_obj.incrementerCounterFruit();
+			second_element_obj.setCounterFruit(counter);
+					
+		}
+		
+		if(first_element_obj.getElement() == Element.BABYTREX && second_element_obj.getElement() == Element.FRUIT){
+			counter = first_element_obj.incrementerCounterFruit();
+			first_element_obj.setCounterFruit(counter);
+		}
+		
 		return winner;
 
 	}
@@ -308,12 +323,18 @@ public class LifeThread implements Runnable {
 		// direction
 		// move down
 		if (next_move == 0 && y < Map.GetHeight() - 1) {
-			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y + 1));
-			ElementClass winner_object = new ElementClass(winner);
+			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x, y + 1));
+			//ElementClass winner_object = new ElementClass(winner);
 			
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
-				Map.SetElement(x, y + 1, winner_object);
+				Map.SetElement(x, y + 1, winner);
+			}
+			
+			if(winner != null && winner.getElement() == Element.BABYTREX){
+				if(winner.getCounterFruit() >= 3){
+					winner.setElement(Element.TREX);
+				}
 			}
 	
 
@@ -332,12 +353,12 @@ public class LifeThread implements Runnable {
 		// move left
 		if (next_move == 1 && x > 0 && x < Map.GetWidth() - 1) {
 
-			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x - 1, y));
-			ElementClass winner_object = new ElementClass(winner);
+			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x - 1, y));
+			//ElementClass winner_object = new ElementClass(winner);
 
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
-				Map.SetElement(x - 1, y, winner_object);
+				Map.SetElement(x - 1, y, winner);
 			}
 			
 
@@ -353,12 +374,12 @@ public class LifeThread implements Runnable {
 
 		// move up
 		if (next_move == 2 && y > 0 && y < Map.GetHeight() - 1) {
-			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y - 1));
-			ElementClass winner_object = new ElementClass(winner);
+			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x, y - 1));
+			//ElementClass winner_object = new ElementClass(winner);
 			
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
-				Map.SetElement(x, y - 1, winner_object);
+				Map.SetElement(x, y - 1, winner);
 			}
 				
 
@@ -374,12 +395,12 @@ public class LifeThread implements Runnable {
 
 		// move right
 		if (next_move == 3 && x < Map.GetWidth() - 1) {
-			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x + 1, y));
-			ElementClass winner_object = new ElementClass(winner);
+			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x + 1, y));
+			//ElementClass winner_object = new ElementClass(winner);
 			
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
-				Map.SetElement(x + 1, y, winner_object);
+				Map.SetElement(x + 1, y, winner);
 			}
 			
 			
