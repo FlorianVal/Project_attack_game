@@ -213,9 +213,12 @@ public class LifeThread implements Runnable {
 		//return an array with x y of every object we want to find on map( for the moment only fire and animals)
 
 		int count = 0;
+		
+		//Instanciation of the list which will contains the animals and the fire which the timer will be incremented
 		ArrayList<ElementClass> listAnimalsAndFire = new ArrayList<ElementClass>();
 		
 		// loop to count animals (needed to create static array next)
+		// add each elements of type animal and fire in the arraylist
 		for (int a = 0; a < Map.GetWidth(); a++) {
 			for (int b = 0; b < Map.GetHeight(); b++) {
 
@@ -223,6 +226,7 @@ public class LifeThread implements Runnable {
 					count += 1;
 					listAnimalsAndFire.add(Map.GetElementClass(a, b));
 				}
+				
 				if (Map.GetElement(a, b).getName() == "Fire" && fire) {
 					count += 1;
 					listAnimalsAndFire.add(Map.GetElementClass(a, b));
@@ -231,9 +235,9 @@ public class LifeThread implements Runnable {
 			}
 		}
 		
+		//Incrementation of all the elements put in the arraylist 
 		for(int i = 0; i<listAnimalsAndFire.size(); i++){
 			listAnimalsAndFire.get(i).incrementerTimer();
-			System.out.println(listAnimalsAndFire.get(i).getTimer());
 		}
 		
 		int objects_on_map[][] = new int[count][2];
@@ -301,17 +305,16 @@ public class LifeThread implements Runnable {
 			winner = first_element_obj;
 		}
 		
+		//Incrementation of the counter of fruits if the one of the elements is a baby-trex
+		//TODO : Test more this feature
 		if(first_element_obj.getElement() == Element.FRUIT && second_element_obj.getElement() == Element.BABYTREX){
 			counter = second_element_obj.incrementerCounterFruit();
-			System.out.println("Nb fruits mangés ="+second_element_obj.getCounterFruit());
 					
 		}
 		
+		//Incrementation of the counter of fruits if the one of the elements is a baby-trex
 		if(first_element_obj.getElement() == Element.BABYTREX && second_element_obj.getElement() == Element.FRUIT){
 			counter = first_element_obj.incrementerCounterFruit();
-			//first_element_obj.setCounterFruit(counter);
-			System.out.println("Nb fruits mangés first element ="+first_element_obj.getCounterFruit());
-			System.out.println("Nb fruits mangés second element ="+second_element_obj.getCounterFruit());
 		}
 		
 		return winner;
@@ -357,9 +360,8 @@ public class LifeThread implements Runnable {
 				Mate(x, y, x, y + 1);
 				Element.transformTREX(x, y, x, y + 1, Element.TREXMATE);
 			}
-				//Map.GetElementClass(x, y).setElement(Element.TREXMATE);
-				//Map.GetElementClass(x, y+1).setElement(Element.TREXMATE);
-				
+			
+			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
 			if(Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer()>0){
 				System.out.println("Valeur timer = "+Map.GetElementClass(x, y).getTimer());
 					Map.GetElementClass(x, y).setElement(Element.TREX);
@@ -391,17 +393,14 @@ public class LifeThread implements Runnable {
 			
 					Mate(x, y, x - 1, y);
 					Element.transformTREX(x, y, x - 1, y, Element.TREXMATE);
-					//Map.GetElementClass(x, y).setElement(Element.TREXMATE);
-					//Map.GetElementClass(x-1, y).setElement(Element.TREXMATE);
 			}
-
+			
+			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
 			if(Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer()>0){
-			 System.out.println("Valeur timer = "+Map.GetElementClass(x, y).getTimer());
 				Map.GetElementClass(x, y).setElement(Element.TREX);
 			}
 			
 			if(Map.GetElementClass(x-1, y).getTimer()%30 == 0 && Map.GetElementClass(x-1, y).getTimer()>0){
-				System.out.println("Valeur timer = "+Map.GetElementClass(x-1, y).getTimer());
 				Map.GetElementClass(x-1, y).setElement(Element.TREX);
 			}
 			
@@ -424,17 +423,15 @@ public class LifeThread implements Runnable {
 				
 					Mate(x, y, x, y - 1);
 					Element.transformTREX(x, y, x, y - 1, Element.TREXMATE);
-				//Map.GetElementClass(x, y).setElement(Element.TREXMATE);
-				//Map.GetElementClass(x, y-1).setElement(Element.TREXMATE);
 			}
 			
+			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
 			if(Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer()>0){
-				System.out.println("Valeur timer = "+Map.GetElementClass(x, y).getTimer());
 				Map.GetElementClass(x, y).setElement(Element.TREX);
 			}
 			
+			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
 			if(Map.GetElementClass(x, y-1).getTimer()%30 == 0 && Map.GetElementClass(x, y-1).getTimer()>0){
-				System.out.println("Valeur timer = "+Map.GetElementClass(x, y-1).getTimer());
 				Map.GetElementClass(x, y-1).setElement(Element.TREX);
 			}
 
@@ -458,17 +455,15 @@ public class LifeThread implements Runnable {
 					
 					Mate(x, y, x + 1, y);
 					Element.transformTREX(x, y, x+1, y, Element.TREXMATE);
-					//Map.GetElementClass(x, y).setElement(Element.TREXMATE);
-					//Map.GetElementClass(x+1, y).setElement(Element.TREXMATE);
-
 			}
+			
+			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
 			if(Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer() > 0){
-				System.out.println("Valeur timer = "+Map.GetElementClass(x, y).getTimer());
 				Map.GetElementClass(x, y).setElement(Element.TREX);
 			}
 			
-			if(Map.GetElementClass(x+1, y).getTimer()%30 == 0 && Map.GetElementClass(x+1, y).getTimer()>0 ){
-				System.out.println("Valeur timer = "+Map.GetElementClass(x+1, y).getTimer());
+			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
+			if(Map.GetElementClass(x+1, y).getTimer()%30 == 0 && Map.GetElementClass(x+1, y).getTimer() > 0){
 				Map.GetElementClass(x+1, y).setElement(Element.TREX);
 			}
 			
