@@ -108,12 +108,11 @@ public enum Element {
 	}
 	
 	public static void transformTREX(int x, int y, int x1, int y1, Element element){
-
+		
 			ElementClass element_object = new ElementClass(element);
 			Map.SetElement(x, y, element_object);
 			Map.SetElement(x1, y1, element_object);
-			
-					
+						
 	}
 	
 	public boolean getMate(){
