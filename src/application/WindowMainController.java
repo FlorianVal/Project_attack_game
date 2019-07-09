@@ -147,9 +147,7 @@ public class WindowMainController {
 
     	for(int i=0; i<partial_map.length; i++) {
     		for(int j=0; j<partial_map[i].length; j++) {
-    			
-    		AddImage(partial_map[i][j].getElement().getVisu(),i,j);
-
+    			AddImage(partial_map[i][j].getElement().getVisu(),i,j);
 			}
 		}	
     }
