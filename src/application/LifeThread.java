@@ -67,11 +67,13 @@ public class LifeThread implements Runnable {
 		int spread_rate = 10; //% of chance to spread
 		int number_of_try_per_fire = 10;
 		Random rand = new Random();
+		ElementClass object_fire = new ElementClass(Element.FIRE);
+		
 		for (int count = 0; count < fire_on_map.length; count++) {
 			for(int i=0; i< number_of_try_per_fire; i++) {
 				if(rand.nextInt(101) < spread_rate) {
 					try {
-					Map.SetElement(fire_on_map[count][0] + (rand.nextInt(3) - 1), fire_on_map[count][1] + (rand.nextInt(3) - 1), Element.FIRE);
+					Map.SetElement(fire_on_map[count][0] + (rand.nextInt(3) - 1), fire_on_map[count][1] + (rand.nextInt(3) - 1), object_fire);
 					}
 					catch(java.lang.ArrayIndexOutOfBoundsException e) {
 						
@@ -111,7 +113,8 @@ public class LifeThread implements Runnable {
 			int y = rand.nextInt(Map.GetHeight());
 			// spawn if the randomly chosen case is empty else retry
 			if (Map.GetElement(x, y) == Element.EMPTY) {
-				Map.SetElement(x, y, element_to_add);
+				ElementClass element_object_to_add = new ElementClass(element_to_add);
+				Map.SetElement(x, y, element_object_to_add);
 				is_spawn = true;
 			}
 			number_of_spawn_try -= 1;
@@ -308,10 +311,11 @@ public class LifeThread implements Runnable {
 		// move down
 		if (next_move == 0 && y < Map.GetHeight() - 1) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y + 1));
-
+			ElementClass winner_object = new ElementClass(winner);
+			
 			if (winner != null) {
-				Map.SetElement(x, y, Element.EMPTY);
-				Map.SetElement(x, y + 1, winner);
+				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
+				Map.SetElement(x, y + 1, winner_object);
 			}
 	
 
@@ -331,10 +335,11 @@ public class LifeThread implements Runnable {
 		if (next_move == 1 && x > 0 && x < Map.GetWidth() - 1) {
 
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x - 1, y));
+			ElementClass winner_object = new ElementClass(winner);
 
 			if (winner != null) {
-				Map.SetElement(x, y, Element.EMPTY);
-				Map.SetElement(x - 1, y, winner);
+				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
+				Map.SetElement(x - 1, y, winner_object);
 			}
 			
 
@@ -351,10 +356,11 @@ public class LifeThread implements Runnable {
 		// move up
 		if (next_move == 2 && y > 0 && y < Map.GetHeight() - 1) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x, y - 1));
-
+			ElementClass winner_object = new ElementClass(winner);
+			
 			if (winner != null) {
-				Map.SetElement(x, y, Element.EMPTY);
-				Map.SetElement(x, y - 1, winner);
+				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
+				Map.SetElement(x, y - 1, winner_object);
 			}
 				
 
@@ -371,10 +377,11 @@ public class LifeThread implements Runnable {
 		// move right
 		if (next_move == 3 && x < Map.GetWidth() - 1) {
 			Element winner = Encounter(Map.GetElement(x, y), Map.GetElement(x + 1, y));
-
+			ElementClass winner_object = new ElementClass(winner);
+			
 			if (winner != null) {
-				Map.SetElement(x, y, Element.EMPTY);
-				Map.SetElement(x + 1, y, winner);
+				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
+				Map.SetElement(x + 1, y, winner_object);
 			}
 			
 			

@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Map {
 	
-	private static Element map[][];
+	private static ElementClass map[][];
 	private static int width;
 	private static int height;
 	//private WindowMainController controller;
@@ -18,28 +18,28 @@ public class Map {
 	public Map(int width_given, int height_given) {
 		width = width_given;
 		height = height_given;
-		map = new Element[width][height];
+		map = new ElementClass[width][height];
 		InitRandomMap(map);
 		System.out.println("Map inited");
 	}
 	
 	public static Element GetElement(int x, int y) {
-		return map[x][y];
+		return map[x][y].getElement();
 	}
 	
-	public static void SetElement(int x, int y, Element elem) {
+	public static void SetElement(int x, int y, ElementClass elem) {
 		map[x][y] = elem;
 	}
 	
-	public static void SetMap(Element[][] map) {
+	public static void SetMap(ElementClass[][] map) {
 		Map.map = map;
 	}
 	
-	public static Element[][] GetMap(){
+	public static ElementClass[][] GetMap(){
 		return Map.map;
 	}
 
-	private static void InitRandomMap(Element[][] map) {
+	private static void InitRandomMap(ElementClass[][] map) {
 		//list of element to put on map
 		ArrayList<Element> elist = new ArrayList<Element>(Arrays.asList(Element.values()));
 		//fill with empty
@@ -67,7 +67,7 @@ public class Map {
 		            int m = random.nextInt(map.length);
 		            int n = random.nextInt(map[0].length);
 
-		            Element temp = map[i][j];
+		            ElementClass temp = map[i][j];
 		            map[i][j] = map[m][n];
 		            map[m][n] = temp;
 		        }
@@ -77,7 +77,8 @@ public class Map {
 	private static void EmptyMap() {
 		for(int i=0; i<map.length; i++) {
 			for(int j=0; j<map[i].length; j++) {
-				map[i][j] = Element.EMPTY;				
+				ElementClass emptyElement = new ElementClass(Element.EMPTY);
+				map[i][j] = emptyElement;				
 			}
 		}
 	}
@@ -91,8 +92,9 @@ public class Map {
 		int j =0;
 		
 		while(inner_count<count) {
-			if(map[i][j] == Element.EMPTY) {
-				map[i][j] = elem_to_add;
+			if(map[i][j].getElement() == Element.EMPTY) {
+				ElementClass elem_object_to_add = new ElementClass(elem_to_add);
+				map[i][j] = elem_object_to_add;
 				inner_count +=1;
 			}
 			i +=1;
@@ -111,20 +113,21 @@ public class Map {
 	
 	public static void AddOneElementToMap(Element elementToAdd, int x, int y){		
 		
-		int nbBnAdded = 0;
+		int nbBbAdded = 0;
 		
-		if(map[x][y] == Element.EMPTY){
+		if(map[x][y].getElement() == Element.EMPTY){
 			while(elementToAdd.getExist() == false){
-				map[x][y] = elementToAdd;
-				nbBnAdded+=1;
+				ElementClass element_object_to_add = new ElementClass(elementToAdd);
+				map[x][y] = element_object_to_add;
+				nbBbAdded+=1;
 				elementToAdd.setExist(true);
 			}
-			System.out.println("Nombre bb ajout�s : " +  nbBnAdded);
+			System.out.println("Nombre bb ajout�s : " +  nbBbAdded);
 			
 		}
 		
 		
-		if(map[x][y] != Element.EMPTY){
+		if(map[x][y].getElement() != Element.EMPTY){
 			System.out.println("There is already an element");
 		}
 	}
@@ -154,8 +157,8 @@ public class Map {
 		return height;
 	}
 	
-	public static Element[][] ReturnPartialMap(int top_x, int top_y, int width, int height){
-		Element[][] display_map = new Element[width][height];
+	public static ElementClass[][] ReturnPartialMap(int top_x, int top_y, int width, int height){
+		ElementClass[][] display_map = new ElementClass[width][height];
 		try {
 			int i_display = 0;
 			int j_display = 0;

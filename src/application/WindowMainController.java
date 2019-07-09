@@ -1,17 +1,13 @@
 package application;
 
-//import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-//import java.awt.event.MouseEvent;
-//import java.lang.invoke.MethodHandles;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
-//import javafx.application.Platform;
 
 public class WindowMainController {
 
@@ -77,10 +73,10 @@ public class WindowMainController {
     
     @FXML
     void OnMouseClicked(MouseEvent event) {
-    	
+    	ElementClass button_state_obj = new ElementClass(button_state);
     	int[] cell = GetCell(event.getSceneX(),event.getSceneY());
     	if(cell[0] != -1 && cell[1] != -1 && button_state != null) {
-    		Map.SetElement(cell[0], cell[1], button_state);
+    		Map.SetElement(cell[0], cell[1], button_state_obj);
 			button_state = null;
     	}
     }
@@ -146,13 +142,13 @@ public class WindowMainController {
     	System.out.print(this.x_window);
     	System.out.print(" : ");
     	System.out.println(this.y_window);
-    	Element[][] partial_map = Map.ReturnPartialMap(this.x_window, this.y_window, this.GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
+    	ElementClass[][] partial_map = Map.ReturnPartialMap(this.x_window, this.y_window, this.GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
     	this.GridMap.getChildren().clear();
 
     	for(int i=0; i<partial_map.length; i++) {
     		for(int j=0; j<partial_map[i].length; j++) {
     			
-    		AddImage(partial_map[i][j].getVisu(),i,j);
+    		AddImage(partial_map[i][j].getElement().getVisu(),i,j);
 
 			}
 		}	
