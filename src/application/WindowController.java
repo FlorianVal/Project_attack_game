@@ -1,5 +1,8 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,16 +21,43 @@ public class WindowController {
     @FXML
     private TextField height;
 
-
+    private void SetParameters(int level) {
+    	if(level == 1) {
+    		Element.FIRE.setWontExist();
+    		Element.BANANA.setWontExist();
+    		Element.TREX.setSpawn_proba(0.006);
+    		Element.BRACHIO.setSpawn_proba(0.01);
+    		Element.FRUIT.setSpawn_proba(0.005);
+    		Element.FRUIT.setRespawn_proba(0.01);
+    		Element.FIRE.setRespawn_proba(0.002);
+    		
+    	}
+    	if(level == 2) {
+    		Element.BANANA.setWontExist();
+    		Element.FIRE.setWontExist();
+    		Element.TREX.setSpawn_proba(0.006);
+    		Element.BRACHIO.setSpawn_proba(0.01);
+    		Element.FRUIT.setSpawn_proba(0.005);
+    		Element.FRUIT.setRespawn_proba(0.01);
+    		Element.FIRE.setRespawn_proba(0.002);
+    	}
+    	if(level == 3) {
+    		ArrayList<Element> elist = new ArrayList<Element>(Arrays.asList(Element.values()));
+    		for(Element elem: elist) {
+    			elem.setWontExist();
+    		}
+    	}
+    	
+    }
+    
     @FXML
     void OpenLevelOne(ActionEvent event){
     	if(CheckParameters()) {
-    		
+			SetParameters(1);
 	   		OpenMainWindow("/application/Level1.fxml", "Level 1");
 	    }
     	else {
     		ShowMessageError();
-    		//System.out.println("incorrect params");
     	}
     		
     }
@@ -35,29 +65,32 @@ public class WindowController {
     @FXML
     void OpenLevelTwo(ActionEvent event) {
     	if(CheckParameters()) {
-	   		OpenMainWindow("/application/Level2.fxml", "Level 2");
+			SetParameters(2);
+	   		OpenMainWindow("/application/Level2.fxml", "Level 2"); // TODO change path to src/application (actually in bin/application)
     	}
     	else {
     		ShowMessageError();
-    		//System.out.println("incorrect params");
     	}
     	
     }
     
     @FXML
+    //TODO add button fxml for every element
     void OpenLevelThree(ActionEvent event) {
     	if(CheckParameters()) {
+			SetParameters(3);
 	   		OpenMainWindow("/application/Level3.fxml", "Level 3");
     	}
     	else {
     		ShowMessageError();
-    		//System.out.println("incorrect params");
     	}
 
     }
     
     void OpenMainWindow(String level_fxml_file, String name) {
 	    try {	
+
+	    	
 			FXMLLoader loader1 = new FXMLLoader(getClass().getResource(level_fxml_file));
 			Parent root = loader1.load();
 			WindowMainController captureWindowController = loader1.getController();
@@ -67,6 +100,7 @@ public class WindowController {
 			stage.setTitle(name);
 			stage.setScene(scene);
 			stage.show();
+
 			
 			
 		} catch(Exception e) {
