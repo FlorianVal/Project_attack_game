@@ -237,7 +237,7 @@ public class LifeThread implements Runnable {
 		
 		//Incrementation of all the elements put in the arraylist 
 		for(int i = 0; i<listAnimalsAndFire.size(); i++){
-			listAnimalsAndFire.get(i).incrementerTimer();
+			listAnimalsAndFire.get(i).incrementTimer();
 		}
 		
 		int objects_on_map[][] = new int[count][2];
@@ -286,7 +286,7 @@ public class LifeThread implements Runnable {
 		// used to handle when an animal move into something
 		// return winning animal or null if no winning animal
 		ElementClass winner = null;
-		int counter = 0;
+		
 		// no winning animal if they are same animal
 		// TODO add fire dead
 		if (first_element_obj.getElement() == second_element_obj.getElement()) {
@@ -308,13 +308,13 @@ public class LifeThread implements Runnable {
 		//Incrementation of the counter of fruits if the one of the elements is a baby-trex
 		//TODO : Test more this feature
 		if(first_element_obj.getElement() == Element.FRUIT && second_element_obj.getElement() == Element.BABYTREX){
-			counter = second_element_obj.incrementerCounterFruit();
+			second_element_obj.incrementCounterFruit();
 					
 		}
 		
 		//Incrementation of the counter of fruits if the one of the elements is a baby-trex
 		if(first_element_obj.getElement() == Element.BABYTREX && second_element_obj.getElement() == Element.FRUIT){
-			counter = first_element_obj.incrementerCounterFruit();
+			first_element_obj.incrementCounterFruit();
 		}
 		
 		return winner;

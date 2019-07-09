@@ -36,14 +36,12 @@ public class ElementClass {
 		counterFruit = counterFruit2;
 	}
 	
-	public int incrementerCounterFruit(){
-		counterFruit+=1;
-		return counterFruit;
+	public void incrementCounterFruit(){
+		counterFruit++;
 	}
 	
-	public int incrementerTimer(){
-		timer+=1;
-		return timer;
+	public void incrementTimer(){
+		timer++;
 	}
 	
 }
