@@ -77,7 +77,7 @@ public class WindowMainController {
     
     @FXML
     void OnMouseClicked(MouseEvent event) {
-
+    	
     	int[] cell = GetCell(event.getSceneX(),event.getSceneY());
     	if(cell[0] != -1 && cell[1] != -1 && button_state != null) {
     		Map.SetElement(cell[0], cell[1], button_state);
@@ -168,7 +168,25 @@ public class WindowMainController {
     	button_state = Element.BANANA;
     }
     public void BurnMap() {
+    	System.out.print("burn");
     	button_state = Element.FIRE;
+    }
+    @FXML
+    void AddBrachioOnMap() {
+    	button_state = Element.BRACHIO;
+    }
+
+    @FXML
+    void AddFruitOnMap() {
+    	System.out.print("done");
+    	button_state = Element.FRUIT;
+
+    }
+
+    @FXML
+    void AddTrexOnMap() {
+    	button_state = Element.TREX;
+
     }
 }
 

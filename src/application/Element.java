@@ -19,14 +19,6 @@ public enum Element {
 	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"", false);
 	
 	private String name = "";
-	public void setSpawn_proba(double spawn_proba) {
-		this.spawn_proba = spawn_proba;
-	}
-
-	public void setRespawn_proba(double respawn_proba) {
-		this.respawn_proba = respawn_proba;
-	}
-
 	private ImageSprite visu;
 	private double spawn_proba;
 	private boolean is_animal;
@@ -59,8 +51,8 @@ public enum Element {
 		}
 	}
 	
-	//return the Element targeted
-		public Element getTarget() {
+	public Element getTarget() {
+		//return the Element targeted
 			ArrayList<Element> elist = new ArrayList<Element>(Arrays.asList(Element.values()));
 			Element targ = Element.EMPTY;
 			for(Element elem: elist) {
@@ -72,6 +64,14 @@ public enum Element {
 	
 	public double getRespawn_proba() {
 		return respawn_proba;
+	}
+	
+	public void setSpawn_proba(double spawn_proba) {
+		this.spawn_proba = spawn_proba;
+	}
+
+	public void setRespawn_proba(double respawn_proba) {
+		this.respawn_proba = respawn_proba;
 	}
 
 	public String getName() {
