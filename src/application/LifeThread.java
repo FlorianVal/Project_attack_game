@@ -303,7 +303,6 @@ public class LifeThread implements Runnable {
 		
 		if(first_element_obj.getElement() == Element.FRUIT && second_element_obj.getElement() == Element.BABYTREX){
 			counter = second_element_obj.incrementerCounterFruit();
-			//second_element_obj.setCounterFruit(counter);
 			System.out.println("Nb fruits mangés ="+second_element_obj.getCounterFruit());
 					
 		}
@@ -336,7 +335,6 @@ public class LifeThread implements Runnable {
 		// move down
 		if (next_move == 0 && y < Map.GetHeight() - 1) {
 			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x, y + 1));
-			//ElementClass winner_object = new ElementClass(winner);
 			
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
@@ -358,8 +356,21 @@ public class LifeThread implements Runnable {
 
 				Mate(x, y, x, y + 1);
 				Element.transformTREX(x, y, x, y + 1, Element.TREXMATE);
-
 			}
+				//Map.GetElementClass(x, y).setElement(Element.TREXMATE);
+				//Map.GetElementClass(x, y+1).setElement(Element.TREXMATE);
+				
+			if(Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer()>0){
+				System.out.println("Valeur timer = "+Map.GetElementClass(x, y).getTimer());
+					Map.GetElementClass(x, y).setElement(Element.TREX);
+			}
+				
+			if(Map.GetElementClass(x, y+1).getTimer()%30 == 0 && Map.GetElementClass(x, y+1).getTimer()>0){
+				System.out.println("Valeur timer = "+Map.GetElementClass(x, y+1).getTimer());
+					Map.GetElementClass(x, y+1).setElement(Element.TREX);
+			}
+
+			
 
 		}
 
@@ -367,7 +378,6 @@ public class LifeThread implements Runnable {
 		if (next_move == 1 && x > 0 && x < Map.GetWidth() - 1) {
 
 			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x - 1, y));
-			//ElementClass winner_object = new ElementClass(winner);
 
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
@@ -377,18 +387,29 @@ public class LifeThread implements Runnable {
 
 			if ((Map.GetElement(x, y) == Element.TREX
 					&& (Map.GetElement(x - 1, y) == Element.TREXMATE || Map.GetElement(x - 1, y) == Element.TREX))
-					|| (Map.GetElement(x - 1, y) == Element.TREX
-							&& (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))) {
-				Mate(x, y, x - 1, y);
-				Element.transformTREX(x, y, x - 1, y, Element.TREXMATE);
+					|| (Map.GetElement(x - 1, y) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))) {
+			
+					Mate(x, y, x - 1, y);
+					Element.transformTREX(x, y, x - 1, y, Element.TREXMATE);
+					//Map.GetElementClass(x, y).setElement(Element.TREXMATE);
+					//Map.GetElementClass(x-1, y).setElement(Element.TREXMATE);
 			}
 
+			if(Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer()>0){
+			 System.out.println("Valeur timer = "+Map.GetElementClass(x, y).getTimer());
+				Map.GetElementClass(x, y).setElement(Element.TREX);
+			}
+			
+			if(Map.GetElementClass(x-1, y).getTimer()%30 == 0 && Map.GetElementClass(x-1, y).getTimer()>0){
+				System.out.println("Valeur timer = "+Map.GetElementClass(x-1, y).getTimer());
+				Map.GetElementClass(x-1, y).setElement(Element.TREX);
+			}
+			
 		}
 
 		// move up
 		if (next_move == 2 && y > 0 && y < Map.GetHeight() - 1) {
 			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x, y - 1));
-			//ElementClass winner_object = new ElementClass(winner);
 			
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
@@ -397,11 +418,24 @@ public class LifeThread implements Runnable {
 				
 
 			if ((Map.GetElement(x, y) == Element.TREX
-					&& (Map.GetElement(x, y - 1) == Element.TREXMATE || Map.GetElement(x, y - 1) == Element.TREX))
-					|| (Map.GetElement(x, y - 1) == Element.TREX
-							&& (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))) {
-				Mate(x, y, x, y - 1);
-				Element.transformTREX(x, y, x, y - 1, Element.TREXMATE);
+				&& (Map.GetElement(x, y - 1) == Element.TREXMATE || Map.GetElement(x, y - 1) == Element.TREX))
+				|| (Map.GetElement(x, y - 1) == Element.TREX
+				&& (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))) {
+				
+					Mate(x, y, x, y - 1);
+					Element.transformTREX(x, y, x, y - 1, Element.TREXMATE);
+				//Map.GetElementClass(x, y).setElement(Element.TREXMATE);
+				//Map.GetElementClass(x, y-1).setElement(Element.TREXMATE);
+			}
+			
+			if(Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer()>0){
+				System.out.println("Valeur timer = "+Map.GetElementClass(x, y).getTimer());
+				Map.GetElementClass(x, y).setElement(Element.TREX);
+			}
+			
+			if(Map.GetElementClass(x, y-1).getTimer()%30 == 0 && Map.GetElementClass(x, y-1).getTimer()>0){
+				System.out.println("Valeur timer = "+Map.GetElementClass(x, y-1).getTimer());
+				Map.GetElementClass(x, y-1).setElement(Element.TREX);
 			}
 
 		}
@@ -409,7 +443,6 @@ public class LifeThread implements Runnable {
 		// move right
 		if (next_move == 3 && x < Map.GetWidth() - 1) {
 			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x + 1, y));
-			//ElementClass winner_object = new ElementClass(winner);
 			
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
@@ -422,10 +455,23 @@ public class LifeThread implements Runnable {
 					&& (Map.GetElement(x + 1, y) == Element.TREXMATE || Map.GetElement(x + 1, y) == Element.TREX))
 					|| (Map.GetElement(x + 1, y) == Element.TREX
 							&& (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))) {
-				Mate(x, y, x + 1, y);
-				Element.transformTREX(x, y, x + 1, y, Element.TREXMATE);
+					
+					Mate(x, y, x + 1, y);
+					Element.transformTREX(x, y, x+1, y, Element.TREXMATE);
+					//Map.GetElementClass(x, y).setElement(Element.TREXMATE);
+					//Map.GetElementClass(x+1, y).setElement(Element.TREXMATE);
 
 			}
+			if(Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer() > 0){
+				System.out.println("Valeur timer = "+Map.GetElementClass(x, y).getTimer());
+				Map.GetElementClass(x, y).setElement(Element.TREX);
+			}
+			
+			if(Map.GetElementClass(x+1, y).getTimer()%30 == 0 && Map.GetElementClass(x+1, y).getTimer()>0 ){
+				System.out.println("Valeur timer = "+Map.GetElementClass(x+1, y).getTimer());
+				Map.GetElementClass(x+1, y).setElement(Element.TREX);
+			}
+			
 		}
 
 	}

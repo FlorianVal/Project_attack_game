@@ -2,7 +2,7 @@ package application;
 
 public class ElementClass {
 	
-	//TODO : To finish Timer
+	//TODO : To finish Timer for transformation of trexmate in trexr'
 	
 	private Element element;
 	private int timer;

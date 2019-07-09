@@ -49,9 +49,8 @@ public class Map {
 		//then add objects
 		for(Element elem: elist) {
 			int number_of_element = (int) (map.length * map[0].length * elem.getSpawn_proba());
-
 			AddAnimalsToMap(elem, number_of_element);
-			
+	
 			//random shuffle
 			ShuffleMap();
 			
