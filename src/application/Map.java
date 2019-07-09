@@ -2,7 +2,6 @@ package application;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-//import java.util.Collections;
 import java.util.Random;
 
 //method in Map should only init the map and return info about the map
@@ -13,7 +12,6 @@ public class Map {
 	private static ElementClass map[][];
 	private static int width;
 	private static int height;
-	//private WindowMainController controller;
 	
 	public Map(int width_given, int height_given) {
 		width = width_given;

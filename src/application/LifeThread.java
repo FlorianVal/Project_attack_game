@@ -217,9 +217,6 @@ public class LifeThread implements Runnable {
 		for (int a = 0; a < Map.GetWidth(); a++) {
 			for (int b = 0; b < Map.GetHeight(); b++) {
 
-				count+=1;
-				Map.GetElement(a, b).setCount(count);
-					
 				if (Map.GetElement(a, b).is_animal() && animals) {
 					count += 1;
 				}
@@ -228,6 +225,7 @@ public class LifeThread implements Runnable {
 				}
 			}
 		}
+		
 
 		int objects_on_map[][] = new int[count][2];
 		int count_of_objects = 0;
