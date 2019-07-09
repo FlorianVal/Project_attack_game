@@ -213,20 +213,29 @@ public class LifeThread implements Runnable {
 		//return an array with x y of every object we want to find on map( for the moment only fire and animals)
 
 		int count = 0;
+		ArrayList<ElementClass> listAnimalsAndFire = new ArrayList<ElementClass>();
+		
 		// loop to count animals (needed to create static array next)
 		for (int a = 0; a < Map.GetWidth(); a++) {
 			for (int b = 0; b < Map.GetHeight(); b++) {
 
 				if (Map.GetElement(a, b).is_animal() && animals) {
 					count += 1;
+					listAnimalsAndFire.add(Map.GetElementClass(a, b));
 				}
 				if (Map.GetElement(a, b).getName() == "Fire" && fire) {
 					count += 1;
+					listAnimalsAndFire.add(Map.GetElementClass(a, b));
 				}
+				
 			}
 		}
 		
-
+		for(int i = 0; i<listAnimalsAndFire.size(); i++){
+			listAnimalsAndFire.get(i).incrementerTimer();
+			System.out.println(listAnimalsAndFire.get(i).getTimer());
+		}
+		
 		int objects_on_map[][] = new int[count][2];
 		int count_of_objects = 0;
 		int i, j;
@@ -294,13 +303,16 @@ public class LifeThread implements Runnable {
 		
 		if(first_element_obj.getElement() == Element.FRUIT && second_element_obj.getElement() == Element.BABYTREX){
 			counter = second_element_obj.incrementerCounterFruit();
-			second_element_obj.setCounterFruit(counter);
+			//second_element_obj.setCounterFruit(counter);
+			System.out.println("Nb fruits mangés ="+second_element_obj.getCounterFruit());
 					
 		}
 		
 		if(first_element_obj.getElement() == Element.BABYTREX && second_element_obj.getElement() == Element.FRUIT){
 			counter = first_element_obj.incrementerCounterFruit();
-			first_element_obj.setCounterFruit(counter);
+			//first_element_obj.setCounterFruit(counter);
+			System.out.println("Nb fruits mangés first element ="+first_element_obj.getCounterFruit());
+			System.out.println("Nb fruits mangés second element ="+second_element_obj.getCounterFruit());
 		}
 		
 		return winner;
@@ -332,6 +344,7 @@ public class LifeThread implements Runnable {
 			}
 			
 			if(winner != null && winner.getElement() == Element.BABYTREX){
+				
 				if(winner.getCounterFruit() >= 3){
 					winner.setElement(Element.TREX);
 				}

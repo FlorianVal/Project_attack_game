@@ -2,17 +2,15 @@ package application;
 
 public class ElementClass {
 	
-	//TODO : To finish Timer + to implement when bbtrex grow up
+	//TODO : To finish Timer
 	
 	private Element element;
 	private int timer;
-	private boolean mate;
 	private int counterFruit;
 	
 	public ElementClass(Element element){
 		this.element = element;
 		this.timer = 0;
-		this.mate = false;
 		this.counterFruit = 0;
 	}
 	
@@ -32,14 +30,6 @@ public class ElementClass {
 		element = element2;
 	}
 	
-	public boolean getMate(){
-		return mate;
-	}
-	
-	public void setMate(boolean mate2){
-		mate = mate2;
-	}
-	
 	public int getCounterFruit(){
 		return counterFruit;
 	}
@@ -51,6 +41,11 @@ public class ElementClass {
 	public int incrementerCounterFruit(){
 		counterFruit+=1;
 		return counterFruit;
+	}
+	
+	public int incrementerTimer(){
+		timer+=1;
+		return timer;
 	}
 	
 }
