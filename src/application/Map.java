@@ -10,6 +10,7 @@ import java.util.Random;
 public class Map {
 	
 	private static ElementClass map[][];
+	private static int emptymap[][];
 	private static int width;
 	private static int height;
 	
@@ -17,6 +18,7 @@ public class Map {
 		width = width_given;
 		height = height_given;
 		map = new ElementClass[width][height];
+		emptymap = new int[width][height];
 		InitRandomMap(map);
 		System.out.println("Map inited");
 	}
@@ -39,6 +41,10 @@ public class Map {
 	
 	public static ElementClass[][] GetMap(){
 		return Map.map;
+	}
+	
+	public static int GetEmpty(int i, int j) {
+		return emptymap[i][j];
 	}
 
 	private static void InitRandomMap(ElementClass[][] map) {
@@ -75,8 +81,10 @@ public class Map {
 	}
 	
 	private static void EmptyMap() {
+		Random rand = new Random();
 		for(int i=0; i<map.length; i++) {
 			for(int j=0; j<map[i].length; j++) {
+				emptymap[i][j] = rand.nextInt(2);
 				ElementClass emptyElement = new ElementClass(Element.EMPTY);
 				map[i][j] = emptyElement;				
 			}
@@ -122,7 +130,7 @@ public class Map {
 				nbBbAdded+=1;
 				elementToAdd.setExist(true);
 			}
-			System.out.println("Nombre bb ajoutés : " +  nbBbAdded);
+			System.out.println("Nombre bb ajoutï¿½s : " +  nbBbAdded);
 			
 		}
 		
@@ -178,4 +186,24 @@ public class Map {
 		
 	}
 	
+	public static int[][] ReturnPartialEmptyMap(int top_x, int top_y, int width, int height){
+		int[][] display_map = new int[width][height];
+		try {
+			int i_display = 0;
+			int j_display = 0;
+			for(int i=top_y; i<width+top_y; i++) {
+				for(int j=top_x; j<height+top_x; j++) {
+					display_map[i_display][j_display] = emptymap[i][j];
+					j_display+=1;
+				}
+				j_display=0;
+				i_display+=1;
+			}
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}
+		return display_map;
+		
+	}
 }

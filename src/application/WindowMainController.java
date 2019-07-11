@@ -86,8 +86,8 @@ public class WindowMainController {
     	cell[0] = -1;
     	cell[1] = -1;
     	if(x >= 20 && x <= 420 && y >= 20 && y <= 270) {
-    		cell[0] = (int) (x - 20)/10;
-    		cell[1] = (int) (y - 20)/10;
+    		cell[0] = (int) (x - 20)/10 + this.y_window;
+    		cell[1] = (int) (y - 20)/10 + this.x_window;
     		
     	}
     	return cell;
@@ -138,16 +138,32 @@ public class WindowMainController {
             GridMap.add(iv, x, y);
     }
      
+    private void DrawEmpty(int i, int j, int[][] empty_map) {
+    	if(empty_map[i][j]==0) {
+			AddImage(Element.EMPTY.getVisu(), i, j);
+		}
+		if(empty_map[i][j]==1) {
+			AddImage(Element.EMPTY2.getVisu(), i, j);
+		}
+    }
+   
     public void DisplayMap() {
     	System.out.print(this.x_window);
     	System.out.print(" : ");
     	System.out.println(this.y_window);
     	ElementClass[][] partial_map = Map.ReturnPartialMap(this.x_window, this.y_window, this.GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
+    	int[][] partial_empty = Map.ReturnPartialEmptyMap(this.x_window, this.y_window, this.GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
     	this.GridMap.getChildren().clear();
 
     	for(int i=0; i<partial_map.length; i++) {
     		for(int j=0; j<partial_map[i].length; j++) {
-    			AddImage(partial_map[i][j].getElement().getVisu(),i,j);
+    			if(partial_map[i][j].getElement() != Element.EMPTY) {
+    				DrawEmpty(i, j, partial_empty);
+    				AddImage(partial_map[i][j].getElement().getVisu(),i,j);
+    			}
+    			else {
+    				DrawEmpty(i, j, partial_empty);
+    			}
 			}
 		}	
     }
