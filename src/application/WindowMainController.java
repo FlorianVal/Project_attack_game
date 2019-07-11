@@ -165,6 +165,9 @@ public class WindowMainController {
     	System.out.print("burn");
     	button_state = Element.FIRE;
     }
+    public void AddFence() {
+    	button_state = Element.FENCE;
+    }
     @FXML
     void AddBrachioOnMap() {
     	button_state = Element.BRACHIO;

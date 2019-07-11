@@ -266,18 +266,22 @@ public class LifeThread implements Runnable {
 		// search for every animal on the map and move them one by one
 		Random rand = new Random();
 		int[][] animals_on_map = Find(true, false);
-
+		
 		// for loop on the array and random number to decide direction
 		for (int count_animal = 0; count_animal < animals_on_map.length; count_animal++) {
-			int next_move = SearchNearest(animals_on_map[count_animal][0], animals_on_map[count_animal][1]);
-			// -1 = no near target
-			if (next_move == -1) {
-				// System.out.println("Random move");
-				next_move = rand.nextInt(4);
+			boolean movement_done = false;
+			int loop_count = 0;
+			while(!movement_done && loop_count < 50) {
+				int next_move = SearchNearest(animals_on_map[count_animal][0], animals_on_map[count_animal][1]);
+				// -1 = no near target
+				if (next_move == -1) {
+					next_move = rand.nextInt(4);
+				}
+				// debug force movement
+				// next_move = 3;
+				movement_done = MoveAnimal(animals_on_map[count_animal][0], animals_on_map[count_animal][1], next_move);
+				loop_count +=1;
 			}
-			// debug force movement
-			// next_move = 3;
-			MoveAnimal(animals_on_map[count_animal][0], animals_on_map[count_animal][1], next_move);
 		}
 
 	}
@@ -332,13 +336,16 @@ public class LifeThread implements Runnable {
 		
 	}
 
-	public void MoveAnimal(int x, int y, int next_move) {
+	public boolean MoveAnimal(int x, int y, int next_move) {
 		// moving one animal just by receiving pos of animal and a random number for
 		// direction
 		// move down
+		boolean is_movement_done = false;
 		if (next_move == 0 && y < Map.GetHeight() - 1) {
+			System.out.println("down");
+			is_movement_done = true;
 			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x, y + 1));
-			
+
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x, y + 1, winner);
@@ -376,6 +383,9 @@ public class LifeThread implements Runnable {
 
 		// move left
 		if (next_move == 1 && x > 0 && x < Map.GetWidth() - 1) {
+			System.out.println("left");
+
+			is_movement_done = true;
 
 			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x - 1, y));
 
@@ -413,8 +423,12 @@ public class LifeThread implements Runnable {
 
 		// move up
 		if (next_move == 2 && y > 0 && y < Map.GetHeight() - 1) {
+			System.out.println("up");
+
+			is_movement_done = true;
+
 			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x, y - 1));
-			
+
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x, y - 1, winner);
@@ -451,8 +465,12 @@ public class LifeThread implements Runnable {
 
 		// move right
 		if (next_move == 3 && x < Map.GetWidth() - 1) {
+			System.out.println("right");
+
+			is_movement_done = true;
+
 			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x + 1, y));
-			
+
 			if (winner != null) {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x + 1, y, winner);
@@ -485,6 +503,7 @@ public class LifeThread implements Runnable {
 			}
 			
 		}
+		return is_movement_done;
 
 	}
 }
