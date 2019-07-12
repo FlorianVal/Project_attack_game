@@ -64,23 +64,23 @@ public class LifeThread implements Runnable {
 
 	private void SpreadFire() {
 		int[][] fire_on_map = Find(false, true);
-		int spread_rate = 10; //% of chance to spread
+		int spread_rate = 10; // % of chance to spread
 		int number_of_try_per_fire = 10;
 		Random rand = new Random();
 		ElementClass object_fire = new ElementClass(Element.FIRE);
-		
+
 		for (int count = 0; count < fire_on_map.length; count++) {
-			for(int i=0; i< number_of_try_per_fire; i++) {
-				if(rand.nextInt(101) < spread_rate) {
+			for (int i = 0; i < number_of_try_per_fire; i++) {
+				if (rand.nextInt(101) < spread_rate) {
 					try {
-					Map.SetElement(fire_on_map[count][0] + (rand.nextInt(3) - 1), fire_on_map[count][1] + (rand.nextInt(3) - 1), object_fire);
-					}
-					catch(java.lang.ArrayIndexOutOfBoundsException e) {
-						
+						Map.SetElement(fire_on_map[count][0] + (rand.nextInt(3) - 1),
+								fire_on_map[count][1] + (rand.nextInt(3) - 1), object_fire);
+					} catch (java.lang.ArrayIndexOutOfBoundsException e) {
+
 					}
 				}
 			}
-			
+
 		}
 	}
 
@@ -124,22 +124,26 @@ public class LifeThread implements Runnable {
 
 	public static Element SearchNearestEmptyCell(int x, int y) {
 		int rho;
+		boolean find = false;
 		double theta;
 		Element empty_cell = Map.GetElement(0, 0);
 		int distance_of_seeing = 5;
-
 		for (rho = 1; rho < distance_of_seeing; rho++) {
 			for (theta = 0; theta <= 2 * Math.PI - 0.01; theta += Math.PI / (rho * 4)) {
 				int cell_x = x + (int) Math.round(rho * Math.cos(theta));
 				int cell_y = y + (int) Math.round(rho * Math.sin(theta));
+				System.out.printf("cell check : %d %d \n",cell_x - x, cell_y - y);
 
-				if (cell_x > 0 && cell_x < Map.GetWidth() && cell_y > 0 && cell_y < Map.GetHeight()) {
+				if (cell_x > 0 && cell_x < Map.GetWidth() && cell_y > 0 && cell_y < Map.GetHeight() && Map.GetElement(cell_x, cell_y) == Element.EMPTY) {
 					empty_cell.setX(cell_x);
 					empty_cell.setY(cell_y);
 					empty_cell = Map.GetElement(cell_x, cell_y);
+					find = true;
 				}
+				if(find) {break;}
 
 			}
+			if(find) {break;}
 		}
 
 		return empty_cell;
@@ -209,14 +213,16 @@ public class LifeThread implements Runnable {
 	}
 
 	private int[][] Find(boolean animals, boolean fire) {
-		
-		//return an array with x y of every object we want to find on map( for the moment only fire and animals)
+
+		// return an array with x y of every object we want to find on map( for the
+		// moment only fire and animals)
 
 		int count = 0;
-		
-		//Instanciation of the list which will contains the animals and the fire which the timer will be incremented
+
+		// Instanciation of the list which will contains the animals and the fire which
+		// the timer will be incremented
 		ArrayList<ElementClass> listAnimalsAndFire = new ArrayList<ElementClass>();
-		
+
 		// loop to count animals (needed to create static array next)
 		// add each elements of type animal and fire in the arraylist
 		for (int a = 0; a < Map.GetWidth(); a++) {
@@ -226,20 +232,20 @@ public class LifeThread implements Runnable {
 					count += 1;
 					listAnimalsAndFire.add(Map.GetElementClass(a, b));
 				}
-				
+
 				if (Map.GetElement(a, b).getName() == "Fire" && fire) {
 					count += 1;
 					listAnimalsAndFire.add(Map.GetElementClass(a, b));
 				}
-				
+
 			}
 		}
-		
-		//Incrementation of all the elements put in the arraylist 
-		for(int i = 0; i<listAnimalsAndFire.size(); i++){
+
+		// Incrementation of all the elements put in the arraylist
+		for (int i = 0; i < listAnimalsAndFire.size(); i++) {
 			listAnimalsAndFire.get(i).incrementTimer();
 		}
-		
+
 		int objects_on_map[][] = new int[count][2];
 		int count_of_objects = 0;
 		int i, j;
@@ -266,12 +272,12 @@ public class LifeThread implements Runnable {
 		// search for every animal on the map and move them one by one
 		Random rand = new Random();
 		int[][] animals_on_map = Find(true, false);
-		
+
 		// for loop on the array and random number to decide direction
 		for (int count_animal = 0; count_animal < animals_on_map.length; count_animal++) {
 			boolean movement_done = false;
 			int loop_count = 0;
-			while(!movement_done && loop_count < 50) {
+			while (!movement_done && loop_count < 50) {
 				int next_move = SearchNearest(animals_on_map[count_animal][0], animals_on_map[count_animal][1]);
 				// -1 = no near target
 				if (next_move == -1) {
@@ -280,7 +286,7 @@ public class LifeThread implements Runnable {
 				// debug force movement
 				// next_move = 3;
 				movement_done = MoveAnimal(animals_on_map[count_animal][0], animals_on_map[count_animal][1], next_move);
-				loop_count +=1;
+				loop_count += 1;
 			}
 		}
 
@@ -290,50 +296,51 @@ public class LifeThread implements Runnable {
 		// used to handle when an animal move into something
 		// return winning animal or null if no winning animal
 		ElementClass winner = null;
-		
+
 		// no winning animal if they are same animal
 		// TODO add fire dead
 		if (first_element_obj.getElement() == second_element_obj.getElement()) {
 			winner = null;
 		}
-		
+
 		if (first_element_obj.getElement() == Element.EMPTY || first_element_obj.getElement() == Element.FRUIT) {
 			winner = second_element_obj;
 		}
-		
+
 		if (second_element_obj.getElement() == Element.EMPTY || second_element_obj.getElement() == Element.FRUIT) {
 			winner = first_element_obj;
 		}
-		
+
 		if (first_element_obj.getElement() == Element.TREX && second_element_obj.getElement() == Element.BRACHIO) {
 			winner = first_element_obj;
 		}
-		
-		//Incrementation of the counter of fruits if the one of the elements is a baby-trex
-		//TODO : Test more this feature
-		if(first_element_obj.getElement() == Element.FRUIT && second_element_obj.getElement() == Element.BABYTREX){
+
+		// Incrementation of the counter of fruits if the one of the elements is a
+		// baby-trex
+		// TODO : Test more this feature
+		if (first_element_obj.getElement() == Element.FRUIT && second_element_obj.getElement() == Element.BABYTREX) {
 			second_element_obj.incrementCounterFruit();
-					
+
 		}
-		
-		//Incrementation of the counter of fruits if the one of the elements is a baby-trex
-		if(first_element_obj.getElement() == Element.BABYTREX && second_element_obj.getElement() == Element.FRUIT){
+
+		// Incrementation of the counter of fruits if the one of the elements is a
+		// baby-trex
+		if (first_element_obj.getElement() == Element.BABYTREX && second_element_obj.getElement() == Element.FRUIT) {
 			first_element_obj.incrementCounterFruit();
 		}
-		
+
 		return winner;
 
 	}
 
-	
 	public static void Mate(int x, int y, int x1, int y1) {
-		
+
 		Element emptyCell;
 		Element baby_trex_to_add = Element.BABYTREX;
 		baby_trex_to_add.setExist(false);
 		emptyCell = SearchNearestEmptyCell(x, y);
 		Map.AddOneElementToMap(baby_trex_to_add, emptyCell.getX(), emptyCell.getY());
-		
+
 	}
 
 	public boolean MoveAnimal(int x, int y, int next_move) {
@@ -342,7 +349,6 @@ public class LifeThread implements Runnable {
 		// move down
 		boolean is_movement_done = false;
 		if (next_move == 0 && y < Map.GetHeight() - 1) {
-			System.out.println("down");
 			is_movement_done = true;
 			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x, y + 1));
 
@@ -350,14 +356,13 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x, y + 1, winner);
 			}
-			
-			//If the winner is a baby-trex and its counter of fruits is superior than 3 
-			//(It means that the baby ate more than 3 fruits) the bbtrex will become a trex
-			if(winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3){	
-					System.out.println("bbtrex -> trex with counter of fruits = " + winner.getCounterFruit());
-					winner.setElement(Element.TREX);
+
+			// If the winner is a baby-trex and its counter of fruits is superior than 3
+			// (It means that the baby ate more than 3 fruits) the bbtrex will become a trex
+			if (winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3) {
+				System.out.println("bbtrex -> trex with counter of fruits = " + winner.getCounterFruit());
+				winner.setElement(Element.TREX);
 			}
-	
 
 			if ((Map.GetElement(x, y) == Element.TREX
 					&& (Map.GetElement(x, y + 1) == Element.TREXMATE || Map.GetElement(x, y + 1) == Element.TREX))
@@ -367,23 +372,24 @@ public class LifeThread implements Runnable {
 				Mate(x, y, x, y + 1);
 				Element.transformTREX(x, y, x, y + 1, Element.TREXMATE);
 			}
-			
-			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
-			if(Map.GetElementClass(x, y).getElement() == Element.TREXMATE && Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer()>0){
-					Map.GetElementClass(x, y).setElement(Element.TREX);
-			}
-				
-			if(Map.GetElementClass(x, y+1).getElement() == Element.TREXMATE && Map.GetElementClass(x, y+1).getTimer()%30 == 0 && Map.GetElementClass(x, y+1).getTimer()>0){
-					Map.GetElementClass(x, y+1).setElement(Element.TREX);
+
+			// If the timer of the object is a multiple of 30, the element will become a
+			// TREX instead of TREXMATE
+			if (Map.GetElementClass(x, y).getElement() == Element.TREXMATE
+					&& Map.GetElementClass(x, y).getTimer() % 30 == 0 && Map.GetElementClass(x, y).getTimer() > 0) {
+				Map.GetElementClass(x, y).setElement(Element.TREX);
 			}
 
-			
+			if (Map.GetElementClass(x, y + 1).getElement() == Element.TREXMATE
+					&& Map.GetElementClass(x, y + 1).getTimer() % 30 == 0
+					&& Map.GetElementClass(x, y + 1).getTimer() > 0) {
+				Map.GetElementClass(x, y + 1).setElement(Element.TREX);
+			}
 
 		}
 
 		// move left
 		if (next_move == 1 && x > 0 && x < Map.GetWidth() - 1) {
-			System.out.println("left");
 
 			is_movement_done = true;
 
@@ -393,37 +399,40 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x - 1, y, winner);
 			}
-			
-			//If the winner is a baby-trex and its counter of fruits is superior than 3 
-			//(It means that the baby ate more than 3 fruits) the bbtrex will become a trex
-			if(winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3){
-					System.out.println("bbtrex -> trex with counter of fruits = " + winner.getCounterFruit());
-					winner.setElement(Element.TREX);
+
+			// If the winner is a baby-trex and its counter of fruits is superior than 3
+			// (It means that the baby ate more than 3 fruits) the bbtrex will become a trex
+			if (winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3) {
+				System.out.println("bbtrex -> trex with counter of fruits = " + winner.getCounterFruit());
+				winner.setElement(Element.TREX);
 			}
-			
 
 			if ((Map.GetElement(x, y) == Element.TREX
 					&& (Map.GetElement(x - 1, y) == Element.TREXMATE || Map.GetElement(x - 1, y) == Element.TREX))
-					|| (Map.GetElement(x - 1, y) == Element.TREX && (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))) {
-			
-					Mate(x, y, x - 1, y);
-					Element.transformTREX(x, y, x - 1, y, Element.TREXMATE);
+					|| (Map.GetElement(x - 1, y) == Element.TREX
+							&& (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))) {
+
+				Mate(x, y, x - 1, y);
+				Element.transformTREX(x, y, x - 1, y, Element.TREXMATE);
 			}
-			
-			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
-			if(Map.GetElementClass(x, y).getElement() == Element.TREXMATE && Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer()>0){
+
+			// If the timer of the object is a multiple of 30, the element will become a
+			// TREX instead of TREXMATE
+			if (Map.GetElementClass(x, y).getElement() == Element.TREXMATE
+					&& Map.GetElementClass(x, y).getTimer() % 30 == 0 && Map.GetElementClass(x, y).getTimer() > 0) {
 				Map.GetElementClass(x, y).setElement(Element.TREX);
 			}
-			
-			if(Map.GetElementClass(x-1, y).getElement() == Element.TREXMATE && Map.GetElementClass(x-1, y).getTimer()%30 == 0 && Map.GetElementClass(x-1, y).getTimer()>0){
-				Map.GetElementClass(x-1, y).setElement(Element.TREX);
+
+			if (Map.GetElementClass(x - 1, y).getElement() == Element.TREXMATE
+					&& Map.GetElementClass(x - 1, y).getTimer() % 30 == 0
+					&& Map.GetElementClass(x - 1, y).getTimer() > 0) {
+				Map.GetElementClass(x - 1, y).setElement(Element.TREX);
 			}
-			
+
 		}
 
 		// move up
 		if (next_move == 2 && y > 0 && y < Map.GetHeight() - 1) {
-			System.out.println("up");
 
 			is_movement_done = true;
 
@@ -433,39 +442,42 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x, y - 1, winner);
 			}
-			
-			//If the winner is a baby-trex and its counter of fruits is superior than 3 
-			//(It means that the baby ate more than 3 fruits) the bbtrex will become a trex
-			if(winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3){
-					System.out.println("bbtrex -> trex with counter of fruits = " + winner.getCounterFruit());
-					winner.setElement(Element.TREX);
+
+			// If the winner is a baby-trex and its counter of fruits is superior than 3
+			// (It means that the baby ate more than 3 fruits) the bbtrex will become a trex
+			if (winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3) {
+				System.out.println("bbtrex -> trex with counter of fruits = " + winner.getCounterFruit());
+				winner.setElement(Element.TREX);
 			}
-				
 
 			if ((Map.GetElement(x, y) == Element.TREX
-				&& (Map.GetElement(x, y - 1) == Element.TREXMATE || Map.GetElement(x, y - 1) == Element.TREX))
-				|| (Map.GetElement(x, y - 1) == Element.TREX
-				&& (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))) {
-				
-					Mate(x, y, x, y - 1);
-					Element.transformTREX(x, y, x, y - 1, Element.TREXMATE);
+					&& (Map.GetElement(x, y - 1) == Element.TREXMATE || Map.GetElement(x, y - 1) == Element.TREX))
+					|| (Map.GetElement(x, y - 1) == Element.TREX
+							&& (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))) {
+
+				Mate(x, y, x, y - 1);
+				Element.transformTREX(x, y, x, y - 1, Element.TREXMATE);
 			}
-			
-			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
-			if(Map.GetElementClass(x, y).getElement() == Element.TREXMATE && Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer()>0){
+
+			// If the timer of the object is a multiple of 30, the element will become a
+			// TREX instead of TREXMATE
+			if (Map.GetElementClass(x, y).getElement() == Element.TREXMATE
+					&& Map.GetElementClass(x, y).getTimer() % 30 == 0 && Map.GetElementClass(x, y).getTimer() > 0) {
 				Map.GetElementClass(x, y).setElement(Element.TREX);
 			}
-			
-			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
-			if(Map.GetElementClass(x, y-1).getElement() == Element.TREXMATE && Map.GetElementClass(x, y-1).getTimer()%30 == 0 && Map.GetElementClass(x, y-1).getTimer()>0){
-				Map.GetElementClass(x, y-1).setElement(Element.TREX);
+
+			// If the timer of the object is a multiple of 30, the element will become a
+			// TREX instead of TREXMATE
+			if (Map.GetElementClass(x, y - 1).getElement() == Element.TREXMATE
+					&& Map.GetElementClass(x, y - 1).getTimer() % 30 == 0
+					&& Map.GetElementClass(x, y - 1).getTimer() > 0) {
+				Map.GetElementClass(x, y - 1).setElement(Element.TREX);
 			}
 
 		}
 
 		// move right
 		if (next_move == 3 && x < Map.GetWidth() - 1) {
-			System.out.println("right");
 
 			is_movement_done = true;
 
@@ -475,36 +487,40 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x + 1, y, winner);
 			}
-			
-			//If the winner is a baby-trex and its counter of fruits is superior than 3 
-			//(It means that the baby ate more than 3 fruits) the bbtrex will become a trex
-			if(winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3){
-					System.out.println("bbtrex -> trex with counter of fruits = " + winner.getCounterFruit());
-					winner.setElement(Element.TREX);
+
+			// If the winner is a baby-trex and its counter of fruits is superior than 3
+			// (It means that the baby ate more than 3 fruits) the bbtrex will become a trex
+			if (winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3) {
+				System.out.println("bbtrex -> trex with counter of fruits = " + winner.getCounterFruit());
+				winner.setElement(Element.TREX);
 			}
 
 			if ((Map.GetElement(x, y) == Element.TREX
 					&& (Map.GetElement(x + 1, y) == Element.TREXMATE || Map.GetElement(x + 1, y) == Element.TREX))
 					|| (Map.GetElement(x + 1, y) == Element.TREX
 							&& (Map.GetElement(x, y) == Element.TREXMATE || Map.GetElement(x, y) == Element.TREX))) {
-					
-					Mate(x, y, x + 1, y);
-					Element.transformTREX(x, y, x+1, y, Element.TREXMATE);
+
+				Mate(x, y, x + 1, y);
+				Element.transformTREX(x, y, x + 1, y, Element.TREXMATE);
 			}
-			
-			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
-			if(Map.GetElementClass(x, y).getElement() == Element.TREXMATE && Map.GetElementClass(x, y).getTimer()%30 == 0 && Map.GetElementClass(x, y).getTimer() > 0){
+
+			// If the timer of the object is a multiple of 30, the element will become a
+			// TREX instead of TREXMATE
+			if (Map.GetElementClass(x, y).getElement() == Element.TREXMATE
+					&& Map.GetElementClass(x, y).getTimer() % 30 == 0 && Map.GetElementClass(x, y).getTimer() > 0) {
 				Map.GetElementClass(x, y).setElement(Element.TREX);
 			}
-			
-			//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
-			if(Map.GetElementClass(x+1, y).getElement() == Element.TREXMATE && Map.GetElementClass(x+1, y).getTimer()%30 == 0 && Map.GetElementClass(x+1, y).getTimer() > 0){
-				Map.GetElementClass(x+1, y).setElement(Element.TREX);
+
+			// If the timer of the object is a multiple of 30, the element will become a
+			// TREX instead of TREXMATE
+			if (Map.GetElementClass(x + 1, y).getElement() == Element.TREXMATE
+					&& Map.GetElementClass(x + 1, y).getTimer() % 30 == 0
+					&& Map.GetElementClass(x + 1, y).getTimer() > 0) {
+				Map.GetElementClass(x + 1, y).setElement(Element.TREX);
 			}
-			
+
 		}
 		return is_movement_done;
 
 	}
 }
-		
