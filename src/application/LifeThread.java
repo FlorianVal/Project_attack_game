@@ -66,10 +66,17 @@ public class LifeThread implements Runnable {
 		int[][] fire_on_map = Find(false, true);
 		int spread_rate = 10; // % of chance to spread
 		int number_of_try_per_fire = 10;
+		int max_delay_to_stop_fire = 5;
 		Random rand = new Random();
 		ElementClass object_fire = new ElementClass(Element.FIRE);
 
 		for (int count = 0; count < fire_on_map.length; count++) {
+			int stop_fire = rand.nextInt(max_delay_to_stop_fire) +1;
+			if (Map.GetElementClass(fire_on_map[count][0], fire_on_map[count][1]).getElement() == Element.FIRE
+					&& Map.GetElementClass(fire_on_map[count][0], fire_on_map[count][1]).getTimer() % stop_fire == 0 && Map.GetElementClass(fire_on_map[count][0], fire_on_map[count][1]).getTimer() > 0) {
+				System.out.printf("Empty fire");
+				Map.GetElementClass(fire_on_map[count][0], fire_on_map[count][1]).setElement(Element.EMPTY);
+			}
 			for (int i = 0; i < number_of_try_per_fire; i++) {
 				if (rand.nextInt(101) < spread_rate) {
 					try {
@@ -303,18 +310,21 @@ public class LifeThread implements Runnable {
 			winner = null;
 		}
 
-		if (first_element_obj.getElement() == Element.EMPTY || first_element_obj.getElement() == Element.FRUIT) {
-			winner = second_element_obj;
-		}
-
-		if (second_element_obj.getElement() == Element.EMPTY || second_element_obj.getElement() == Element.FRUIT) {
+		if (second_element_obj.getElement() == Element.EMPTY) {
 			winner = first_element_obj;
 		}
-
-		if (first_element_obj.getElement() == Element.TREX && second_element_obj.getElement() == Element.BRACHIO) {
+		//TREX vs BRACHIO
+		if ((first_element_obj.getElement() == Element.TREX && second_element_obj.getElement() == Element.BRACHIO)) {
 			winner = first_element_obj;
 		}
-
+		// PTERO vs TREX
+		if ((first_element_obj.getElement() == Element.PTERODACTYL && second_element_obj.getElement() == Element.TREX)) {
+			winner = first_element_obj;
+		}
+		//BRACHIO vs PTERO
+		if ((first_element_obj.getElement() == Element.BRACHIO && second_element_obj.getElement() == Element.PTERODACTYL)) {
+			winner = first_element_obj;
+		}
 		// Incrementation of the counter of fruits if the one of the elements is a
 		// baby-trex
 		// TODO : Test more this feature
@@ -348,6 +358,7 @@ public class LifeThread implements Runnable {
 		// direction
 		// move down
 		boolean is_movement_done = false;
+
 		if (next_move == 0 && y < Map.GetHeight() - 1) {
 			is_movement_done = true;
 			ElementClass winner = Encounter(Map.GetElementClass(x, y), Map.GetElementClass(x, y + 1));
@@ -379,7 +390,8 @@ public class LifeThread implements Runnable {
 					&& Map.GetElementClass(x, y).getTimer() % 30 == 0 && Map.GetElementClass(x, y).getTimer() > 0) {
 				Map.GetElementClass(x, y).setElement(Element.TREX);
 			}
-
+			
+			
 			if (Map.GetElementClass(x, y + 1).getElement() == Element.TREXMATE
 					&& Map.GetElementClass(x, y + 1).getTimer() % 30 == 0
 					&& Map.GetElementClass(x, y + 1).getTimer() > 0) {
@@ -389,7 +401,8 @@ public class LifeThread implements Runnable {
 		}
 
 		// move left
-		if (next_move == 1 && x > 0 && x < Map.GetWidth() - 1) {
+		if (next_move == 1 && x > 0 && x < Map.GetWidth() ) {
+
 
 			is_movement_done = true;
 
@@ -432,7 +445,8 @@ public class LifeThread implements Runnable {
 		}
 
 		// move up
-		if (next_move == 2 && y > 0 && y < Map.GetHeight() - 1) {
+		if (next_move == 2 && y > 0 && y < Map.GetHeight()) {
+
 
 			is_movement_done = true;
 
@@ -478,6 +492,7 @@ public class LifeThread implements Runnable {
 
 		// move right
 		if (next_move == 3 && x < Map.GetWidth() - 1) {
+
 
 			is_movement_done = true;
 

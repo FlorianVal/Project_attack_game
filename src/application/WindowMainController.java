@@ -6,6 +6,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.MouseDragEvent;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 
@@ -159,7 +163,7 @@ public class WindowMainController {
 
 	}
 
-	public void AddImage(ImageSprite image, int x, int y) {
+	private void AddImage(ImageSprite image, int x, int y) {
 		ImageView iv = new ImageView(image.getImage());
 		// do the sprite with rectangle of view moving on the image
 		iv.setViewport(new Rectangle2D(image.getstate_of_sprite() * 10, 0, 10, 10));
@@ -182,7 +186,10 @@ public class WindowMainController {
 		int[][] partial_empty = Map.ReturnPartialEmptyMap(this.x_window, this.y_window,
 				this.GridMap.impl_getColumnCount(), GridMap.impl_getRowCount());
 		this.GridMap.getChildren().clear();
-
+		ArrayList<Element> elist = new ArrayList<Element>(Arrays.asList(Element.values()));
+		for(Element elem: elist) {
+			elem.getVisu().increm_sprite();
+		}
 		for (int i = 0; i < partial_map.length; i++) {
 			for (int j = 0; j < partial_map[i].length; j++) {
 				if (partial_map[i][j].getElement() != Element.EMPTY) {
@@ -213,6 +220,10 @@ public class WindowMainController {
 
 	public void AddFence() {
 		button_state = Element.FENCE;
+	}
+	
+	public void AddPtero() {
+		button_state = Element.PTERODACTYL;
 	}
 
 	@FXML
