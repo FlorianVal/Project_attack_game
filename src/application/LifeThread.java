@@ -195,10 +195,8 @@ public class LifeThread implements Runnable {
 			//search for each target
 			Element target = targets[target_number];
 			if(target == Element.EMPTY) {
-				System.out.println("No Empty");
 				break;
 			}
-			System.out.printf("Searching for target : %s \n", target.getName());
 			for (rho = 1; rho < distance_of_seeing; rho++) {
 				for (theta = 0; theta <= 2 * Math.PI - 0.01; theta += Math.PI / (rho * 4)) {
 					int cell_x = x + (int) Math.round(rho * Math.cos(theta));
@@ -487,7 +485,7 @@ public class LifeThread implements Runnable {
 		if (score >= 20 && score > 0 || score == 0) {
 			System.out.println("End of the game");
 			System.out.println("The final score is : " + score);
-			//doStop();
+			doStop();
 		}
 
 		return score;
