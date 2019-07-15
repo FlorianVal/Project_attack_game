@@ -22,13 +22,15 @@ public class ImageSprite {
 		return image;
 	}
 	public int getstate_of_sprite() {
+		return state_in_sprite;
+	}
+	public void increm_sprite() {
 		if(state_in_sprite < number_of_sprite) {
 			state_in_sprite+=1;
 		}
 		if(state_in_sprite == number_of_sprite) {
 			state_in_sprite = 0;
-		}
-		return state_in_sprite;
+		
 	}
-
+	}
 }
