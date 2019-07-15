@@ -13,6 +13,7 @@ public class Map {
 	private static int emptymap[][];
 	private static int width;
 	private static int height;
+	//private static int score;
 	
 	public Map(int width_given, int height_given) {
 		width = width_given;
@@ -47,6 +48,7 @@ public class Map {
 		return emptymap[i][j];
 	}
 
+	
 	private static void InitRandomMap(ElementClass[][] map) {
 		//list of element to put on map
 		ArrayList<Element> elist = new ArrayList<Element>(Arrays.asList(Element.values()));

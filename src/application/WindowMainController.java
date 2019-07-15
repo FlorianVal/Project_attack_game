@@ -1,9 +1,14 @@
 package application;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +21,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 public class WindowMainController {
 
@@ -28,11 +38,8 @@ public class WindowMainController {
 	private static LifeThread lifethread;
 	private int is_mouse_pressed;
 	
-	@FXML
-	public int score;
-	
 	@FXML 
-	TextField textFiled;
+	Label label;
 
 	@FXML
 	void initialize(WindowMainController controller, int width, int height) {
@@ -124,15 +131,6 @@ public class WindowMainController {
 			}
 		}
 	}
-
-	@FXML
-	public void countScoreListenner(){
-		// Listen for Score value changes
-		//TextField textFiled= new TextField();
-		textFiled.textProperty().addListener((observable, oldValue, newValue) -> {
-		    System.out.println("textfield changed from " + oldValue + " to " + newValue);
-		});
-	}
 	
 	
 	public int[] GetCell(double x, double y) {
@@ -221,6 +219,7 @@ public class WindowMainController {
 			}
 		}
 	}
+	
 
 	public void AddBananaRandomOnMap() {
 		LifeThread.RandomlyAddToMap(Element.BANANA);

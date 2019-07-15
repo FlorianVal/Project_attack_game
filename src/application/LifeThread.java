@@ -4,12 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 //TODO : Scores -> Compter nbres de trex + les tuer au bout d'un certain temps (timer) : Partie gagnée à 20 TREX // Moi
-//TODO : Add a specie + lui faire manger les bananes // Flo
 //TODO : GUI Score + Menu + Design boutons lvl 2 //Moi
-//TODO : Eteindre le feu avec timer // Flo
-//TODO : Tests
 
 
 public class LifeThread implements Runnable {
@@ -17,7 +24,7 @@ public class LifeThread implements Runnable {
 	private boolean doStop = false;
 	private boolean IsPaused = false;
 	public WindowMainController controller;
-	public int score = 0;
+	private int score;
 	ArrayList<ElementClass> listElementsToIncrementTimer = new ArrayList<ElementClass>();
 	ArrayList<ElementClass> listTREX = new ArrayList<ElementClass>();
 	
@@ -48,6 +55,7 @@ public class LifeThread implements Runnable {
 	public void run() {
 		while (keepRunning()) {
 			if (this.IsPaused == false) {
+				
 				incrementTimer(listElementsToIncrementTimer);
 				SpreadFire();
 				MoveAnimals();
@@ -103,7 +111,11 @@ public class LifeThread implements Runnable {
 
 		}
 	}
-
+	
+	public int getScore(){
+		return score;
+	}
+	
 	public void Respawn() {
 		// use to spawn randomly things on map
 		// list all elements
@@ -452,9 +464,20 @@ public class LifeThread implements Runnable {
 		}
 		score = listTREX.size();
 		
+		if(score < 20 && score > 0){
+			System.out.println("The score is : " + score);
+		}
+		
+		if(score >= 20 && score > 0 || score == 0){
+			System.out.println("End of the game");
+			System.out.println("The final score is : " + score);
+			doStop();
+		}
+		
 		return score;
 		
 	}
+	
 
 	public boolean MoveAnimal(int x, int y, int next_move) {
 		// moving one animal just by receiving pos of animal and a random number for
