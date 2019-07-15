@@ -83,6 +83,9 @@ public class Map {
 	
 	private static void EmptyMap() {
 		Random rand = new Random();
+		int x = rand.nextInt(10);
+		int y = rand.nextInt(10);
+		
 		for(int i=0; i<map.length; i++) {
 			for(int j=0; j<map[i].length; j++) {
 				emptymap[i][j] = rand.nextInt(2);
@@ -90,6 +93,10 @@ public class Map {
 				map[i][j] = emptyElement;				
 			}
 		}
+		
+		//To add one trex in a random cell to can play the lvl 3
+		map[x][y] = new ElementClass(Element.TREX);
+		
 	}
 	
 	// used to init the map
@@ -131,7 +138,6 @@ public class Map {
 				nbBbAdded+=1;
 				elementToAdd.setExist(true);
 			}
-			System.out.println("Nombre bb ajout�s : " +  nbBbAdded);
 			
 		}
 		
