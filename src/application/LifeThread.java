@@ -4,16 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
 
 //TODO : Scores -> Compter nbres de trex + les tuer au bout d'un certain temps (timer) : Partie gagnée à 20 TREX // Moi
 //TODO : GUI Score + Menu + Design boutons lvl 2 //Moi
@@ -56,12 +46,14 @@ public class LifeThread implements Runnable {
 		while (keepRunning()) {
 			if (this.IsPaused == false) {
 				
-				incrementTimer(listElementsToIncrementTimer);
+				initializeListTREX();
+				score = toCountScore(listTREX);
 				SpreadFire();
 				MoveAnimals();
 				Respawn();
-				score = toCountScore(listTREX);
-				killTREXAfterTime(listElementsToIncrementTimer);
+				incrementTimer(listElementsToIncrementTimer);
+				
+				killTREXAfterTime(listTREX);
 
 				// run later is needed to run display map in life thread
 				Platform.runLater(new Runnable() {
@@ -110,10 +102,6 @@ public class LifeThread implements Runnable {
 			}
 
 		}
-	}
-	
-	public int getScore(){
-		return score;
 	}
 	
 	public void Respawn() {
@@ -346,11 +334,11 @@ public class LifeThread implements Runnable {
 	
 	public void killTREXAfterTime(ArrayList<ElementClass> listTREX){
 		for(int i = 0; i<listTREX.size(); i++){
-			System.out.println("Timer kill 1 " + listTREX.get(i).getTimer());
-			if(listTREX.get(i).getElement() == Element.TREX && listTREX.get(i).getTimer()%200 == 0 && listTREX.get(i).getTimer() > 0){
-				System.out.println("Timer kill 2 " + listTREX.get(i).getTimer());
+			//System.out.println("Timer kill 1 " + listTREX.get(i).getTimer());
+			if(listTREX.get(i).getTimer()%200 == 0 && listTREX.get(i).getTimer() > 0){
+				//System.out.println("Timer kill 2 " + listTREX.get(i).getTimer());
 				listTREX.get(i).setElement(Element.EMPTY);
-				System.out.println("Trex deleted");
+				//System.out.println("Trex deleted");
 			}
 		}
 	}
@@ -452,16 +440,28 @@ public class LifeThread implements Runnable {
 
 	}
 	
-	public int toCountScore(ArrayList<ElementClass> listTREX){
+	public ArrayList<ElementClass> initializeListTREX(){
 		listTREX.clear();
-		
 		for (int i = 0; i < Map.GetWidth(); i++) {
 			for (int j = 0; j < Map.GetHeight(); j++) {
-				if(Map.GetElementClass(i, j).getElement() == Element.TREX){
+				if(Map.GetElementClass(i, j).getElement() == Element.TREX || Map.GetElementClass(i, j).getElement() == Element.TREXMATE){
 					listTREX.add(Map.GetElementClass(i, j));
 				}
 			}
 		}
+		return listTREX;
+	}
+	
+	public int toCountScore(ArrayList<ElementClass> listTREX){
+		/*listTREX.clear();
+		
+		for (int i = 0; i < Map.GetWidth(); i++) {
+			for (int j = 0; j < Map.GetHeight(); j++) {
+				if(Map.GetElementClass(i, j).getElement() == Element.TREX || Map.GetElementClass(i, j).getElement() == Element.TREXMATE){
+					listTREX.add(Map.GetElementClass(i, j));
+				}
+			}
+		}*/
 		score = listTREX.size();
 		
 		if(score < 20 && score > 0){
