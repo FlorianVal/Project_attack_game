@@ -17,7 +17,9 @@ public class LifeThread implements Runnable {
 	private boolean doStop = false;
 	private boolean IsPaused = false;
 	public WindowMainController controller;
-	ArrayList<ElementClass> listAllElements = new ArrayList<ElementClass>();
+	public int score = 0;
+	ArrayList<ElementClass> listAnimalsAndFire = new ArrayList<ElementClass>();
+	ArrayList<ElementClass> listTREX = new ArrayList<ElementClass>();
 	
 	public LifeThread(WindowMainController controller_given) {
 		controller_given.DisplayMap();
@@ -241,22 +243,23 @@ public class LifeThread implements Runnable {
 				
 				if (Map.GetElement(a, b).is_animal() && animals) {
 					count += 1;
-					listAllElements.add(Map.GetElementClass(a, b));
+					listAnimalsAndFire.add(Map.GetElementClass(a, b));
 				}
 
 				if (Map.GetElement(a, b).getName() == "Fire" && fire) {
 					count += 1;
-					listAllElements.add(Map.GetElementClass(a, b));
+					listAnimalsAndFire.add(Map.GetElementClass(a, b));
 				}
+				
 
 			}
 		}
 		
 		//After each turn, timers of animals and fires are incremented
-		LifeThread.incrementTimer(listAllElements);
+		LifeThread.incrementTimer(listAnimalsAndFire);
 		
 		//At the end of each turn, bb-trex's timers are checked to know if they have to grow-up or not
-		LifeThread.checkCounterFruitsBabyTREX(listAllElements);
+		LifeThread.checkCounterFruitsBabyTREX(listAnimalsAndFire);
 
 
 		int objects_on_map[][] = new int[count][2];
@@ -329,7 +332,9 @@ public class LifeThread implements Runnable {
 		// search for every animal on the map and move them one by one
 		Random rand = new Random();
 		int[][] animals_on_map = Find(true, false);
-
+		score = toCountScore(listTREX);
+		System.out.println("Le score est = " + score);
+		
 		// for loop on the array and random number to decide direction
 		for (int count_animal = 0; count_animal < animals_on_map.length; count_animal++) {
 			boolean movement_done = false;
@@ -421,6 +426,24 @@ public class LifeThread implements Runnable {
 		Map.AddOneElementToMap(baby_trex_to_add, emptyCell.getX(), emptyCell.getY());
 
 	}
+	
+	public int toCountScore(ArrayList<ElementClass> listTREX){
+		listTREX.clear();
+		for (int a = 0; a < Map.GetWidth(); a++) {
+			for (int b = 0; b < Map.GetHeight(); b++) {
+				if(Map.GetElementClass(a, b).getElement() == Element.TREX){
+					listTREX.add(Map.GetElementClass(a, b));
+				}
+			}
+		}
+		
+		System.out.println(listTREX.toString());
+		
+		score = listTREX.size();
+		
+		return score;
+		
+	}
 
 	public boolean MoveAnimal(int x, int y, int next_move) {
 		// moving one animal just by receiving pos of animal and a random number for
@@ -439,7 +462,6 @@ public class LifeThread implements Runnable {
 			
 			LifeThread.transformTREX(x, y, x, y + 1, Element.TREXMATE);
 			LifeThread.checkTimerTREXMATE(x, y, x, y+1);
-
 
 		}
 

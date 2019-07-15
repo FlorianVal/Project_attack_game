@@ -143,9 +143,6 @@ public class Map {
 	//console version
 	public static void displayMap(Element[][] map_to_display){
 		int i, j;
-		//System.out.print("Map to display :");
-		//System.out.print(map_to_display.length);
-		//System.out.println(map_to_display[0].length);
         for(i=0; i<map_to_display.length; i++){
             for(j=0; j<map_to_display[i].length ; j++){
             	System.out.print(i);

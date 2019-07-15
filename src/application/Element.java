@@ -19,6 +19,7 @@ public enum Element {
 	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"", false);
 	
 	private String name = "";
+	int score;
 	
 	public void setSpawn_proba(double spawn_proba) {
 		this.spawn_proba = spawn_proba;

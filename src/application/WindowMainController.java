@@ -1,5 +1,7 @@
 package application;
 
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Rectangle2D;
@@ -10,6 +12,8 @@ import javafx.scene.input.MouseDragEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 
@@ -23,6 +27,12 @@ public class WindowMainController {
 	private static Thread thread;
 	private static LifeThread lifethread;
 	private int is_mouse_pressed;
+	
+	@FXML
+	public int score;
+	
+	@FXML 
+	TextField textFiled;
 
 	@FXML
 	void initialize(WindowMainController controller, int width, int height) {
@@ -115,6 +125,16 @@ public class WindowMainController {
 		}
 	}
 
+	@FXML
+	public void countScoreListenner(){
+		// Listen for Score value changes
+		//TextField textFiled= new TextField();
+		textFiled.textProperty().addListener((observable, oldValue, newValue) -> {
+		    System.out.println("textfield changed from " + oldValue + " to " + newValue);
+		});
+	}
+	
+	
 	public int[] GetCell(double x, double y) {
 		int[] cell = new int[2];
 		cell[0] = -1;
