@@ -7,9 +7,9 @@ public enum Element {
 	//TODO add fence
 	FENCE("fence","file:src/images/fence.png",0,false,0,"", false),
 	TREX("T-Rex","file:src/images/t-t-rex.png", 0.01, true, 0, "Brachiosaur", false),
-	TREXMATE("T-Rex-Mated","file:src/images/mur.jpg", 0, true, 0, "Brachiosaur", true), //TODO : Edit the picture when all tests will be ok
-	PTERODACTYL("Pterodactyl","file:src/images/pter.png", 0, true, 0, "T-Rex", false),
-	//TREXMATE("T-Rex-Mated","file:src/images/trex.png", 0, true, 0, "Brachiosaur", true), //TODO : Edit the picture when all tests will be ok
+	//("T-Rex-Mated","file:src/images/mur.jpg", 0, true, 0, "Brachiosaur", true), //TODO : Edit the picture when all tests will be ok
+	PTERODACTYL("Pterodactyl","file:src/images/pter.png", 0.01, true, 0, "T-Rex", false),
+	TREXMATE("T-Rex-Mated","file:src/images/trex.png", 0, true, 0, "Brachiosaur", true), //TODO : Edit the picture when all tests will be ok
 	FRUIT("Fruit", "file:src/images/fruit.png", 0.026, false, 0.02, "", false), 
 	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, "", false),
 	EMPTY2("Empty", "file:src/images/empty2.png", 0, false, 0, "", false), // only to draw
