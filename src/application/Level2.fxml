@@ -84,8 +84,7 @@
             
         </rowConstraints>
       </GridPane>
-      <Button layoutX="453.0" layoutY="30.0" mnemonicParsing="false" onAction="#AddBananaRandomOnMap" text="Add a banana" />
-      <Button layoutX="453.0" layoutY="71.0" mnemonicParsing="false" onAction="#BurnRandomMap" text="Fire" />
-      <Button layoutX="453.0" layoutY="111.0" mnemonicParsing="false" text="Add 2" />
+      <Button layoutX="453.0" layoutY="43.0" mnemonicParsing="false" onAction="#AddBananaRandomOnMap" prefHeight="31.0" prefWidth="100.0" text="Banana" />
+      <Button layoutX="453.0" layoutY="97.0" mnemonicParsing="false" onAction="#BurnRandomMap" prefHeight="31.0" prefWidth="100.0" text="Fire" />
    </children>
 </AnchorPane>

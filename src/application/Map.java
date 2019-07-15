@@ -13,7 +13,6 @@ public class Map {
 	private static int emptymap[][];
 	private static int width;
 	private static int height;
-	//private static int score;
 	
 	public Map(int width_given, int height_given) {
 		width = width_given;

@@ -6,17 +6,11 @@ import java.util.Arrays;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class WindowController {
@@ -95,7 +89,6 @@ public class WindowController {
     
     void OpenMainWindow(String level_fxml_file, String name) {
 	    try {	
-
 	    	
 			FXMLLoader loader1 = new FXMLLoader(getClass().getResource(level_fxml_file));
 			Parent root = loader1.load();

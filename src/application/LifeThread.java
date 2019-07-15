@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.Random;
 import javafx.application.Platform;
 
-//TODO : Scores -> Compter nbres de trex + les tuer au bout d'un certain temps (timer) : Partie gagn�e � 20 TREX // Moi
-//TODO : GUI Score + Menu + Design boutons lvl 2 //Moi
 
 public class LifeThread implements Runnable {
 
@@ -344,11 +342,8 @@ public class LifeThread implements Runnable {
 	
 	public void killTREXAfterTime(ArrayList<ElementClass> listTREX){
 		for(int i = 0; i<listTREX.size(); i++){
-			//System.out.println("Timer kill 1 " + listTREX.get(i).getTimer());
 			if(listTREX.get(i).getTimer()%200 == 0 && listTREX.get(i).getTimer() > 0){
-				//System.out.println("Timer kill 2 " + listTREX.get(i).getTimer());
 				listTREX.get(i).setElement(Element.EMPTY);
-				//System.out.println("Trex deleted");
 			}
 		}
 	}
