@@ -18,7 +18,7 @@ public class LifeThread implements Runnable {
 	private boolean IsPaused = false;
 	public WindowMainController controller;
 	public int score = 0;
-	ArrayList<ElementClass> listAnimalsAndFire = new ArrayList<ElementClass>();
+	ArrayList<ElementClass> listElementsToIncrementTimer = new ArrayList<ElementClass>();
 	ArrayList<ElementClass> listTREX = new ArrayList<ElementClass>();
 	
 	public LifeThread(WindowMainController controller_given) {
@@ -48,11 +48,12 @@ public class LifeThread implements Runnable {
 	public void run() {
 		while (keepRunning()) {
 			if (this.IsPaused == false) {
+				incrementTimer(listElementsToIncrementTimer);
 				SpreadFire();
 				MoveAnimals();
 				Respawn();
-
 				score = toCountScore(listTREX);
+				//killTREXAfterTime(listAnimalsAndFire);
 
 				// run later is needed to run display map in life thread
 				Platform.runLater(new Runnable() {
@@ -245,23 +246,19 @@ public class LifeThread implements Runnable {
 				
 				if (Map.GetElement(a, b).is_animal() && animals) {
 					count += 1;
-					listAnimalsAndFire.add(Map.GetElementClass(a, b));
 				}
 
 				if (Map.GetElement(a, b).getName() == "Fire" && fire) {
 					count += 1;
-					listAnimalsAndFire.add(Map.GetElementClass(a, b));
 				}
 				
 
 			}
 		}
 		
-		//After each turn, timers of animals and fires are incremented
-		LifeThread.incrementTimer(listAnimalsAndFire);
 		
 		//At the end of each turn, bb-trex's timers are checked to know if they have to grow-up or not
-		LifeThread.checkCounterFruitsBabyTREX(listAnimalsAndFire);
+		//LifeThread.checkCounterFruitsBabyTREX(listAnimalsAndFire);
 
 
 		int objects_on_map[][] = new int[count][2];
@@ -287,14 +284,27 @@ public class LifeThread implements Runnable {
 	}
 	
 	public static void incrementTimer(ArrayList<ElementClass> elementsToIncrement){
+		elementsToIncrement.clear();
+		
+		for (int a = 0; a < Map.GetWidth(); a++) {
+			for (int b = 0; b < Map.GetHeight(); b++) {
+				
+				if (Map.GetElement(a, b).is_animal()) {
+					elementsToIncrement.add(Map.GetElementClass(a, b));
+				}
+				
+				if (Map.GetElementClass(a, b).getElement() == Element.FIRE) {
+					elementsToIncrement.add(Map.GetElementClass(a, b));
+				}
+			}
+		}
 		
 		for(int i = 0; i < elementsToIncrement.size();i++){		
 			elementsToIncrement.get(i).incrementTimer();
 		}
 	}
 	
-	//This method checks in the list of elements of the map if the element is a baby trex, and if he ate more than 3 fruits
-	//If the bb trex ate more than 3 fruits, it will grow up and become TREX
+	
 	public static void checkCounterFruitsBabyTREX(ArrayList<ElementClass> allElementsMap){
 		
 		for(int i = 0; i<allElementsMap.size(); i++ ){
@@ -306,16 +316,16 @@ public class LifeThread implements Runnable {
 			
 	}
 	
-	public static void checkTimerTREXMATE(int x, int y, int x1, int y1){
+	public void checkTimerTREXMATE(int x, int y, int x1, int y1){
 		
 		if (Map.GetElementClass(x, y).getElement() == Element.TREXMATE
-				&& Map.GetElementClass(x, y).getTimer() % 30 == 0 && Map.GetElementClass(x, y).getTimer() > 0) {
+				&& Map.GetElementClass(x, y).getTimer() % 100 == 0 && Map.GetElementClass(x, y).getTimer() > 0) {
 			Map.GetElementClass(x, y).setElement(Element.TREX);
 		}
 		
 		
 		if (Map.GetElementClass(x1, y1).getElement() == Element.TREXMATE
-				&& Map.GetElementClass(x1, y1).getTimer() % 30 == 0
+				&& Map.GetElementClass(x1, y1).getTimer() % 100 == 0
 				&& Map.GetElementClass(x1, y1).getTimer() > 0) {
 			Map.GetElementClass(x1, y1).setElement(Element.TREX);
 		}
@@ -324,8 +334,10 @@ public class LifeThread implements Runnable {
 	
 	public static void killTREXAfterTime(ArrayList<ElementClass> listTREX){
 		for(int i = 0; i<listTREX.size(); i++){
-			if(listTREX.get(i).getTimer() >= 200){
+			if(listTREX.get(i).getElement() == Element.TREX && listTREX.get(i).getTimer()%200 == 0 && listTREX.get(i).getTimer() > 0){
+				System.out.println("Timer kill " + listTREX.get(i).getTimer());
 				listTREX.get(i).setElement(Element.EMPTY);
+				System.out.println("Trex deleted");
 			}
 		}
 	}
@@ -401,7 +413,7 @@ public class LifeThread implements Runnable {
 
 	}
 
-	public static void transformTREX(int x, int y, int x1, int y1, Element element){
+	public void transformTREX(int x, int y, int x1, int y1, Element element){
 		
 		if ((Map.GetElement(x, y) == Element.TREX
 				&& (Map.GetElement(x1, y1) == Element.TREXMATE || Map.GetElement(x1, y1) == Element.TREX))
@@ -458,8 +470,8 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y + 1, winner);
 			}
 			
-			LifeThread.transformTREX(x, y, x, y + 1, Element.TREXMATE);
-			LifeThread.checkTimerTREXMATE(x, y, x, y+1);
+			transformTREX(x, y, x, y + 1, Element.TREXMATE);
+			checkTimerTREXMATE(x, y, x, y+1);
 
 		}
 
@@ -476,8 +488,8 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x - 1, y, winner);
 			}
 			
-			LifeThread.transformTREX(x, y, x-1, y, Element.TREXMATE);
-			LifeThread.checkTimerTREXMATE(x, y, x-1, y);
+			transformTREX(x, y, x-1, y, Element.TREXMATE);
+			checkTimerTREXMATE(x, y, x-1, y);
 
 		}
 		
@@ -497,8 +509,8 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y - 1, winner);
 			}
 				
-			LifeThread.transformTREX(x, y, x, y - 1, Element.TREXMATE);
-			LifeThread.checkTimerTREXMATE(x, y, x, y-1);
+			transformTREX(x, y, x, y - 1, Element.TREXMATE);
+			checkTimerTREXMATE(x, y, x, y-1);
 
 		}
 		
@@ -517,8 +529,8 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x + 1, y, winner);
 			}
 
-			LifeThread.transformTREX(x, y, x+1, y, Element.TREXMATE);
-			LifeThread.checkTimerTREXMATE(x, y, x+1, y);
+			transformTREX(x, y, x+1, y, Element.TREXMATE);
+			checkTimerTREXMATE(x, y, x+1, y);
 
 		}
 		
