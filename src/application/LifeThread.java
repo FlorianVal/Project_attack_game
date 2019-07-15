@@ -5,9 +5,8 @@ import java.util.Arrays;
 import java.util.Random;
 import javafx.application.Platform;
 
-//TODO : Scores -> Compter nbres de trex + les tuer au bout d'un certain temps (timer) : Partie gagnée à 20 TREX // Moi
+//TODO : Scores -> Compter nbres de trex + les tuer au bout d'un certain temps (timer) : Partie gagnï¿½e ï¿½ 20 TREX // Moi
 //TODO : GUI Score + Menu + Design boutons lvl 2 //Moi
-
 
 public class LifeThread implements Runnable {
 
@@ -17,7 +16,7 @@ public class LifeThread implements Runnable {
 	private int score;
 	ArrayList<ElementClass> listElementsToIncrementTimer = new ArrayList<ElementClass>();
 	ArrayList<ElementClass> listTREX = new ArrayList<ElementClass>();
-	
+
 	public LifeThread(WindowMainController controller_given) {
 		controller_given.DisplayMap();
 		this.controller = controller_given;
@@ -84,9 +83,10 @@ public class LifeThread implements Runnable {
 		ElementClass object_fire = new ElementClass(Element.FIRE);
 
 		for (int count = 0; count < fire_on_map.length; count++) {
-			int stop_fire = rand.nextInt(max_delay_to_stop_fire) +1;
+			int stop_fire = rand.nextInt(max_delay_to_stop_fire) + 1;
 			if (Map.GetElementClass(fire_on_map[count][0], fire_on_map[count][1]).getElement() == Element.FIRE
-					&& Map.GetElementClass(fire_on_map[count][0], fire_on_map[count][1]).getTimer() % stop_fire == 0 && Map.GetElementClass(fire_on_map[count][0], fire_on_map[count][1]).getTimer() > 0) {
+					&& Map.GetElementClass(fire_on_map[count][0], fire_on_map[count][1]).getTimer() % stop_fire == 0
+					&& Map.GetElementClass(fire_on_map[count][0], fire_on_map[count][1]).getTimer() > 0) {
 				System.out.printf("Empty fire");
 				Map.GetElementClass(fire_on_map[count][0], fire_on_map[count][1]).setElement(Element.EMPTY);
 			}
@@ -152,18 +152,23 @@ public class LifeThread implements Runnable {
 			for (theta = 0; theta <= 2 * Math.PI - 0.01; theta += Math.PI / (rho * 4)) {
 				int cell_x = x + (int) Math.round(rho * Math.cos(theta));
 				int cell_y = y + (int) Math.round(rho * Math.sin(theta));
-				System.out.printf("cell check : %d %d \n",cell_x - x, cell_y - y);
+				System.out.printf("cell check : %d %d \n", cell_x - x, cell_y - y);
 
-				if (cell_x > 0 && cell_x < Map.GetWidth() && cell_y > 0 && cell_y < Map.GetHeight() && Map.GetElement(cell_x, cell_y) == Element.EMPTY) {
+				if (cell_x > 0 && cell_x < Map.GetWidth() && cell_y > 0 && cell_y < Map.GetHeight()
+						&& Map.GetElement(cell_x, cell_y) == Element.EMPTY) {
 					empty_cell.setX(cell_x);
 					empty_cell.setY(cell_y);
 					empty_cell = Map.GetElement(cell_x, cell_y);
 					find = true;
 				}
-				if(find) {break;}
+				if (find) {
+					break;
+				}
 
 			}
-			if(find) {break;}
+			if (find) {
+				break;
+			}
 		}
 
 		return empty_cell;
@@ -172,57 +177,47 @@ public class LifeThread implements Runnable {
 
 	private int SearchNearest(int x, int y) {
 		// overload to use target
-		return SearchNearest(x, y, Map.GetElement(x, y).getTarget());
+		return SearchNearest(x, y, Map.GetElement(x, y).getTarget(), Map.GetElement(x, y).getTarget2());
 	}
 
-	private static int SearchNearest(int x, int y, Element target) {
+	private static int SearchNearest(int x, int y, Element target1, Element target2) {
 		int rho;
 		double theta;
 		Element elem_around;
+		Element[] targets = new Element[2];
+		targets[0] = target1;
+		targets[1] = target2;
+		int target_number;
 		int distance_of_seeing = 12;
 		int direction = -1;
 		boolean found = false;
-		// System.out.printf("Search nearest : %d %d %s \n \n",x,y,Map.GetElement(x,
-		// y).getName());
-		for (rho = 1; rho < distance_of_seeing; rho++) {
-			for (theta = 0; theta <= 2 * Math.PI - 0.01; theta += Math.PI / (rho * 4)) {
-				int cell_x = x + (int) Math.round(rho * Math.cos(theta));
-				int cell_y = y + (int) Math.round(rho * Math.sin(theta));
-				if (cell_x > 0 && cell_x < Map.GetWidth() && cell_y > 0 && cell_y < Map.GetHeight()) {
-					elem_around = Map.GetElement(cell_x, cell_y);
-					// elem_around.setX(cell_x);
-					// elem_around.setY(cell_y);
+		for (target_number = 0; target_number < 2; target_number++) {
+			//search for each target
+			Element target = targets[target_number];
+			if(target == Element.EMPTY) {
+				System.out.println("No Empty");
+				break;
+			}
+			System.out.printf("Searching for target : %s \n", target.getName());
+			for (rho = 1; rho < distance_of_seeing; rho++) {
+				for (theta = 0; theta <= 2 * Math.PI - 0.01; theta += Math.PI / (rho * 4)) {
+					int cell_x = x + (int) Math.round(rho * Math.cos(theta));
+					int cell_y = y + (int) Math.round(rho * Math.sin(theta));
+					if (cell_x > 0 && cell_x < Map.GetWidth() && cell_y > 0 && cell_y < Map.GetHeight()) {
+						elem_around = Map.GetElement(cell_x, cell_y);
+						// elem_around.setX(cell_x);
+						// elem_around.setY(cell_y);
 
-					if (elem_around.getName() == target.getName()) {
-
-						found = true;
-						// System.out.printf("Target found : %d %d %s \n", cell_x, cell_y,
-						// elem_around.getName());
-						if (theta >= 7 * Math.PI / 4 || theta <= Math.PI / 4) {
-							direction = 3;
-							// RIGHT
-						}
-						if (theta >= Math.PI / 4 && theta <= 3 * Math.PI / 4) {
-							direction = 0;
-
-							// down
-						}
-						if (theta >= 3 * Math.PI / 4 && theta <= 5 * Math.PI / 4) {
-							direction = 1;
-
-							// LEFT
-						}
-						if (theta >= 5 * Math.PI / 4 && theta <= 7 * Math.PI / 4) {
-							direction = 2;
-
-							// up
-						}
-						if (found) {
+						if (elem_around.getName() == target.getName()) {
+							found = true;
+							direction = DirectionFromTheta(theta);
 							break;
 						}
 
 					}
-
+				}
+				if (found) {
+					break;
 				}
 			}
 			if (found) {
@@ -232,18 +227,42 @@ public class LifeThread implements Runnable {
 		return direction;
 	}
 
-	private int[][] Find(boolean animals, boolean fire) {
-		
-		//return an array with x y of every object we want to find on map( for the moment only fire and animals)
-		int count = 0;
+	private static int DirectionFromTheta(double theta) {
+		int direction = -1;
+		if (theta >= 7 * Math.PI / 4 || theta <= Math.PI / 4) {
+			direction = 3;
+			// RIGHT
+		}
+		if (theta >= Math.PI / 4 && theta <= 3 * Math.PI / 4) {
+			direction = 0;
 
+			// down
+		}
+		if (theta >= 3 * Math.PI / 4 && theta <= 5 * Math.PI / 4) {
+			direction = 1;
+
+			// LEFT
+		}
+		if (theta >= 5 * Math.PI / 4 && theta <= 7 * Math.PI / 4) {
+			direction = 2;
+
+			// up
+		}
+		System.out.println(direction);
+		return direction;
+	}
+
+	private int[][] Find(boolean animals, boolean fire) {
+
+		// return an array with x y of every object we want to find on map( for the
+		// moment only fire and animals)
+		int count = 0;
 
 		// loop to count animals (needed to create static array next)
 		// add each elements of type animal and fire in the arraylist
 		for (int a = 0; a < Map.GetWidth(); a++) {
 			for (int b = 0; b < Map.GetHeight(); b++) {
-				
-				
+
 				if (Map.GetElement(a, b).is_animal() && animals) {
 					count += 1;
 				}
@@ -251,15 +270,13 @@ public class LifeThread implements Runnable {
 				if (Map.GetElement(a, b).getName() == "Fire" && fire) {
 					count += 1;
 				}
-				
 
 			}
 		}
-		
-		
-		//At the end of each turn, bb-trex's timers are checked to know if they have to grow-up or not
-		//LifeThread.checkCounterFruitsBabyTREX(listAnimalsAndFire);
 
+		// At the end of each turn, bb-trex's timers are checked to know if they have to
+		// grow-up or not
+		// LifeThread.checkCounterFruitsBabyTREX(listAnimalsAndFire);
 
 		int objects_on_map[][] = new int[count][2];
 		int count_of_objects = 0;
@@ -282,54 +299,52 @@ public class LifeThread implements Runnable {
 		}
 		return objects_on_map;
 	}
-	
-	public static void incrementTimer(ArrayList<ElementClass> elementsToIncrement){
+
+	public static void incrementTimer(ArrayList<ElementClass> elementsToIncrement) {
 		elementsToIncrement.clear();
-		
+
 		for (int a = 0; a < Map.GetWidth(); a++) {
 			for (int b = 0; b < Map.GetHeight(); b++) {
-				
+
 				if (Map.GetElement(a, b).is_animal()) {
 					elementsToIncrement.add(Map.GetElementClass(a, b));
 				}
-				
+
 				if (Map.GetElementClass(a, b).getElement() == Element.FIRE) {
 					elementsToIncrement.add(Map.GetElementClass(a, b));
 				}
 			}
 		}
-		
-		for(int i = 0; i < elementsToIncrement.size();i++){		
+
+		for (int i = 0; i < elementsToIncrement.size(); i++) {
 			elementsToIncrement.get(i).incrementTimer();
 		}
 	}
-	
-	
-	public static void checkCounterFruitsBabyTREX(ArrayList<ElementClass> allElementsMap){
-		
-		for(int i = 0; i<allElementsMap.size(); i++ ){
-			
-			if(allElementsMap.get(i) != null && allElementsMap.get(i).getElement() == Element.BABYTREX && allElementsMap.get(i).getCounterFruit() >= 3){
+
+	public static void checkCounterFruitsBabyTREX(ArrayList<ElementClass> allElementsMap) {
+
+		for (int i = 0; i < allElementsMap.size(); i++) {
+
+			if (allElementsMap.get(i) != null && allElementsMap.get(i).getElement() == Element.BABYTREX
+					&& allElementsMap.get(i).getCounterFruit() >= 3) {
 				allElementsMap.get(i).setElement(Element.TREX);
 			}
 		}
-			
+
 	}
-	
-	public void checkTimerTREXMATE(int x, int y, int x1, int y1){
-		
+
+	public void checkTimerTREXMATE(int x, int y, int x1, int y1) {
+
 		if (Map.GetElementClass(x, y).getElement() == Element.TREXMATE
 				&& Map.GetElementClass(x, y).getTimer() % 100 == 0 && Map.GetElementClass(x, y).getTimer() > 0) {
 			Map.GetElementClass(x, y).setElement(Element.TREX);
 		}
-		
-		
+
 		if (Map.GetElementClass(x1, y1).getElement() == Element.TREXMATE
-				&& Map.GetElementClass(x1, y1).getTimer() % 100 == 0
-				&& Map.GetElementClass(x1, y1).getTimer() > 0) {
+				&& Map.GetElementClass(x1, y1).getTimer() % 100 == 0 && Map.GetElementClass(x1, y1).getTimer() > 0) {
 			Map.GetElementClass(x1, y1).setElement(Element.TREX);
 		}
-		
+
 	}
 	
 	public void killTREXAfterTime(ArrayList<ElementClass> listTREX){
@@ -347,7 +362,7 @@ public class LifeThread implements Runnable {
 		// search for every animal on the map and move them one by one
 		Random rand = new Random();
 		int[][] animals_on_map = Find(true, false);
-		
+
 		// for loop on the array and random number to decide direction
 		for (int count_animal = 0; count_animal < animals_on_map.length; count_animal++) {
 			boolean movement_done = false;
@@ -381,19 +396,21 @@ public class LifeThread implements Runnable {
 		if (second_element_obj.getElement() == Element.EMPTY) {
 			winner = first_element_obj;
 		}
-		
-		//TREX vs BRACHIO
+
+		// TREX vs BRACHIO
 		if ((first_element_obj.getElement() == Element.TREX && second_element_obj.getElement() == Element.BRACHIO)) {
 			winner = first_element_obj;
 		}
-		
+
 		// PTERO vs TREX
-		if ((first_element_obj.getElement() == Element.PTERODACTYL && second_element_obj.getElement() == Element.TREX)) {
+		if ((first_element_obj.getElement() == Element.PTERODACTYL
+				&& second_element_obj.getElement() == Element.TREX)) {
 			winner = first_element_obj;
 		}
 
-		//BRACHIO vs PTERO
-		if ((first_element_obj.getElement() == Element.BRACHIO && second_element_obj.getElement() == Element.PTERODACTYL)) {
+		// BRACHIO vs PTERO
+		if ((first_element_obj.getElement() == Element.BRACHIO
+				&& second_element_obj.getElement() == Element.PTERODACTYL)) {
 			winner = first_element_obj;
 		}
 		// Incrementation of the counter of fruits if the one of the elements is a
@@ -414,8 +431,8 @@ public class LifeThread implements Runnable {
 
 	}
 
-	public void transformTREX(int x, int y, int x1, int y1, Element element){
-		
+	public void transformTREX(int x, int y, int x1, int y1, Element element) {
+
 		if ((Map.GetElement(x, y) == Element.TREX
 				&& (Map.GetElement(x1, y1) == Element.TREXMATE || Map.GetElement(x1, y1) == Element.TREX))
 				|| (Map.GetElement(x1, y1) == Element.TREX
@@ -425,11 +442,10 @@ public class LifeThread implements Runnable {
 			ElementClass element_object = new ElementClass(element);
 			Map.SetElement(x, y, element_object);
 			Map.SetElement(x1, y1, element_object);
-		}	
-	
+		}
+
 	}
-	
-	
+
 	public static void Mate(int x, int y, int x1, int y1) {
 
 		Element emptyCell;
@@ -463,21 +479,20 @@ public class LifeThread implements Runnable {
 			}
 		}*/
 		score = listTREX.size();
-		
-		if(score < 20 && score > 0){
+
+		if (score < 20 && score > 0) {
 			System.out.println("The score is : " + score);
 		}
-		
-		if(score >= 20 && score > 0 || score == 0){
+
+		if (score >= 20 && score > 0 || score == 0) {
 			System.out.println("End of the game");
 			System.out.println("The final score is : " + score);
-			doStop();
+			//doStop();
 		}
-		
+
 		return score;
-		
+
 	}
-	
 
 	public boolean MoveAnimal(int x, int y, int next_move) {
 		// moving one animal just by receiving pos of animal and a random number for
@@ -493,15 +508,14 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x, y + 1, winner);
 			}
-			
+
 			transformTREX(x, y, x, y + 1, Element.TREXMATE);
-			checkTimerTREXMATE(x, y, x, y+1);
+			checkTimerTREXMATE(x, y, x, y + 1);
 
 		}
 
 		// move left
-		if (next_move == 1 && x > 0 && x < Map.GetWidth() ) {
-
+		if (next_move == 1 && x > 0 && x < Map.GetWidth()) {
 
 			is_movement_done = true;
 
@@ -511,18 +525,17 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x - 1, y, winner);
 			}
-			
-			transformTREX(x, y, x-1, y, Element.TREXMATE);
-			checkTimerTREXMATE(x, y, x-1, y);
+
+			transformTREX(x, y, x - 1, y, Element.TREXMATE);
+			checkTimerTREXMATE(x, y, x - 1, y);
 
 		}
-		
-		//At the end of each turn, TREXMATE's timers are checked to know if they have to become again TREX
-		
+
+		// At the end of each turn, TREXMATE's timers are checked to know if they have
+		// to become again TREX
 
 		// move up
 		if (next_move == 2 && y > 0 && y < Map.GetHeight()) {
-
 
 			is_movement_done = true;
 
@@ -532,17 +545,14 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x, y, new ElementClass(Element.EMPTY));
 				Map.SetElement(x, y - 1, winner);
 			}
-				
+
 			transformTREX(x, y, x, y - 1, Element.TREXMATE);
-			checkTimerTREXMATE(x, y, x, y-1);
+			checkTimerTREXMATE(x, y, x, y - 1);
 
 		}
-		
-		
 
 		// move right
 		if (next_move == 3 && x < Map.GetWidth() - 1) {
-
 
 			is_movement_done = true;
 
@@ -553,11 +563,11 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x + 1, y, winner);
 			}
 
-			transformTREX(x, y, x+1, y, Element.TREXMATE);
-			checkTimerTREXMATE(x, y, x+1, y);
+			transformTREX(x, y, x + 1, y, Element.TREXMATE);
+			checkTimerTREXMATE(x, y, x + 1, y);
 
 		}
-		
+
 		return is_movement_done;
 
 	}
