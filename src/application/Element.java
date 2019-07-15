@@ -4,23 +4,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public enum Element {
-	//TODO add fence
-	FENCE("fence","file:src/images/fence.png",0,false,0,"", false),
-	TREX("T-Rex","file:src/images/t-t-rex.png", 0.01, true, 0, "Brachiosaur", false),
-	//TREXMATE("T-Rex-Mated","file:src/images/mur.jpg", 0, true, 0, "Brachiosaur", true), //TODO : Edit the picture when all tests will be ok
-	PTERODACTYL("Pterodactyl","file:src/images/pter.png", 0.01, true, 0, "T-Rex", false),
-	TREXMATE("T-Rex-Mated","file:src/images/trex.png", 0, true, 0, "Brachiosaur", true), //TODO : Edit the picture when all tests will be ok
-	FRUIT("Fruit", "file:src/images/fruit.png", 0.026, false, 0.02, "", false), 
-	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, "", false),
-	EMPTY2("Empty", "file:src/images/empty2.png", 0, false, 0, "", false), // only to draw
-	BABYTREX("Baby-T-Rex","file:src/images/babytrex.png",0,true,0, "Fruit", false),
-	BRACHIO("Brachiosaur","file:src/images/brachio.png",0.01, true, 0,"Pterodactyl", false),
-	BANANA("Banana","file:src/images/banana.png",0.006,false,0,"", false),
-	FIRE("Fire","file:src/images/fire.png",0.01,false,0,"", false);
-	
+	// TODO add fence
+	FENCE("fence", "file:src/images/fence.png", 0, false, 0, "", "", false),
+	TREX("T-Rex", "file:src/images/t-t-rex.png", 0.01, true, 0, "Brachiosaur", "T-Rex", false),
+	// TREXMATE("T-Rex-Mated","file:src/images/mur.jpg", 0, true, 0, "Brachiosaur",
+	// "", true), //TODO : Edit the picture when all tests will be ok
+	PTERODACTYL("Pterodactyl", "file:src/images/pter.png", 0.01, true, 0, "T-Rex", "", false),
+	TREXMATE("T-Rex-Mated", "file:src/images/trex.png", 0, true, 0, "Brachiosaur", "", true), // TODO : Edit the picture
+	FRUIT("Fruit", "file:src/images/fruit.png", 0.026, false, 0.02, "", "", false),
+	EMPTY("Empty", "file:src/images/empty.png", 0, false, 0, "", "", false),
+	EMPTY2("Empty", "file:src/images/empty2.png", 0, false, 0, "", "", false), // only to draw
+	BABYTREX("Baby-T-Rex", "file:src/images/babytrex.png", 0, true, 0, "Fruit", "", false),
+	BRACHIO("Brachiosaur", "file:src/images/brachio.png", 0.01, true, 0, "Pterodactyl", "", false),
+	BANANA("Banana", "file:src/images/banana.png", 0.006, false, 0, "", "", false),
+	FIRE("Fire", "file:src/images/fire.png", 0.01, false, 0, "", "", false);
+
 	private String name = "";
 	int score;
-	
+
 	public void setSpawn_proba(double spawn_proba) {
 		this.spawn_proba = spawn_proba;
 	}
@@ -39,39 +40,53 @@ public enum Element {
 	private boolean mate;
 	private boolean exist;
 	private String target;
+	private String target2;
 	private int count;
-	
-	//constructor name and path to img
-	Element(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, String target, boolean mate){
-		
+
+	// constructor name and path to img
+	Element(String name, String path_to_img, double spawn_proba, boolean is_animal, double respawn_proba, String target,
+			String target2, boolean mate) {
+
 		this.name = name;
 		this.visu = null;
 		this.spawn_proba = spawn_proba;
 		this.is_animal = is_animal;
 		this.respawn_proba = respawn_proba;
 		this.target = target;
+		this.target2 = target2;
 		this.mate = mate;
 		this.exist = false;
-		
-		if(path_to_img != null){
+
+		if (path_to_img != null) {
 			this.visu = new ImageSprite(path_to_img);
-		}
-		else{
+		} else {
 			this.visu = null;
 		}
 	}
-	
-	//return the Element targeted
-		public Element getTarget() {
-			ArrayList<Element> elist = new ArrayList<Element>(Arrays.asList(Element.values()));
-			Element targ = Element.EMPTY;
-			for(Element elem: elist) {
-				if(elem.getName() == target) {
-					targ = elem;}
+
+	// return the Element targeted
+	public Element getTarget() {
+		ArrayList<Element> elist = new ArrayList<Element>(Arrays.asList(Element.values()));
+		Element targ = Element.EMPTY;
+		for (Element elem : elist) {
+			if (elem.getName() == target) {
+				targ = elem;
 			}
-			return targ;
 		}
-	
+		return targ;
+	}
+
+	public Element getTarget2() {
+		ArrayList<Element> elist = new ArrayList<Element>(Arrays.asList(Element.values()));
+		Element targ = Element.EMPTY;
+		for (Element elem : elist) {
+			if (elem.getName() == target2) {
+				targ = elem;
+			}
+		}
+		return targ;
+	}
+
 	public double getRespawn_proba() {
 		return respawn_proba;
 	}
@@ -91,50 +106,50 @@ public enum Element {
 	public double getSpawn_proba() {
 		return spawn_proba;
 	}
-	
+
 	public boolean is_animal() {
 		return is_animal;
 	}
-	
-	public int getX(){
+
+	public int getX() {
 		return x;
 	}
-	
-	public void setX(int x1){
+
+	public void setX(int x1) {
 		x = x1;
 	}
-	
-	public int getY(){
+
+	public int getY() {
 		return y;
 	}
-	
-	public void setY(int y1){
+
+	public void setY(int y1) {
 		y = y1;
 	}
-	
-	public boolean getMate(){
+
+	public boolean getMate() {
 		return mate;
 	}
-	
-	public boolean getExist(){
+
+	public boolean getExist() {
 		return exist;
 	}
-	
-	public void setExist(boolean exist2){
+
+	public void setExist(boolean exist2) {
 		exist = exist2;
 	}
-	
-	public int getCount(){
+
+	public int getCount() {
 		return count;
 	}
-	
-	public void setCount(int count2){
+
+	public void setCount(int count2) {
 		count = count2;
 	}
 
 	public void setWontExist() {
 		spawn_proba = 0;
 		respawn_proba = 0;
-	} 
-	
+	}
+
 }

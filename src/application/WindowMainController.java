@@ -97,10 +97,7 @@ public class WindowMainController {
 	void OnMouseMoved(MouseEvent event) {
 		if (button_state != null) {
 			ElementClass button_state_obj = new ElementClass(button_state);
-			System.out.print(is_mouse_pressed);
 			if (button_state_obj.getElement() == Element.FENCE && is_mouse_pressed == 1) {
-				System.out.print("mouse move");
-
 				int[] cell = GetCell(event.getSceneX(), event.getSceneY());
 				if (cell[0] != -1 && cell[1] != -1 && button_state != null) {
 					Map.SetElement(cell[0], cell[1], button_state_obj);
