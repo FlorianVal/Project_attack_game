@@ -303,15 +303,6 @@ public class LifeThread implements Runnable {
 	
 	public static void checkTimerTREXMATE(int x, int y, int x1, int y1){
 		
-		/*for(int i = 0; i<allElementsMap.size(); i++){
-		//If the timer of the object is a multiple of 30, the element will become a TREX instead of TREXMATE
-			if(allElementsMap.get(i).getElement() == Element.TREXMATE && allElementsMap.get(i).getTimer()%30 == 0 && allElementsMap.get(i).getTimer()>0){
-				System.out.println("Timer TREXMATE" + allElementsMap.get(i).getTimer());
-				allElementsMap.get(i).setElement(Element.TREX);
-			}
-		}*/
-		
-		
 		if (Map.GetElementClass(x, y).getElement() == Element.TREXMATE
 				&& Map.GetElementClass(x, y).getTimer() % 30 == 0 && Map.GetElementClass(x, y).getTimer() > 0) {
 			Map.GetElementClass(x, y).setElement(Element.TREX);
@@ -364,15 +355,16 @@ public class LifeThread implements Runnable {
 		if (second_element_obj.getElement() == Element.EMPTY) {
 			winner = first_element_obj;
 		}
+		
 		//TREX vs BRACHIO
 		if ((first_element_obj.getElement() == Element.TREX && second_element_obj.getElement() == Element.BRACHIO)) {
 			winner = first_element_obj;
 		}
+		
 		// PTERO vs TREX
 		if ((first_element_obj.getElement() == Element.PTERODACTYL && second_element_obj.getElement() == Element.TREX)) {
 			winner = first_element_obj;
 		}
-		
 
 		//BRACHIO vs PTERO
 		if ((first_element_obj.getElement() == Element.BRACHIO && second_element_obj.getElement() == Element.PTERODACTYL)) {
@@ -380,18 +372,15 @@ public class LifeThread implements Runnable {
 		}
 		// Incrementation of the counter of fruits if the one of the elements is a
 		// baby-trex
-		// TODO : Test more this feature
 		if (first_element_obj.getElement() == Element.FRUIT && second_element_obj.getElement() == Element.BABYTREX) {
-
+			winner = second_element_obj;
 			second_element_obj.incrementCounterFruit();
-
 		}
-		
 
 		// Incrementation of the counter of fruits if the one of the elements is a
 		// baby-trex
 		if (first_element_obj.getElement() == Element.BABYTREX && second_element_obj.getElement() == Element.FRUIT) {
-
+			winner = first_element_obj;
 			first_element_obj.incrementCounterFruit();
 		}
 
@@ -399,7 +388,6 @@ public class LifeThread implements Runnable {
 
 	}
 
-		
 	public static void transformTREX(int x, int y, int x1, int y1, Element element){
 		
 		if ((Map.GetElement(x, y) == Element.TREX
@@ -462,13 +450,6 @@ public class LifeThread implements Runnable {
 			
 			LifeThread.transformTREX(x, y, x-1, y, Element.TREXMATE);
 			LifeThread.checkTimerTREXMATE(x, y, x-1, y);
-
-			// If the winner is a baby-trex and its counter of fruits is superior than 3
-			// (It means that the baby ate more than 3 fruits) the bbtrex will become a trex
-			if (winner != null && winner.getElement() == Element.BABYTREX && winner.getCounterFruit() >= 3) {
-				System.out.println("bbtrex -> trex with counter of fruits = " + winner.getCounterFruit());
-				winner.setElement(Element.TREX);
-			}
 
 		}
 		
