@@ -316,6 +316,14 @@ public class LifeThread implements Runnable {
 		}
 		
 	}
+	
+	public static void killTREXAfterTime(ArrayList<ElementClass> listTREX){
+		for(int i = 0; i<listTREX.size(); i++){
+			if(listTREX.get(i).getTimer() >= 200){
+				listTREX.get(i).setElement(Element.EMPTY);
+			}
+		}
+	}
 
 	public void MoveAnimals() {
 		// search for every animal on the map and move them one by one
