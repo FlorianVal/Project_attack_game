@@ -271,13 +271,6 @@ public class LifeThread implements Runnable {
 
 			}
 		}
-<<<<<<< HEAD
-=======
-
-		// At the end of each turn, bb-trex's timers are checked to know if they have to
-		// grow-up or not
-		// LifeThread.checkCounterFruitsBabyTREX(listAnimalsAndFire);
->>>>>>> 1aa35b394aad1db5f4ddbc362a5e71611b640a94
 
 		int objects_on_map[][] = new int[count][2];
 		int count_of_objects = 0;
@@ -321,15 +314,7 @@ public class LifeThread implements Runnable {
 			elementsToIncrement.get(i).incrementTimer();
 		}
 	}
-<<<<<<< HEAD
-	
-	
-	public void checkCounterFruitsBabyTREX(ArrayList<ElementClass> allElementsMap){
-		
-		for(int i = 0; i<allElementsMap.size(); i++ ){
-			
-			if(allElementsMap.get(i) != null && allElementsMap.get(i).getElement() == Element.BABYTREX && allElementsMap.get(i).getCounterFruit() >= 3){
-=======
+
 
 	public static void checkCounterFruitsBabyTREX(ArrayList<ElementClass> allElementsMap) {
 
@@ -337,7 +322,6 @@ public class LifeThread implements Runnable {
 
 			if (allElementsMap.get(i) != null && allElementsMap.get(i).getElement() == Element.BABYTREX
 					&& allElementsMap.get(i).getCounterFruit() >= 3) {
->>>>>>> 1aa35b394aad1db5f4ddbc362a5e71611b640a94
 				allElementsMap.get(i).setElement(Element.TREX);
 			}
 		}
@@ -566,14 +550,9 @@ public class LifeThread implements Runnable {
 				Map.SetElement(x + 1, y, winner);
 			}
 
-<<<<<<< HEAD
-			transformTREX(x, y, x+1, y, Element.TREXMATE);
-			checkTimerTREXMATE(x, y, x+1, y);
-=======
 			transformTREX(x, y, x + 1, y, Element.TREXMATE);
 			checkTimerTREXMATE(x, y, x + 1, y);
 
->>>>>>> 1aa35b394aad1db5f4ddbc362a5e71611b640a94
 		}
 
 		return is_movement_done;
