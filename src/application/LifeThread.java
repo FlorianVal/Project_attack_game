@@ -52,6 +52,8 @@ public class LifeThread implements Runnable {
 				MoveAnimals();
 				Respawn();
 
+				score = toCountScore(listTREX);
+
 				// run later is needed to run display map in life thread
 				Platform.runLater(new Runnable() {
 					@Override
@@ -332,8 +334,6 @@ public class LifeThread implements Runnable {
 		// search for every animal on the map and move them one by one
 		Random rand = new Random();
 		int[][] animals_on_map = Find(true, false);
-		score = toCountScore(listTREX);
-		System.out.println("Le score est = " + score);
 		
 		// for loop on the array and random number to decide direction
 		for (int count_animal = 0; count_animal < animals_on_map.length; count_animal++) {
@@ -429,16 +429,14 @@ public class LifeThread implements Runnable {
 	
 	public int toCountScore(ArrayList<ElementClass> listTREX){
 		listTREX.clear();
-		for (int a = 0; a < Map.GetWidth(); a++) {
-			for (int b = 0; b < Map.GetHeight(); b++) {
-				if(Map.GetElementClass(a, b).getElement() == Element.TREX){
-					listTREX.add(Map.GetElementClass(a, b));
+		
+		for (int i = 0; i < Map.GetWidth(); i++) {
+			for (int j = 0; j < Map.GetHeight(); j++) {
+				if(Map.GetElementClass(i, j).getElement() == Element.TREX){
+					listTREX.add(Map.GetElementClass(i, j));
 				}
 			}
 		}
-		
-		System.out.println(listTREX.toString());
-		
 		score = listTREX.size();
 		
 		return score;
