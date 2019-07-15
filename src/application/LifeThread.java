@@ -53,7 +53,7 @@ public class LifeThread implements Runnable {
 				MoveAnimals();
 				Respawn();
 				score = toCountScore(listTREX);
-				//killTREXAfterTime(listAnimalsAndFire);
+				killTREXAfterTime(listElementsToIncrementTimer);
 
 				// run later is needed to run display map in life thread
 				Platform.runLater(new Runnable() {
@@ -332,10 +332,11 @@ public class LifeThread implements Runnable {
 		
 	}
 	
-	public static void killTREXAfterTime(ArrayList<ElementClass> listTREX){
+	public void killTREXAfterTime(ArrayList<ElementClass> listTREX){
 		for(int i = 0; i<listTREX.size(); i++){
+			System.out.println("Timer kill 1 " + listTREX.get(i).getTimer());
 			if(listTREX.get(i).getElement() == Element.TREX && listTREX.get(i).getTimer()%200 == 0 && listTREX.get(i).getTimer() > 0){
-				System.out.println("Timer kill " + listTREX.get(i).getTimer());
+				System.out.println("Timer kill 2 " + listTREX.get(i).getTimer());
 				listTREX.get(i).setElement(Element.EMPTY);
 				System.out.println("Trex deleted");
 			}
