@@ -25,7 +25,7 @@ public class WindowMainController {
 	private int is_mouse_pressed;
 	
 	@FXML 
-	Label label;
+	Label score;
 
 	@FXML
 	void initialize(WindowMainController controller, int width, int height) {

@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Random;
 import javafx.application.Platform;
 
-
 public class LifeThread implements Runnable {
 
 	private boolean doStop = false;
@@ -342,6 +341,7 @@ public class LifeThread implements Runnable {
 	
 	public void killTREXAfterTime(ArrayList<ElementClass> listTREX){
 		for(int i = 0; i<listTREX.size(); i++){
+			System.out.println("Timers trex =" + listTREX.get(i).getTimer());
 			if(listTREX.get(i).getTimer()%200 == 0 && listTREX.get(i).getTimer() > 0){
 				listTREX.get(i).setElement(Element.EMPTY);
 			}
@@ -465,9 +465,15 @@ public class LifeThread implements Runnable {
 		if (score < 20 && score > 0) {
 			System.out.println("The score is : " + score);
 		}
+		
+		if (score == 0) {
+			System.out.println("Game over");
+			System.out.println("The final score is : " + score);
+			doStop();
+		}
 
-		if (score >= 20 && score > 0 || score == 0) {
-			System.out.println("End of the game");
+		if (score >= 20) {
+			System.out.println("The game is won");
 			System.out.println("The final score is : " + score);
 			doStop();
 		}

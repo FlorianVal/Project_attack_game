@@ -16,16 +16,8 @@ public class ElementClass {
 		return timer;
 	}
 	
-	public void setCounter(int timer2){
+	public void setTimer(int timer2){
 		timer = timer2;
-	}
-	
-	public Element getElement(){
-		return element;
-	}
-	
-	public void setElement(Element element2){
-		element = element2;
 	}
 	
 	public int getCounterFruit(){
@@ -35,6 +27,15 @@ public class ElementClass {
 	public void setCounterFruit(int counterFruit2){
 		counterFruit = counterFruit2;
 	}
+	
+	public Element getElement(){
+		return element;
+	}
+	
+	public void setElement(Element element2){
+		element = element2;
+	}
+
 	
 	public void incrementCounterFruit(){
 		counterFruit++;
